@@ -1,5 +1,14 @@
 var express = require("express");
+
+//Para aislarte del SO, paquete path (así no importa la inclinación de la barra al indicar directorio):
+var path = require("path");
+
+//Crear aplicación a partir del módulo cargado (express):
+var app = express();
+
 var port = (process.env.PORT || 16778);
+
+app.use("/",express.static(path.join(__dirname,"public")));
 
 function hora(){
     // “1st March of 2017 , 08:35:00”
@@ -26,16 +35,16 @@ function month(f){
     return month[f.getMonth()];
 }
 
-var app = express();
+
 
 //Si lo pongo así, con /time, me muestra lo que debe mostrar SÓLO si escribo /time al final de la url...es correcto así??
 app.get("/time",(req,res) => {
     res.send("<html><body><h1>"+hora()+"</h1></body></html>")
 });
 
-app.listen(port,(err) => {
-    if(!err)
-        console.log("Server listening in port" + port);
-    else
-        console.log("ERROR starting server:" + err)
+app.listen(port,() => {
+    console.log("Server listening in port" + port);
+}).on("error",(e)=>{
+    console.log("ERROR starting server:" + e);
+    process.exit(1);
 });
