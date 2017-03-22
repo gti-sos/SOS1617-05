@@ -1,0 +1,42 @@
+a. GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
+
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/economic-situation-stats'
+
+b. POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
+
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "province": "Sevilla", "year": "2008", "gdp": "202.035","debt":"7500000" }' 'http://localhost:8080/api/v1/economic-situation-stats'
+
+c. GET a un recurso (p.e. “/towns/seville”) devuelve ese recurso
+
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/economic-situation-stats/Madrid'
+
+d. DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso
+
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/economic-situation-stats/Sevilla'
+
+e. PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso
+
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "province": "Madrid", "year": "2003", "gdp": "564.325","debt":"123.56" }' 'http://localhost:8080/api/v1/economic-situation-stats/Madrid'
+
+f. POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido
+
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "province": "Sevilla", "year": "2008", "gdp": "202.035","debt":"7500000" }' 'http://localhost:8080/api/v1/economic-situation-stats/Madrid'
+
+g. PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido
+
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "province": "Madrid", "year": "2003", "gdp": "564.325","debt":"123.56" }' 'http://localhost:8080/api/v1/economic-situation-stats/'
+
+h. DELETE a la ruta base (p.e. “/towns”) borra todos los recursos
+
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/economic-situation-stats'
+
+
+
+
+
+
+
+
+
+
+
