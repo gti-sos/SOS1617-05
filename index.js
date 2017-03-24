@@ -337,6 +337,14 @@ app.delete(BASE_API_PATH + "/elections-voting-stats/:province", function(request
     }*/
 });
 
+
+/*---------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
 //API Alberto
 
 var mdbURL = "mongodb://albgarvar2:sos161705@ds137230.mlab.com:37230/economic-situation-stats";
@@ -606,30 +614,56 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
     }
     
 });
-
-
+/*---------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
+
+"use strict";
+/* global __dirname */
 /*
-var MongoClient3 = require('mongodb').MongoClient;
+var express = require("express");
+var bodyParser = require("body-parser");
+var helmet = require("helmet");
+
+var path= require("path");
+var DataStore = require("nedb");
+
+var MongoClient = require('mongodb').MongoClient;
 
 //Según comentó el profesor, todo lo que esté en la carpeta public se sube al servidor...entonces, por qué no hacer eso pero en vez de llamarle public le llamamos api ???
 //no obstante seguiriamos teniendo el problema o la duda de si borrar la app que ya hay subida y el tema de tres archivos index.js en un mismo directorio...
 
 var url = "mongodb://nachodb:nachodb@ds135690.mlab.com:35690/elections-voting-stats";
 
-var db3;
-MongoClient3.connect(url, {
+var dbFileName = path.join(__dirname,"contacts.db");
+
+var db = new DataStore({
+    filename : dbFileName,
+    autoload : true 
+});
+
+var port = (process.env.PORT || 10000);
+var BASE_API_PATH = "/api/v1";
+
+MongoClient.connect(url, {
     native_parser: true
 }, function(err, database) {
     if (err) {
         console.log("CAN NOT CONNECT TO DB: " + err);
         process.exit(1);
     }
-    db3 = database.collection("voting");
-
+    db = database.collection("voting"); // debe especificarse el nombre que se le haya dado a la colección en mlab.com
+    app.listen(port, () => {
+        console.log("Magic is happening on port " + port);
+    });
 
 });
 
+var app = express();
+
+app.use(bodyParser.json()); //use default json enconding/decoding
+app.use(helmet()); //improve security
 
 // @see: https://curlbuilder.com/
 // @see: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
@@ -651,7 +685,7 @@ console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhos
 console.log("---END PROBAR LA API CON CURL---");
 
 
-db3.find({}).toArray(function (err,contacts){
+db.find({}, function(err,contacts){
     if(err){
         return 0;
     }
@@ -674,9 +708,9 @@ db3.find({}).toArray(function (err,contacts){
     }
     ];
         
-        db3.insert(people);
+        db.insert(people);
     }else{
-        console.log("INFO: db3 has " + contacts.length + " contacts"); 
+        console.log("INFO: DB has " + contacts.length + " contacts"); 
     }
 });
 
@@ -710,7 +744,7 @@ app.get("/", function (request, response) {
 // Tarea 1.b feedback F04:
 app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, response) {
     console.log('INFO: Initialiting DB...');
-    db3.find({}).toArray(function(err, results) { //Se debe usar .toArray, MongoDB no funciona como nedb
+    db.find({}).toArray(function(err, results) { //Se debe usar .toArray, MongoDB no funciona como nedb
         if (err) {
             console.error('WARNING: Error while getting initial data from DB');
             return 0;
@@ -723,19 +757,19 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
                 "province": "Albacete",
                 "year": "2016",
                 "trimester": "4",
-                "unemployment-tax": "23,31",
+                "unemploymentTax": "23,31",
             }, {
                 "province": "Alicante",
                 "year": "2016",
                 "trimester": "4",
-                "unemployment-tax": "18,21",
+                "unemploymentTax": "18,21",
             }, {
                 "province": "Almeria",
                 "year": "2016",
                 "trimester": "4",
-                "unemployment-tax": "24,84"
+                "unemploymentTax": "24,84"
             }];
-            db3.insert(provinces);
+            db.insert(provinces);
         }
         else {
             console.log('INFO: DB has ' + results.length + ' results ');
@@ -749,7 +783,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
 
     app.get(BASE_API_PATH + "/employment-stats", function(request, response) {
     console.log("INFO: New GET request to /employment-stats");
-    db3.find({}).toArray(function(err, results) {
+    db.find({}).toArray(function(err, results) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500);
@@ -776,7 +810,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
     }
     else {
         console.log("INFO: New GET request to /employment-stats/" + province);
-        db3.find({
+        db.find({
             province: province
         }).toArray(function(err, docs) {
             if (err) {
@@ -812,109 +846,146 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
             console.log("WARNING: There are not any contact with name " + name);
             response.sendStatus(404);
         }
-    }
-
-
+    }*/
 
 
 //POST over a collection
-app.post(BASE_API_PATH + "/contacts", function (request, response) {
-    
-    var newContact = request.body;
-    /*if(!newContact){
-        console.log("WARNING: new POST to /contacts without contact");
-        response.sendStatus(400);
+/*app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
+    var newResult = request.body; //Lo obtiene del cuerpo del mensaje http
 
-    }else{
-        console.log("INFO: new POST to /contacts with body: " + JSON.stringify(newContact,2,null));
-        /*if(!newContact.name || !newContact.email || !newContact.phone){
-            console.log("WARNING: The contact " + JSON.stringify(newContact,2,null) + "has not all the information");
+    if (!newResult) {
+        console.log("WARNING: There was not result found on the POST request. ");
+        response.sendStatus(400);
+    }
+    else {
+        if (!newResult.province || !newResult.year || !newResult.cuatrimester || !newResult.unemploymentTax) {
+            console.log("WARNING: The results " + JSON.stringify(newResult, 2, null) + " are incorrect");
             response.sendStatus(422);
-        }else{
-            var contactsBeforeInsertation = contacts.filter((contact) => {
-                return (contact.name.localeCompare(newContact.name, "en", {'sensivity' : 'base'}) === 0);
+        }
+        else {
+            db.find({}).toArray(function(err, results) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                }
+                else if (results.indexOf(newResult.province) > -1) { //Resultado para dicha provincia ya existe...NO FUNCIONA BIEN!!!
+                    console.log("WARNING: There is already a result with province field: " + newResult.province);
+                    response.sendStatus(409);
+                }
+                else {
+                    //results.push(newResult); //Teniendo la de abajo esta sobra???
+                    db.insert(results); //Comprobar el comportamiento de esta sentencia...
+                    console.log("INFO: result created successfully for " + newResult.province);
+                    response.sendStatus(201); //Código que informa de resultado creado
+                }
+
             });
-            if(contactsBeforeInsertation.length > 0){
-                console.log("WARNING: The contact " + JSON.stringify(newContact,2,null));
-                response.sendStatus(409); //conflict
-            }else{
-                console.log("INFO: Adding contact " + JSON.stringify(newContact,2,null));
-                contacts.push(newContact);
-                response.sendStatus(201);
-            }
         }
     }
-    db3.insert(newContact);
-    
-    response.sendStatus(201);
-   // });
 });
 
 
 //POST over a single resource
-app.post(BASE_API_PATH + "/contacts/:name", function (request, response) {
+app.post(BASE_API_PATH + "/employment-stats/:province", function (request, response) {
     response.sendStatus(405);
 });
 
 
 //PUT over a collection
-app.put(BASE_API_PATH + "/contacts", function (request, response) {
+app.put(BASE_API_PATH + "/employment-stats", function (request, response) {
     response.sendStatus(405);
 });
 
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "/contacts/:name", function (request, response) {
-    
-    var updatedContact = request.body;
-    var nameParam = request.params.name;
-    
-    contacts = contacts.map((c)=>{
-        if(c.name === nameParam){
-            return updatedContact;
-        }else{
-            return c;
+
+app.put(BASE_API_PATH + "/employment-stats/:province", function(request, response) {
+    var province = request.params.province;
+    var updatedResult = request.body;
+    if (!updatedResult) {
+        console.log("WARNING: New PUT request to /employment-stats/ without results");
+        response.sendStatus(400); // bad request
+    }
+    else {
+         if (!updatedResult.province || !updatedResult.year || !updatedResult.cuatrimester || !updatedResult.unemploymentTax) {
+            console.log("WARNING: The results " + JSON.stringify(updatedResult, 2, null) + " are incorrect");
+            response.sendStatus(422);
         }
-    });
-    
-    response.sendStatus(204);
-    
-   
+        else {
+            db.find({}).toArray(function(err, results) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                }
+                else {
+                    results = results.map((c) => { //Se puede hacer también con un bucle for
+                        if (c.province === province) {
+                            return updatedResult;
+                        }
+                        else {
+                            return c;
+                        }
+                    });
+                    //AÑADE PERO NO BORRA EL OBJETO ANTERIOR CON DICHO NOMBRE DE PROVINCIA!!!!!!
+                    db.insert(results);
+                    console.error('INFO: data updated for result: '+ updatedResult.province);
+                    response.sendStatus(200);
+                }
+
+            }); 
+        }
+
+    }
 });
 
 
 //DELETE over a collection
-app.delete(BASE_API_PATH + "/contacts", function (request, response) {
-    
-    //contacts.length = 0;
-    db3.delete({}, function(err,numDeleted){
-    if(err){
-        return 0;
-    }
-    response.sendStatus(204);
+app.delete(BASE_API_PATH + "/employment-stats", function(request, response) {
+    console.log("INFO: New DELETE request to /elections-voting-stats");
+    db.remove({}, {multi: true}, function (err, removed) {
+        console.log("ELIMINADOS: "+removed); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
+                                                //Por tanto, como se toma el valor de una propiedad en JSON????
+        if (err) {
+            console.error('WARNING: Error removing data from DB');
+            response.sendStatus(500); // internal server error
+        } else {
+            if (removed > 0) {
+                console.log("INFO: All the provinces (" + removed + ") have been succesfully deleted");
+                response.sendStatus(204); // no content
+            } else {
+                console.log("WARNING: There are no provinces to delete");
+                response.sendStatus(404); // not found
+            }
+        }
     });
     
-    //response.sendStatus(204);
 });
 
 
 //DELETE over a single resource
-app.delete(BASE_API_PATH + "/contacts/:name", function (request, response) {
-    var nameParam = request.params.name;
-    
-    db3.delete({name:nameParam}, function(err,numDeleted){
-    if(err){
-        return 0;
+app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, response) {
+    var province = request.params.province;
+    if (!province) {
+        console.log("WARNING: New DELETE request to /employment-stats/province without especified province");
+        response.sendStatus(400); // bad request
     }
-    response.sendStatus(204);
-    });
-    
-    
+    else{
+        db.remove({province:province},function(err,removed){
+            if (err) {
+                console.error('WARNING: Error removing data from DB');
+                response.sendStatus(500); // internal server error
+            }else{
+                if (removed === 1) {
+                    console.log("INFO: All the provinces (" + removed + ") have been succesfully deleted, sending 204...");
+                    response.sendStatus(204); // no content
+                } else {
+                    console.log("WARNING: There are no provinces to delete");
+                    response.sendStatus(404); // not found
+                }
+            }
+        });
+    }
+
 });
-
-
-app.listen(port);
-
-console.log("Magic is happening on port " + port);
 
 */
