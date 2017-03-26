@@ -702,13 +702,15 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function
         
     }else{
         console.log("INFO: New DELETE request to /economic-situation-stats/" + province + "/" + year);
-        db2.remove({province:province,year:year},{},function(err,numRemoved){
+        db2.remove({province:province,year:year},{},function(err,result){
+         var result = JSON.parse(result);
+
         if(err){
        console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-        console.log("INFO: EconomicSituation removed: " + numRemoved);
-        if(numRemoved ===1){
+        console.log("INFO: EconomicSituation removed: " + result.n);
+        if(result.n ===1){
             console.log("INFO: The economicSituation with province " + province + "and year"  +year + " has been succesfully deleted, sending 204...");
         response.sendStatus(204);//(OK) No Content
         }else{
