@@ -636,6 +636,45 @@ app.put(BASE_API_PATH + "/economic-situation-stats/:province", function (request
      }
      
      });
+     
+//PUT over a single resource-->por provincia y año
+app.put(BASE_API_PATH + "/economic-situation-stats/:province/:year", function (request, response) {
+    var updatedEconomicSituation = request.body;
+    var province = request.params.province;
+    var year = request.params.year;
+     if (!updatedEconomicSituation) {
+        console.log("WARNING: New PUT request to /economic-situation-stats/ without province, sending 400...");
+        response.sendStatus(400); // bad request
+     }else{
+ console.log("INFO: New PUT request to /economic-situation-stats/" + province + "/" + year + " with data " + JSON.stringify(updatedEconomicSituation, 2, null));     
+    if (!updatedEconomicSituation.province || !updatedEconomicSituation.year || !updatedEconomicSituation.gdp ||!updatedEconomicSituation.debt) {
+            console.log("WARNING: The economicSituation " + JSON.stringify(updatedEconomicSituation, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            db2.find({}).toArray(function (err, economicSituationStats) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var economicSituationBeforeInsertion = economicSituationStats.filter((economicSituation) => {
+                        return (economicSituation.year.localeCompare(year, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (economicSituationBeforeInsertion.length > 0) {
+                        db2.update({province: province,year:year}, updatedEconomicSituation);
+                        console.log("INFO: Modifying economicSituation with province " + province +"/" + year + " with data " + JSON.stringify(updatedEconomicSituation, 2, null));
+                        response.send(updatedEconomicSituation); // return the updated economic situation
+                    } else {
+                        console.log("WARNING: There are not any economicSituation with province " + province);
+                        response.sendStatus(404); // not found
+}
+}
+            });
+            
+        }
+        
+     }
+     
+     });
 
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/economic-situation-stats", function (request, response) {
