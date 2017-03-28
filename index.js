@@ -32,6 +32,7 @@ MongoClient.connect(url, {
 
 var app = express();
 
+app.use("/",express.static(path.join(__dirname,"public")));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
