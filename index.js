@@ -724,7 +724,7 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
-var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
+/*var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
 var MongoClient3 = require("mongodb").MongoClient;
 
@@ -856,7 +856,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
         }
     }*/
 
-
+/*
 //POST over a collection
 app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
     var newResult = request.body; //Lo obtiene del cuerpo del mensaje http
@@ -996,3 +996,4 @@ app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, resp
 
 });
 
+*/
