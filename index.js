@@ -724,7 +724,7 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
-/*var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
+var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
 var MongoClient3 = require("mongodb").MongoClient;
 
@@ -752,7 +752,7 @@ app.get("/", function (request, response) {
 // Tarea 1.b feedback F04:
 app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, response) {
     console.log('INFO: Initialiting DB...');
-    db.find({}).toArray(function(err, results) { //Se debe usar .toArray, MongoDB no funciona como nedb
+    db3.find({}).toArray(function(err, results) { //Se debe usar .toArray, MongoDB no funciona como nedb
         if (err) {
             console.error('WARNING: Error while getting initial data from DB');
             return 0;
@@ -777,7 +777,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
                 "trimester": "4",
                 "unemploymentTax": "24,84"
             }];
-            db.insert(provinces);
+            db3.insert(provinces);
         }
         else {
             console.log('INFO: DB has ' + results.length + ' results ');
@@ -791,7 +791,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
 
     app.get(BASE_API_PATH + "/employment-stats", function(request, response) {
     console.log("INFO: New GET request to /employment-stats");
-    db.find({}).toArray(function(err, results) {
+    db3.find({}).toArray(function(err, results) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500);
@@ -818,7 +818,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
     }
     else {
         console.log("INFO: New GET request to /employment-stats/" + province);
-        db.find({
+        db3.find({
             province: province
         }).toArray(function(err, docs) {
             if (err) {
@@ -856,7 +856,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
         }
     }*/
 
-/*
+
 //POST over a collection
 app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
     var newResult = request.body; //Lo obtiene del cuerpo del mensaje http
@@ -871,7 +871,7 @@ app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
             response.sendStatus(422);
         }
         else {
-            db.find({}).toArray(function(err, results) {
+            db3.find({}).toArray(function(err, results) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -882,7 +882,7 @@ app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
                 }
                 else {
                     //results.push(newResult); //Teniendo la de abajo esta sobra???
-                    db.insert(results); //Comprobar el comportamiento de esta sentencia...
+                    db3.insert(results); //Comprobar el comportamiento de esta sentencia...
                     console.log("INFO: result created successfully for " + newResult.province);
                     response.sendStatus(201); //Código que informa de resultado creado
                 }
@@ -935,7 +935,7 @@ app.put(BASE_API_PATH + "/employment-stats/:province", function(request, respons
                         }
                     });
                     //AÑADE PERO NO BORRA EL OBJETO ANTERIOR CON DICHO NOMBRE DE PROVINCIA!!!!!!
-                    db.insert(results);
+                    db3.insert(results);
                     console.error('INFO: data updated for result: '+ updatedResult.province);
                     response.sendStatus(200);
                 }
@@ -950,7 +950,7 @@ app.put(BASE_API_PATH + "/employment-stats/:province", function(request, respons
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/employment-stats", function(request, response) {
     console.log("INFO: New DELETE request to /elections-voting-stats");
-    db.remove({}, {multi: true}, function (err, removed) {
+    db3.remove({}, {multi: true}, function (err, removed) {
         console.log("ELIMINADOS: "+removed); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
                                                 //Por tanto, como se toma el valor de una propiedad en JSON????
         if (err) {
@@ -978,7 +978,7 @@ app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, resp
         response.sendStatus(400); // bad request
     }
     else{
-        db.remove({province:province},function(err,removed){
+        db3.remove({province:province},function(err,removed){
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
@@ -996,4 +996,3 @@ app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, resp
 
 });
 
-*/
