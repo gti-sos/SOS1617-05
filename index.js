@@ -620,17 +620,17 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
 //API DE ANTONIO
 var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
-var MongoClient2 = require("mongodb").MongoClient;
+var MongoClient3 = require("mongodb").MongoClient;
 
-var db2;
-MongoClient2.connect(mdbURL, {
+var db3;
+MongoClient3.connect(mdbURL, {
     native_parser: true
 }, function(err, database) {
     if (err) {
         console.log("CAN NOT CONNECT TO DB: " + err);
         process.exit(1);
     }
-    db2 = database.collection("economicSituationStats");
+    db3 = database.collection("employment-stats");
 
 
 });
