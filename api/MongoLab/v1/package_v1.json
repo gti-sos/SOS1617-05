@@ -1,7 +1,7 @@
 {
-  "name": "api",
+  "name": "v1",
   "version": "0.0.0",
-  "description": "",
+  "description": "My package for F04",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -25,12 +25,5 @@
   "bugs": {
     "url": "https://github.com/SOS1617/SOS1617-05/issues"
   },
-  "homepage": "https://github.com/SOS1617/SOS1617-05#readme",
-  "dependencies": {
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2",
-    "helmet": "^3.5.0",
-    "mongodb": "^2.2.25",
-    "path": "^0.12.7"
-  }
+  "homepage": "https://github.com/SOS1617/SOS1617-05#readme"
 }
