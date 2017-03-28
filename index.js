@@ -618,120 +618,22 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
+var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
-"use strict";
-/* global __dirname */
-/*
-var express = require("express");
-var bodyParser = require("body-parser");
-var helmet = require("helmet");
+var MongoClient2 = require("mongodb").MongoClient;
 
-var path= require("path");
-var DataStore = require("nedb");
-
-var MongoClient = require('mongodb').MongoClient;
-
-//Según comentó el profesor, todo lo que esté en la carpeta public se sube al servidor...entonces, por qué no hacer eso pero en vez de llamarle public le llamamos api ???
-//no obstante seguiriamos teniendo el problema o la duda de si borrar la app que ya hay subida y el tema de tres archivos index.js en un mismo directorio...
-
-var url = "mongodb://nachodb:nachodb@ds135690.mlab.com:35690/elections-voting-stats";
-
-var dbFileName = path.join(__dirname,"contacts.db");
-
-var db = new DataStore({
-    filename : dbFileName,
-    autoload : true 
-});
-
-var port = (process.env.PORT || 10000);
-var BASE_API_PATH = "/api/v1";
-
-MongoClient.connect(url, {
+var db2;
+MongoClient2.connect(mdbURL, {
     native_parser: true
 }, function(err, database) {
     if (err) {
         console.log("CAN NOT CONNECT TO DB: " + err);
         process.exit(1);
     }
-    db = database.collection("voting"); // debe especificarse el nombre que se le haya dado a la colección en mlab.com
-    app.listen(port, () => {
-        console.log("Magic is happening on port " + port);
-    });
+    db2 = database.collection("economicSituationStats");
+
 
 });
-
-var app = express();
-
-app.use(bodyParser.json()); //use default json enconding/decoding
-app.use(helmet()); //improve security
-
-// @see: https://curlbuilder.com/
-// @see: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-// @see: https://i.stack.imgur.com/whhD1.png
-// @see: https://blog.agetic.gob.bo/2016/07/elegir-un-codigo-de-estado-http-deja-de-hacerlo-dificil/
-
-console.log("---BEGIN PROBAR LA API CON CURL---");
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
-console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ \"name\": \"David\", \"phone\": \"954556350\", \"email\": \"david@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/David'");
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ \"name\": \"Antonio\", \"phone\": \"954556350\", \"email\": \"antonio@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
-console.log("curl -v -XPUT -H 'Content-type: application/json' -d '{ \"name\": \"Antonio\", \"phone\": \"954556350\", \"email\": \"antonio@example.com\" }' 'http://localhost:8080/api/v1/contacts/David'");
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/David'");
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/Antonio'");
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/Antonio'");
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/Antonio'");
-console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
-console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
-console.log("---END PROBAR LA API CON CURL---");
-
-
-db.find({}, function(err,contacts){
-    if(err){
-        return 0;
-    }
-    if(contacts.length === 0){
-        var people = [
-    {
-        "name": "Felipe",
-        "phone": "634566268",
-        "email": "felipe97@gmail.es"
-    },
-    {
-        "name": "Ale",
-        "phone": "634896268",
-        "email": "ale97@gmail.es"
-    },
-    {
-        "name": "Juan",
-        "phone": "630986268",
-        "email": "juanchu7@gmail.es"
-    }
-    ];
-        
-        db.insert(people);
-    }else{
-        console.log("INFO: DB has " + contacts.length + " contacts"); 
-    }
-});
-
-
-var contacts = [
-    {
-        "name": "Felipe",
-        "phone": "634566268",
-        "email": "felipe97@gmail.es"
-    },
-    {
-        "name": "Ale",
-        "phone": "634896268",
-        "email": "ale97@gmail.es"
-    },
-    {
-        "name": "Juan",
-        "phone": "630986268",
-        "email": "juanchu7@gmail.es"
-    }
-    ];
 
 // Base GET
 app.get("/", function (request, response) {
@@ -850,7 +752,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
 
 
 //POST over a collection
-/*app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
+app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
     var newResult = request.body; //Lo obtiene del cuerpo del mensaje http
 
     if (!newResult) {
@@ -988,4 +890,3 @@ app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, resp
 
 });
 
-*/
