@@ -639,14 +639,15 @@ app.put(BASE_API_PATH + "/economic-situation-stats/:province", function (request
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/economic-situation-stats", function (request, response) {
 console.log("INFO: New DELETE request to /economic-situation-stats");
- db2.remove({},{multi:true},function(err, numRemoved) {
+ db2.remove({},{multi:true},function(err, result) {
+     var numRemoved = JSON.parse(result);
         if(err){
          console.error('WARNING: Error removing data from DB');
          response.sendStatus(500); // internal server error
         }else{
-            if(numRemoved>0){
-                    console.log("INFO: All the economicSituation ("+ numRemoved + ") have been succesfully deleted, sending 204...");
-            response.sendStatus(204);
+            if(numRemoved.n>0){
+                    console.log("INFO: All the economicSituation ("+ numRemoved.n + ") have been succesfully deleted, sending 204...");
+            response.sendStatus(204);//No content
             }else{
                 console.log("WARNING: There are not economicSituation to delete");
                 response.sendStatus(404); // not found
@@ -666,13 +667,15 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
         response.sendStatus(400); // bad request
     }else{
         console.log("INFO: New DELETE request to /economic-situation-stats/" + province);
-        db2.remove({province:province},{},function(err,numRemoved){
+        db2.remove({province:province},{},function(err,result){
+         var numRemoved = JSON.parse(result);
+
         if(err){
        console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-        console.log("INFO: EconomicSituation removed: " + numRemoved);
-        if(numRemoved ===1){
+        console.log("INFO: EconomicSituation removed: " + numRemoved.n);
+        if(numRemoved.n ===1){
             console.log("INFO: The economicSituation with province " + province + " has been succesfully deleted, sending 204...");
         response.sendStatus(204);//(OK) No Content
         }else{
@@ -686,7 +689,36 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
     
 });
 
+//DELETE over a single resource--->Borrar una provincia en un año concreto
+app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function (request, response) {
+    var province = request.params.province;
+    var year = request.params.year;
+     if (!province || !year) {
+        console.log("WARNING: New DELETE request to economic-situation-stats/:province/:year without province or without year, sending 400...");
+        response.sendStatus(400); // bad request
+    }else{
+        console.log("INFO: New DELETE request to /economic-situation-stats/" + province + "/" + year);
+        db2.remove({province:province,year:year},{},function(err,result){
+        var numRemoved = JSON.parse(result);
 
+        if(err){
+       console.error('WARNING: Error removing data from DB');
+                response.sendStatus(500); // internal server error
+            } else {
+        console.log("INFO: EconomicSituation removed: " + numRemoved.n);
+        if(numRemoved.n ===1){
+            console.log("INFO: The economicSituation with province " + province + " and year "  +year+ " has been succesfully deleted, sending 204...");
+        response.sendStatus(204);//(OK) No Content
+        }else{
+            console.log("WARNING: There are not economicSituationStats to delete");
+            response.sendStatus(404);
+        }
+    }
+        
+    });
+    }
+    
+});
 /*---------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
