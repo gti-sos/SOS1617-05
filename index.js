@@ -224,7 +224,7 @@ app.post(BASE_API_PATH + "/elections-voting-stats", function (request, response)
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New POST request to /elections-voting-stats with body: " + JSON.stringify(newResults, 2, null));
-        if (!newResults.province || !newResults.year || !newResults.gdp || !newResults.debt) {
+        if (!newResults.province || !newResults.year || !newResults.pp || !newResults.podemos || !newResults.psoe || !newResults.cs) {
             console.log("WARNING: The voting results " + JSON.stringify(newResults, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
@@ -271,44 +271,42 @@ app.put(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
 
 
 //PUT over a single resource: updates a single resource (result)
-app.put(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
+app.put(BASE_API_PATH + "/elections-voting-stats/:province", function (request, response) {
+    var updated = request.body;
     var province = request.params.province;
-    var updatedResult = request.body;
-    if (!updatedResult) {
-        console.log("WARNING: New PUT request to /elections-voting-stats/ without results");
+     if (!updated) {
+        console.log("WARNING: New PUT request to /elections-voting-stats/ without province, sending 400...");
         response.sendStatus(400); // bad request
-    }
-    else {
-        if (!updatedResult.province || !updatedResult.year || !updatedResult.pp || !updatedResult.podemos || !updatedResult.psoe || !updatedResult.cs) {
-            console.log("WARNING: The voting results " + JSON.stringify(updatedResult, 2, null) + " is incorrect");
-            response.sendStatus(422);
-        }
-        else {
-            db.find({}).toArray(function(err, results) {
+     }else{
+ console.log("INFO: New PUT request to /elections-voting-stats/" + province + " with data " + JSON.stringify(updated, 2, null));     
+    if (!updated.province || !updated.year || !updated.pp || !updated.podemos || !updated.psoe || !updated.cs) {
+            console.log("WARNING: The economicSituation " + JSON.stringify(updated, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            db2.find({}).toArray(function (err, voting) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
-                }
-                else {
-                    results = results.map((c) => { //Se puede hacer también con un bucle for
-                        if (c.province === province) {
-                            return updatedResult;
-                        }
-                        else {
-                            return c;
-                        }
+                } else {
+                    var before = voting.filter((result) => {
+                        return (result.province.localeCompare(province, "en", {'sensitivity': 'base'}) === 0);
                     });
-                    //AÑADE PERO NO BORRA EL OBJETO ANTERIOR CON DICHO NOMBRE DE PROVINCIA!!!!!!
-                    db.insert(results);
-                    console.error('INFO: data updated for result: ' + updatedResult.province);
-                    response.sendStatus(200);
-                }
-
-            }); //Y YA CON ESTE CÓDIGO (se trabaja sobre results) SE MODIFICA LA BASE DE DATOS? O  FALTA ALGO MÁS????
+                    if (before.length > 0) {
+                        db2.update({province: province}, voting);
+                        console.log("INFO: Modifying economicSituation with province " + province + " with data " + JSON.stringify(voting, 2, null));
+                        response.send(voting); // return the updated economic situation
+                    } else {
+                        console.log("WARNING: There are not any economicSituation with province " + province);
+                        response.sendStatus(404); // not found
+}
+}
+            });
+            
         }
-
-    }
-});
+        
+     }
+     
+     });
 
 
 //DELETE over a collection: hay diferentes maneras de hacerlo
