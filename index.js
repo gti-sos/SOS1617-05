@@ -796,16 +796,18 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function
     }
     
 });
+
 /*---------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
-var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
+
+var mdbURL3 = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
 var MongoClient3 = require("mongodb").MongoClient;
 
 var db3;
-MongoClient3.connect(mdbURL, {
+MongoClient3.connect(mdbURL3, {
     native_parser: true
 }, function(err, database) {
     if (err) {
@@ -996,7 +998,7 @@ app.put(BASE_API_PATH + "/employment-stats/:province", function(request, respons
             response.sendStatus(422);
         }
         else {
-            db.find({}).toArray(function(err, results) {
+            db3.find({}).toArray(function(err, results) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
