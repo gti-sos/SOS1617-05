@@ -79,13 +79,13 @@ app.use(helmet()); //improve security
     }
 });
 */
-
+/*
 // Base GET
 app.get("/", function(request, response) { //ARREGLAR EL TEMA DE results !!!!! results / elections-voting-stats / voting ... CUAL???
     console.log("INFO: Redirecting to /elections-voting-stats");
     response.redirect(301, BASE_API_PATH + "/elections-voting-stats");
 });
-
+*/
 
 // Tarea 1.b feedback F04:
 app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
@@ -172,12 +172,47 @@ app.get(BASE_API_PATH + "/elections-voting-stats/:province", function(request, r
                     response.sendStatus(404);
                 }
                 else {
-                    console.log("INFO: Sending voting results: " + JSON.stringify(docs[0], 2, null));
-                    response.send(docs[0]);
+                    console.log("INFO: Sending voting results: " + JSON.stringify(docs, 2, null));
+                    response.send(docs);
                 }
             }
         });
     }
+});
+
+app.get(BASE_API_PATH + "/elections-voting-stats/:province/:year", function (request, response) {
+    var province = request.params.province;
+    var year = request.params.year;
+         if (!province ) {
+        console.log("WARNING: New GET request to /elections-voting-stats/:province without province, sending 400...");
+        response.sendStatus(400); // bad request
+       } else if(!year){
+        console.log("WARNING: New GET request to /elections-voting-stats/:province/:year without year, sending 400...");
+        response.sendStatus(400); // bad request 
+        
+    } else {
+        console.log("INFO: New GET request to /elections-voting-stats/" + province + year);
+         db2.find({province:province,year:year}).toArray(function(err, voting) {
+        if(err){
+            console.error('WARNING: Error getting data form DB');
+            response.sendStatus(500);//internal server error
+        }
+        else{
+       if (voting.length > 0) {
+           var result = voting[0];
+            console.log("INFO: Sending voting results: " + JSON.stringify(result, 2, null));
+            response.send(result);
+        } else {
+            console.log("WARNING: There are not any voting results with year " + year);
+            response.sendStatus(404); // not found
+         }
+         
+        }
+        
+    });
+    
+    }
+   
 });
 
 
@@ -282,15 +317,16 @@ app.delete(BASE_API_PATH + "/elections-voting-stats", function(request, response
     db.remove({}, {
         multi: true
     }, function(err, removed) {
-        console.log("ELIMINADOS: " + removed); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
+        var numRemoved = JSON.parse(removed);
+        console.log("ELIMINADOS: " + numRemoved.n); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
         //Por tanto, como se toma el valor de una propiedad en JSON????
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         }
         else {
-            if (removed > 0) {
-                console.log("INFO: All the contacts (" + removed + ") have been succesfully deleted");
+            if (numRemoved.n> 0) {
+                console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted");
                 response.sendStatus(204); // no content
             }
             else {
@@ -314,13 +350,14 @@ app.delete(BASE_API_PATH + "/elections-voting-stats/:province", function(request
         db.remove({
             province: province
         }, function(err, removed) {
+            var numRemoved = JSON.parse(removed);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             }
             else {
-                if (removed === 1) {
-                    console.log("INFO: All the contacts (" + removed + ") have been succesfully deleted, sending 204...");
+                if (numRemoved.n === 1) {
+                    console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 }
                 else {
@@ -368,13 +405,13 @@ MongoClient2.connect(mdbURL, {
 });
 
 
-
+/*
 // Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /economic-situation-stats");
     response.redirect(301, BASE_API_PATH + "/economic-situation-stats");
 });
-
+*/
 
 //El recurso debe contener una ruta /api/v1/XXXXX/loadInitialData que al hacer un GET cree 2 o más datos en la base de datos si está vacía.
 
@@ -764,16 +801,18 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function
     }
     
 });
+
 /*---------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
-/*var mdbURL = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
+
+var mdbURL3 = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
 var MongoClient3 = require("mongodb").MongoClient;
 
 var db3;
-MongoClient3.connect(mdbURL, {
+MongoClient3.connect(mdbURL3, {
     native_parser: true
 }, function(err, database) {
     if (err) {
@@ -900,7 +939,7 @@ app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, r
         }
     }*/
 
-/*
+
 //POST over a collection
 app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
     var newResult = request.body; //Lo obtiene del cuerpo del mensaje http
@@ -964,7 +1003,7 @@ app.put(BASE_API_PATH + "/employment-stats/:province", function(request, respons
             response.sendStatus(422);
         }
         else {
-            db.find({}).toArray(function(err, results) {
+            db3.find({}).toArray(function(err, results) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -1040,4 +1079,3 @@ app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, resp
 
 });
 
-*/
