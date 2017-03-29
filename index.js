@@ -804,7 +804,6 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function
 
 var mdbURL3 = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
 
-
 var MongoClient3 = require("mongodb").MongoClient;
 
 var db3;
