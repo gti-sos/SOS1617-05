@@ -32,6 +32,7 @@ MongoClient.connect(url, {
 
 var app = express();
 
+app.use("/api/v1/tests", express.static(path.join(__dirname , "public/tests.html")));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
@@ -77,13 +78,13 @@ app.use(helmet()); //improve security
     }
 });
 */
-
+/*
 // Base GET
 app.get("/", function(request, response) { //ARREGLAR EL TEMA DE results !!!!! results / elections-voting-stats / voting ... CUAL???
     console.log("INFO: Redirecting to /elections-voting-stats");
     response.redirect(301, BASE_API_PATH + "/elections-voting-stats");
 });
-
+*/
 
 // Tarea 1.b feedback F04:
 app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
@@ -170,12 +171,47 @@ app.get(BASE_API_PATH + "/elections-voting-stats/:province", function(request, r
                     response.sendStatus(404);
                 }
                 else {
-                    console.log("INFO: Sending voting results: " + JSON.stringify(docs[0], 2, null));
-                    response.send(docs[0]);
+                    console.log("INFO: Sending voting results: " + JSON.stringify(docs, 2, null));
+                    response.send(docs);
                 }
             }
         });
     }
+});
+
+app.get(BASE_API_PATH + "/elections-voting-stats/:province/:year", function (request, response) {
+    var province = request.params.province;
+    var year = request.params.year;
+         if (!province ) {
+        console.log("WARNING: New GET request to /elections-voting-stats/:province without province, sending 400...");
+        response.sendStatus(400); // bad request
+       } else if(!year){
+        console.log("WARNING: New GET request to /elections-voting-stats/:province/:year without year, sending 400...");
+        response.sendStatus(400); // bad request 
+        
+    } else {
+        console.log("INFO: New GET request to /elections-voting-stats/" + province + year);
+         db2.find({province:province,year:year}).toArray(function(err, voting) {
+        if(err){
+            console.error('WARNING: Error getting data form DB');
+            response.sendStatus(500);//internal server error
+        }
+        else{
+       if (voting.length > 0) {
+           var result = voting[0];
+            console.log("INFO: Sending voting results: " + JSON.stringify(result, 2, null));
+            response.send(result);
+        } else {
+            console.log("WARNING: There are not any voting results with year " + year);
+            response.sendStatus(404); // not found
+         }
+         
+        }
+        
+    });
+    
+    }
+   
 });
 
 
@@ -276,15 +312,16 @@ app.delete(BASE_API_PATH + "/elections-voting-stats", function(request, response
     db.remove({}, {
         multi: true
     }, function(err, removed) {
-        console.log("ELIMINADOS: " + removed); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
+        var numRemoved = JSON.parse(removed);
+        console.log("ELIMINADOS: " + numRemoved.n); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
         //Por tanto, como se toma el valor de una propiedad en JSON????
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         }
         else {
-            if (removed > 0) {
-                console.log("INFO: All the contacts (" + removed + ") have been succesfully deleted");
+            if (numRemoved.n> 0) {
+                console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted");
                 response.sendStatus(204); // no content
             }
             else {
@@ -308,13 +345,14 @@ app.delete(BASE_API_PATH + "/elections-voting-stats/:province", function(request
         db.remove({
             province: province
         }, function(err, removed) {
+            var numRemoved = JSON.parse(removed);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             }
             else {
-                if (removed === 1) {
-                    console.log("INFO: All the contacts (" + removed + ") have been succesfully deleted, sending 204...");
+                if (numRemoved.n === 1) {
+                    console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 }
                 else {
@@ -342,9 +380,6 @@ app.delete(BASE_API_PATH + "/elections-voting-stats/:province", function(request
 -----------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 
-
-
-
 //API Alberto
 
 var mdbURL = "mongodb://albgarvar2:sos161705@ds137230.mlab.com:37230/economic-situation-stats";
@@ -365,13 +400,13 @@ MongoClient2.connect(mdbURL, {
 });
 
 
-
+/*
 // Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /economic-situation-stats");
     response.redirect(301, BASE_API_PATH + "/economic-situation-stats");
 });
-
+*/
 
 //El recurso debe contener una ruta /api/v1/XXXXX/loadInitialData que al hacer un GET cree 2 o más datos en la base de datos si está vacía.
 
@@ -407,13 +442,19 @@ app.get(BASE_API_PATH + "/economic-situation-stats/loadInitialData",function(req
         "year": "2008",
         "gdp": "563.325",
         "debt":"236.56"
+    },
+    {
+          "province": "Madrid",
+        "year": "2007",
+        "gdp": "365.256",
+        "debt":"874.25"
     }
 ];
         db2.insert(datos);
          response.sendStatus(201); // created
        }else{
         console.log("DataBase IS NOT EMPTY. DB has " + economicSituationStats.length + "results");
-         response.sendStatus(200);
+         response.sendStatus(200); //OK
        }
        
      });
@@ -424,14 +465,14 @@ app.get(BASE_API_PATH + "/economic-situation-stats/loadInitialData",function(req
 
 
 
-// GET a collection
+// GET a collection --> Acceder a todas las estadísticas
 app.get(BASE_API_PATH + "/economic-situation-stats", function (request, response) {
     console.log("INFO: New GET request to /economic-situation-stats");
    
    db2.find({}).toArray(function(err,economicSituationStats){
        if(err){
        console.error('WARNING: Error getting data from DB');
-       response.sendStatus(500);
+       response.sendStatus(500); //internal server error
        }else{
      console.log("INFO: Sending contacts: " + JSON.stringify(economicSituationStats, 2, null));
            response.send(economicSituationStats);
@@ -440,7 +481,7 @@ app.get(BASE_API_PATH + "/economic-situation-stats", function (request, response
 });
 
 
-// GET a single resource
+// GET a single resource--->Acceder a todas las estadísticas de una provincia 
 app.get(BASE_API_PATH + "/economic-situation-stats/:province", function (request, response) {
     var province = request.params.province;
          if (!province) {
@@ -455,8 +496,8 @@ app.get(BASE_API_PATH + "/economic-situation-stats/:province", function (request
         }
         else{
        if (filteredEconomicSituation.length > 0) {
-           var economicSituation = filteredEconomicSituation[0];
-            console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));
+           var economicSituation = filteredEconomicSituation;
+            console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));//
             response.send(economicSituation);
         } else {
             console.log("WARNING: There are not any economicSituation with province " + province);
@@ -472,7 +513,75 @@ app.get(BASE_API_PATH + "/economic-situation-stats/:province", function (request
 });
 
 
-//POST over a collection
+
+// Acceder a una estadística concreta --> de una provincia en un año concreto
+app.get(BASE_API_PATH + "/economic-situation-stats/:province/:year", function (request, response) {
+    var province = request.params.province;
+    var year = request.params.year;
+         if (!province ) {
+        console.log("WARNING: New GET request to /economic-situation-stats/:province without province, sending 400...");
+        response.sendStatus(400); // bad request
+       } else if(!year){
+        console.log("WARNING: New GET request to /economic-situation-stats/:province/:year without year, sending 400...");
+        response.sendStatus(400); // bad request 
+        
+    } else {
+        console.log("INFO: New GET request to /economic-situation-stats/" + province + year);
+         db2.find({province:province,year:year}).toArray(function(err, filteredEconomicSituation) {
+        if(err){
+            console.error('WARNING: Error getting data form DB');
+            response.sendStatus(500);//internal server error
+        }
+        else{
+       if (filteredEconomicSituation.length > 0) {
+           var economicSituation = filteredEconomicSituation[0];
+            console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));
+            response.send(economicSituation);
+        } else {
+            console.log("WARNING: There are not any economicSituation with year " + year);
+            response.sendStatus(404); // not found
+         }
+         
+        }
+        
+    });
+    
+    }
+   
+});
+
+// Acceder a todas las estadísticas de un año
+/*app.get(BASE_API_PATH + "/economic-situation-stats/:year", function (request, response) {
+    var year = request.params.year;
+         if (!year) {
+        console.log("WARNING: New GET request to /economic-situation-stats/:year without year, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New GET request to /economic-situation-stats?year=" + year);
+         db2.find({year:year}).toArray(function(err, filteredEconomicSituation) {
+        if(err){
+            console.error('WARNING: Error getting data form DB');
+            response.sendStatus(500);//internal server error
+        }
+        else{
+       if (filteredEconomicSituation.length > 0) {
+           var economicSituation = filteredEconomicSituation;
+            console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));//
+            response.send(economicSituation);
+        } else {
+            console.log("WARNING: There are not any economicSituation with year " + year);
+            response.sendStatus(404); // not found
+         }
+         
+        }
+        
+    });
+    
+    }
+   
+});*/
+
+//POST over a collection--->Crear una nueva estadística
 app.post(BASE_API_PATH + "/economic-situation-stats", function (request, response) {
     var newEconomicSituation = request.body;
     if (!newEconomicSituation) {
@@ -527,7 +636,7 @@ app.put(BASE_API_PATH + "/economic-situation-stats", function (request, response
 });
 
 
-//PUT over a single resource
+//PUT over a single resource--->Actualizar una estadística
 app.put(BASE_API_PATH + "/economic-situation-stats/:province", function (request, response) {
     var updatedEconomicSituation = request.body;
     var province = request.params.province;
@@ -549,8 +658,47 @@ app.put(BASE_API_PATH + "/economic-situation-stats/:province", function (request
                         return (economicSituation.province.localeCompare(province, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (economicSituationBeforeInsertion.length > 0) {
-                        db.update({province: province}, updatedEconomicSituation);
+                        db2.update({province: province}, updatedEconomicSituation);
                         console.log("INFO: Modifying economicSituation with province " + province + " with data " + JSON.stringify(updatedEconomicSituation, 2, null));
+                        response.send(updatedEconomicSituation); // return the updated economic situation
+                    } else {
+                        console.log("WARNING: There are not any economicSituation with province " + province);
+                        response.sendStatus(404); // not found
+}
+}
+            });
+            
+        }
+        
+     }
+     
+     });
+     
+//PUT over a single resource-->por provincia y año
+app.put(BASE_API_PATH + "/economic-situation-stats/:province/:year", function (request, response) {
+    var updatedEconomicSituation = request.body;
+    var province = request.params.province;
+    var year = request.params.year;
+     if (!updatedEconomicSituation) {
+        console.log("WARNING: New PUT request to /economic-situation-stats/ without province, sending 400...");
+        response.sendStatus(400); // bad request
+     }else{
+ console.log("INFO: New PUT request to /economic-situation-stats/" + province + "/" + year + " with data " + JSON.stringify(updatedEconomicSituation, 2, null));     
+    if (!updatedEconomicSituation.province || !updatedEconomicSituation.year || !updatedEconomicSituation.gdp ||!updatedEconomicSituation.debt) {
+            console.log("WARNING: The economicSituation " + JSON.stringify(updatedEconomicSituation, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            db2.find({}).toArray(function (err, economicSituationStats) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var economicSituationBeforeInsertion = economicSituationStats.filter((economicSituation) => {
+                        return (economicSituation.year.localeCompare(year, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (economicSituationBeforeInsertion.length > 0) {
+                        db2.update({province: province,year:year}, updatedEconomicSituation);
+                        console.log("INFO: Modifying economicSituation with province " + province +"/" + year + " with data " + JSON.stringify(updatedEconomicSituation, 2, null));
                         response.send(updatedEconomicSituation); // return the updated economic situation
                     } else {
                         console.log("WARNING: There are not any economicSituation with province " + province);
@@ -568,14 +716,15 @@ app.put(BASE_API_PATH + "/economic-situation-stats/:province", function (request
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/economic-situation-stats", function (request, response) {
 console.log("INFO: New DELETE request to /economic-situation-stats");
- db2.remove({},{multi:true},function(err, numRemoved) {
+ db2.remove({},{multi:true},function(err, result) {
+     var numRemoved = JSON.parse(result);
         if(err){
          console.error('WARNING: Error removing data from DB');
          response.sendStatus(500); // internal server error
         }else{
-            if(numRemoved>0){
-                    console.log("INFO: All the economicSituation ("+ numRemoved + ") have been succesfully deleted, sending 204...");
-            response.sendStatus(204);
+            if(numRemoved.n>0){
+                    console.log("INFO: All the economicSituation ("+ numRemoved.n + ") have been succesfully deleted, sending 204...");
+            response.sendStatus(204);//No content
             }else{
                 console.log("WARNING: There are not economicSituation to delete");
                 response.sendStatus(404); // not found
@@ -587,7 +736,7 @@ console.log("INFO: New DELETE request to /economic-situation-stats");
 });
 
 
-//DELETE over a single resource
+//DELETE over a single resource--->Borrar una provincia
 app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (request, response) {
     var province = request.params.province;
      if (!province) {
@@ -595,13 +744,15 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
         response.sendStatus(400); // bad request
     }else{
         console.log("INFO: New DELETE request to /economic-situation-stats/" + province);
-        db2.remove({province:province},{},function(err,numRemoved){
+        db2.remove({province:province},{},function(err,result){
+         var numRemoved = JSON.parse(result);
+
         if(err){
        console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-        console.log("INFO: EconomicSituation removed: " + numRemoved);
-        if(numRemoved ===1){
+        console.log("INFO: EconomicSituation removed: " + numRemoved.n);
+        if(numRemoved.n ===1){
             console.log("INFO: The economicSituation with province " + province + " has been succesfully deleted, sending 204...");
         response.sendStatus(204);//(OK) No Content
         }else{
@@ -615,16 +766,44 @@ app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function (requ
     
 });
 
+//DELETE over a single resource--->Borrar una provincia en un año concreto
+app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function (request, response) {
+    var province = request.params.province;
+    var year = request.params.year;
+     if (!province || !year) {
+        console.log("WARNING: New DELETE request to economic-situation-stats/:province/:year without province or without year, sending 400...");
+        response.sendStatus(400); // bad request
+    }else{
+        console.log("INFO: New DELETE request to /economic-situation-stats/" + province + "/" + year);
+        db2.remove({province:province,year:year},{},function(err,result){
+        var numRemoved = JSON.parse(result);
 
+        if(err){
+       console.error('WARNING: Error removing data from DB');
+                response.sendStatus(500); // internal server error
+            } else {
+        console.log("INFO: EconomicSituation removed: " + numRemoved.n);
+        if(numRemoved.n ===1){
+            console.log("INFO: The economicSituation with province " + province + " and year "  +year+ " has been succesfully deleted, sending 204...");
+        response.sendStatus(204);//(OK) No Content
+        }else{
+            console.log("WARNING: There are not economicSituationStats to delete");
+            response.sendStatus(404);
+        }
+    }
+        
+    });
+    }
+    
+});
 
 /*---------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 //API DE ANTONIO
 
-
-
 var mdbURL3 = "mongodb://antoniops:ANpeso96@ds143990.mlab.com:43990/employment-stats";
+
 
 var MongoClient3 = require("mongodb").MongoClient;
 

@@ -17,7 +17,7 @@ curl -v -XDELETE -H 'Content-type: application/json'  'http://sos1617-05.herokua
 
 e. PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso
 
-curl -v -XPUT -H 'Content-type: application/json' -d '{ "province": "Madrid", "year": "2003", "gdp": "564.325","debt":"123.56" }' 'http://sos1617-05.herokuapp.com/api/v1/economic-situation-stats/Madrid'
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "province": "Granada", "year": "2005", "gdp": "564.325","debt":"123.56" }' 'http://sos1617-05.herokuapp.com/api/v1/economic-situation-stats/Madrid'
 
 f. POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido
 
