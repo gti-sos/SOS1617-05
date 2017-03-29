@@ -171,12 +171,47 @@ app.get(BASE_API_PATH + "/elections-voting-stats/:province", function(request, r
                     response.sendStatus(404);
                 }
                 else {
-                    console.log("INFO: Sending voting results: " + JSON.stringify(docs[0], 2, null));
-                    response.send(docs[0]);
+                    console.log("INFO: Sending voting results: " + JSON.stringify(docs, 2, null));
+                    response.send(docs);
                 }
             }
         });
     }
+});
+
+app.get(BASE_API_PATH + "/elections-voting-stats/:province/:year", function (request, response) {
+    var province = request.params.province;
+    var year = request.params.year;
+         if (!province ) {
+        console.log("WARNING: New GET request to /elections-voting-stats/:province without province, sending 400...");
+        response.sendStatus(400); // bad request
+       } else if(!year){
+        console.log("WARNING: New GET request to /elections-voting-stats/:province/:year without year, sending 400...");
+        response.sendStatus(400); // bad request 
+        
+    } else {
+        console.log("INFO: New GET request to /elections-voting-stats/" + province + year);
+         db2.find({province:province,year:year}).toArray(function(err, voting) {
+        if(err){
+            console.error('WARNING: Error getting data form DB');
+            response.sendStatus(500);//internal server error
+        }
+        else{
+       if (voting.length > 0) {
+           var result = voting[0];
+            console.log("INFO: Sending voting results: " + JSON.stringify(result, 2, null));
+            response.send(result);
+        } else {
+            console.log("WARNING: There are not any voting results with year " + year);
+            response.sendStatus(404); // not found
+         }
+         
+        }
+        
+    });
+    
+    }
+   
 });
 
 
@@ -277,15 +312,16 @@ app.delete(BASE_API_PATH + "/elections-voting-stats", function(request, response
     db.remove({}, {
         multi: true
     }, function(err, removed) {
-        console.log("ELIMINADOS: " + removed); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
+        var numRemoved = JSON.parse(removed);
+        console.log("ELIMINADOS: " + numRemoved.n); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
         //Por tanto, como se toma el valor de una propiedad en JSON????
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         }
         else {
-            if (removed > 0) {
-                console.log("INFO: All the contacts (" + removed + ") have been succesfully deleted");
+            if (numRemoved.n> 0) {
+                console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted");
                 response.sendStatus(204); // no content
             }
             else {
@@ -309,13 +345,14 @@ app.delete(BASE_API_PATH + "/elections-voting-stats/:province", function(request
         db.remove({
             province: province
         }, function(err, removed) {
+            var numRemoved = JSON.parse(removed);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             }
             else {
-                if (removed === 1) {
-                    console.log("INFO: All the contacts (" + removed + ") have been succesfully deleted, sending 204...");
+                if (numRemoved.n === 1) {
+                    console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 }
                 else {
