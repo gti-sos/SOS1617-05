@@ -32,7 +32,7 @@ MongoClient.connect(url, {
 
 var app = express();
 
-app.use("/",express.static(path.join(__dirname,"public")));
+app.use("/api/v1/tests", express.static(path.join(__dirname , "public/tests.html")));
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
@@ -78,13 +78,13 @@ app.use(helmet()); //improve security
     }
 });
 */
-
+/*
 // Base GET
 app.get("/", function(request, response) { //ARREGLAR EL TEMA DE results !!!!! results / elections-voting-stats / voting ... CUAL???
     console.log("INFO: Redirecting to /elections-voting-stats");
     response.redirect(301, BASE_API_PATH + "/elections-voting-stats");
 });
-
+*/
 
 // Tarea 1.b feedback F04:
 app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
@@ -363,13 +363,13 @@ MongoClient2.connect(mdbURL, {
 });
 
 
-
+/*
 // Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /economic-situation-stats");
     response.redirect(301, BASE_API_PATH + "/economic-situation-stats");
 });
-
+*/
 
 //El recurso debe contener una ruta /api/v1/XXXXX/loadInitialData que al hacer un GET cree 2 o más datos en la base de datos si está vacía.
 
