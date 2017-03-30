@@ -56,9 +56,6 @@ g) PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permit
 curl -v -XPUT -H "Content-type: application/json" -d '{ "province": "Almeria", "year": "2016", "pp": "4", "podemos": "5", "psoe": "1", "cs": "2" }' 'http://sos1617-05.herokuapp.com/api/v1/elections-voting-stats'
 
 h) DELETE a la ruta base (p.e. “/towns”) borra todos los recursos
-<<<<<<< HEAD
-curl -v -XDELETE -H 'Content-type: application/json' 'http://sos1617-05.herokuapp.com/api/v1/elections-voting-stats'
-=======
 curl -v -XDELETE -H 'Content-type: application/json' 'http://sos1617-05.herokuapp.com/api/v1/elections-voting-stats'
 
 
@@ -68,4 +65,3 @@ curl -v -XDELETE -H 'Content-type: application/json' 'http://sos1617-05.herokuap
 
 
 
->>>>>>> 9ff3e1632105df455332adb4d0c4e3fa516405c8
