@@ -2,37 +2,18 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
-var MongoClient = require('mongodb').MongoClient;
+var apiNacho = require('./apiNacho.js');
+var apiAlberto = require('./apiAlberto.js');
+var apiAntonio = require('./apiAntonio.js');
 
-//Según comentó el profesor, todo lo que esté en la carpeta public se sube al servidor...entonces, por qué no hacer eso pero en vez de llamarle public le llamamos api ???
-//no obstante seguiriamos teniendo el problema o la duda de si borrar la app que ya hay subida y el tema de tres archivos index.js en un mismo directorio...
-
-var url = "mongodb://nachodb:nachodb@ds135690.mlab.com:35690/elections-voting-stats";
-var port = (process.env.PORT || 10000);
-var BASE_API_PATH = "/api/v1"; //No hacen falta las carpetas (respuesta de Pablo en Piazza) porque esta ruta "simula" esa estructura de carpetas?
-//y por tanto bastaría con tener un único index.js con las API's de los tres en la raiz y subir la app a Heroku igual 
-//que hizo Alberto (quizas configurando en Heroku alguna url...)?
-var db;
-//db = path.join(__dirname, 'voting.db'); //NECESARIO ESTO O ALGO PARECIDO??? (TOMADO DEL EJEMPLO HECHO CON nedb)
-
-
-MongoClient.connect(url, {
-    native_parser: true
-}, function(err, database) {
-    if (err) {
-        console.log("CAN NOT CONNECT TO DB: " + err);
-        process.exit(1);
-    }
-    db = database.collection("voting"); // debe especificarse el nombre que se le haya dado a la colección en mlab.com
-    app.listen(port, () => {
-        console.log("Magic is happening on port " + port);
-    });
-
-});
-
+var port = (process.env.PORT || 10000); 
+var BASE_API_PATH = "/api/v1"; 
 var app = express();
 
-app.use("/api/v1/tests", express.static(path.join(__dirname , "public/tests.html")));
+ 
+
+app.use("/api/v1/tests", express.static(path.join(__dirname, "public/tests.html")));
+
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
@@ -944,7 +925,7 @@ app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
         response.sendStatus(400);
     }
     else {
-        if (!newResult.province || !newResult.year || !newResult.trimester || !newResult.unemploymentTax) {
+        if (!newResult.province || !newResult.year || !newResult.cuatrimester || !newResult.unemploymentTax) {
             console.log("WARNING: The results " + JSON.stringify(newResult, 2, null) + " are incorrect");
             response.sendStatus(422);
         }
@@ -1048,29 +1029,8 @@ app.delete(BASE_API_PATH + "/employment-stats", function(request, response) {
 });
 
 
-//DELETE over a single resource
-app.delete(BASE_API_PATH + "/employment-stats/:province", function(request, response) {
-    var province = request.params.province;
-    if (!province) {
-        console.log("WARNING: New DELETE request to /employment-stats/province without especified province");
-        response.sendStatus(400); // bad request
-    }
-    else{
-        db3.remove({province:province},function(err,removed){
-            if (err) {
-                console.error('WARNING: Error removing data from DB');
-                response.sendStatus(500); // internal server error
-            }else{
-                if (removed === 1) {
-                    console.log("INFO: All the provinces (" + removed + ") have been succesfully deleted, sending 204...");
-                    response.sendStatus(204); // no content
-                } else {
-                    console.log("WARNING: There are no provinces to delete");
-                    response.sendStatus(404); // not found
-                }
-            }
-        });
-    }
+apiNacho.register(app,port,BASE_API_PATH);  
+apiAlberto.register(app,port,BASE_API_PATH);  
+apiAntonio.register(app,port,BASE_API_PATH); 
 
-});
 
