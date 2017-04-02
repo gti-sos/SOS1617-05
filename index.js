@@ -944,7 +944,7 @@ app.post(BASE_API_PATH + "/employment-stats", function(request, response) {
         response.sendStatus(400);
     }
     else {
-        if (!newResult.province || !newResult.year || !newResult.cuatrimester || !newResult.unemploymentTax) {
+        if (!newResult.province || !newResult.year || !newResult.trimester || !newResult.unemploymentTax) {
             console.log("WARNING: The results " + JSON.stringify(newResult, 2, null) + " are incorrect");
             response.sendStatus(422);
         }
