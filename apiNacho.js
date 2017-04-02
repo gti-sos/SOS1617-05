@@ -6,8 +6,8 @@ var exports = module.exports = {};
 //var helmet = require("helmet");
 //var path = require('path');
 
-exports.register = function (app, port, BASE_API_PATH) {
-    
+exports.register = function(app, port, BASE_API_PATH) {
+
     var url = "mongodb://nachodb:nachodb@ds135690.mlab.com:35690/elections-voting-stats";
     var MongoClient = require('mongodb').MongoClient;
     var db;
@@ -26,7 +26,7 @@ exports.register = function (app, port, BASE_API_PATH) {
 
     });
 
-    
+
     // Tarea 1.b feedback F04:
     app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
         console.log('INFO: Initialiting DB...');
@@ -175,19 +175,15 @@ exports.register = function (app, port, BASE_API_PATH) {
                 response.sendStatus(422); // unprocessable entity
             }
             else {
-                db.find({}).toArray(function(err, electionsResults) {
+                db.find({
+                    province: newResults.province , pp: newResults.pp , psoe: newResults.psoe , podemos: newResults.podemos , cs: newResults.cs
+                }).toArray(function(err, res) {
                     if (err) {
                         console.error('WARNING: Error getting data from DB');
                         response.sendStatus(500); // internal server error
                     }
                     else {
-
-                        var resultsBeforeInsertion = electionsResults.filter((results) => {
-                            return (results.province.localeCompare(newResults.province, "en", {
-                                'sensitivity': 'base'
-                            }) === 0);
-                        });
-                        if (resultsBeforeInsertion.length > 0) {
+                        if (res.length == 1) {
                             console.log("WARNING: The voting results " + JSON.stringify(newResults, 2, null) + " already extis, sending 409...");
                             response.sendStatus(409); // conflict
                         }
@@ -199,6 +195,9 @@ exports.register = function (app, port, BASE_API_PATH) {
                         }
                     }
                 });
+
+
+
 
             }
 
@@ -221,12 +220,12 @@ exports.register = function (app, port, BASE_API_PATH) {
     });
 
 
-    //PUT over a single resource: updates a single resource (result)
+    //PUT over a single resource: updates a single resource (result) - QUÉ PASA SI SE HACE UN PUT A UN RECURSO QUE NO SE HA CREADO AUN EN LA BASE DE DATOS?
     app.put(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
         var updated = request.body;
         var province = request.params.province;
-        if (!updated) {
-            console.log("WARNING: New PUT request to /elections-voting-stats/ without province, sending 400...");
+        if (!updated || province != updated.province) {
+            console.log("WARNING: New PUT request to /elections-voting-stats/ without province or with different ID's");
             response.sendStatus(400); // bad request
         }
         else {
