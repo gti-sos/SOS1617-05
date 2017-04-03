@@ -31,7 +31,8 @@ exports.register = function(app, port, BASE_API_PATH) {
     //El recurso debe contener una ruta /api/v1/XXXXX/loadInitialData que al hacer un GET cree 2 o más datos en la base de datos si está vacía.
 
     app.get(BASE_API_PATH + "/economic-situation-stats/loadInitialData", function(request, response) {
-        db2.find({}).toArray(function(err, economicSituationStats) {
+        if(!checkkey(request,response)) return;
+       db2.find({}).toArray(function(err, economicSituationStats) {
             if (err) {
                 console.log('WARNING: Error getting initial data from DB');
                 return 0;
@@ -82,6 +83,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
+                if(!checkkey(request,response)) return;
         console.log("INFO: New GET request to /economic-situation-stats");
 
         db2.find({}).toArray(function(err, economicSituationStats) {
@@ -99,6 +101,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // GET a single resource--->Acceder a todas las estadísticas de una provincia 
     app.get(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
+        if(!checkkey(request,response)) return;
         var province = request.params.province;
         if (!province) {
             console.log("WARNING: New GET request to /economic-situation-stats/:province without province, sending 400...");
@@ -136,6 +139,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // Acceder a una estadística concreta --> de una provincia en un año concreto
     app.get(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
+                if(!checkkey(request,response)) return;
         var province = request.params.province;
         var year = request.params.year;
         if (!province) {
@@ -175,7 +179,58 @@ exports.register = function(app, port, BASE_API_PATH) {
         }
 
     });
+    //Búsqueda por provincia y año
+  /*  app.get(BASE_API_PATH + "/economic-situation-stats/:province?from=year&to=year2", function(request, response) {
+        var province = request.params.province;
+        var year = request.params.year;
+        var year2=request.params.year2;
+        if (!province) {
+            console.log("WARNING: New GET request to /economic-situation-stats/:province without province, sending 400...");
+            response.sendStatus(400); // bad request
+        }
+        else if (!year) {
+            console.log("WARNING: New GET request to /economic-situation-stats/:province?from=year without year, sending 400...");
+            response.sendStatus(400); // bad request 
 
+        }
+        else if (!year2) {
+            console.log("WARNING: New GET request to /economic-situation-stats/:province?from=year&to=year2 without year2, sending 400...");
+            response.sendStatus(400); // bad request 
+
+        }
+        else {
+            console.log("INFO: New GET request to /economic-situation-stats/" + province + year + year2);
+            db2.find({
+                province: province,
+                year: year
+                year2:year2
+                
+            }).toArray(function(err, filteredEconomicSituation) {
+                if (err) {
+                    console.error('WARNING: Error getting data form DB');
+                    response.sendStatus(500); //internal server error
+                }
+                else {
+                    if (filteredEconomicSituation.length > 0) {
+                        var economicSituation = filteredEconomicSituation[0];
+                        console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));
+                        response.send(economicSituation);
+                    }
+                    else {
+                        console.log("WARNING: There are not any economicSituation with year " + year);
+                        response.sendStatus(404); // not found
+                    }
+
+                }
+
+            });
+
+        }
+
+    });
+    
+    -----------------
+*/
     // Acceder a todas las estadísticas de un año
     /*app.get(BASE_API_PATH + "/economic-situation-stats/:year", function (request, response) {
         var year = request.params.year;
@@ -209,6 +264,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //POST over a collection--->Crear una nueva estadística
     app.post(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
+                if(!checkkey(request,response)) return;
         var newEconomicSituation = request.body;
         if (!newEconomicSituation) {
             console.log("WARNING: New POST request to /economic-situation-stats without economicSituation, sending 400...");
@@ -255,6 +311,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //POST over a single resource
     app.post(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
+                if(!checkkey(request,response)) return;
         var province = request.params.province;
         console.log("WARNING: New POST request to /economic-situation-stats/" + province + ",sending 405...");
         response.sendStatus(405); // method not allowed
@@ -262,7 +319,9 @@ exports.register = function(app, port, BASE_API_PATH) {
 
 
     //PUT over a collection
-    app.put(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
+    app.put(BASE_API_PATH + "/economic-situation-stats", function(request, response) {  
+        if(!checkkey(request,response)) return;
+
         console.log("WARNING: New PUT request to /economic-situation-stats, sending 405...");
         response.sendStatus(405); // method not allowed
     });
@@ -316,6 +375,8 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //PUT over a single resource-->por provincia y año
     app.put(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
+                if(!checkkey(request,response)) return;
+
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
         var year = request.params.year;
@@ -364,6 +425,8 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //DELETE over a collection
     app.delete(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
+        if(!checkkey(request,response)) return;
+
         console.log("INFO: New DELETE request to /economic-situation-stats");
         db2.remove({}, {
             multi: true
@@ -391,6 +454,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //DELETE over a single resource--->Borrar una provincia
     app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
+                if(!checkkey(request,response)) return;
         var province = request.params.province;
         if (!province) {
             console.log("WARNING: New DELETE request to economic-situation-stats/:province without province, sending 400...");
@@ -426,6 +490,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //DELETE over a single resource--->Borrar una provincia en un año concreto
     app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
+                if(!checkkey(request,response)) return;
         var province = request.params.province;
         var year = request.params.year;
         if (!province || !year) {
