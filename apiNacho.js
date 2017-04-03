@@ -6,7 +6,7 @@ var exports = module.exports = {};
 //var helmet = require("helmet");
 //var path = require('path');
 
-exports.register = function(app, port, BASE_API_PATH) {
+exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     var url = "mongodb://nachodb:nachodb@ds135690.mlab.com:35690/elections-voting-stats";
     var MongoClient = require('mongodb').MongoClient;
@@ -29,6 +29,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // Tarea 1.b feedback F04:
     app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
+        if (!checkKey(request.query.apikey, response)){return;}
         console.log('INFO: Initialiting DB...');
         db.find({}).toArray(function(err, results) { //Se debe usar .toArray, MongoDB no funciona como nedb
             if (err) {
@@ -62,10 +63,11 @@ exports.register = function(app, port, BASE_API_PATH) {
                     "cs": "0"
                 }];
                 db.insert(provinces);
+                response.sendStatus(201);
             }
             else {
-                console.log('INFO: DB has ' + results.length + ' results ');
-                response.sendStatus(200);
+                console.log('INFO: DB not empty, it has ' + results.length + ' results ');
+                response.sendStatus(409);
             }
         });
     });
