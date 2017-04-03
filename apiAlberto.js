@@ -1,6 +1,6 @@
 var exports = module.exports = {};
 
-exports.register = function(app, port, BASE_API_PATH) {
+exports.register = function(app, port, BASE_API_PATH,checkKey) {
 
     var mdbURL = "mongodb://albgarvar2:sos161705@ds137230.mlab.com:37230/economic-situation-stats";
 
@@ -31,7 +31,7 @@ exports.register = function(app, port, BASE_API_PATH) {
     //El recurso debe contener una ruta /api/v1/XXXXX/loadInitialData que al hacer un GET cree 2 o más datos en la base de datos si está vacía.
 
     app.get(BASE_API_PATH + "/economic-situation-stats/loadInitialData", function(request, response) {
-        if(!checkkey(request,response)) return;
+        if(!checkKey(request,response)) return;
        db2.find({}).toArray(function(err, economicSituationStats) {
             if (err) {
                 console.log('WARNING: Error getting initial data from DB');
@@ -83,7 +83,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
         console.log("INFO: New GET request to /economic-situation-stats");
 
         db2.find({}).toArray(function(err, economicSituationStats) {
@@ -101,7 +101,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // GET a single resource--->Acceder a todas las estadísticas de una provincia 
     app.get(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
-        if(!checkkey(request,response)) return;
+        if(!checkKey(request,response)) return;
         var province = request.params.province;
         if (!province) {
             console.log("WARNING: New GET request to /economic-situation-stats/:province without province, sending 400...");
@@ -139,7 +139,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     // Acceder a una estadística concreta --> de una provincia en un año concreto
     app.get(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
         var province = request.params.province;
         var year = request.params.year;
         if (!province) {
@@ -264,7 +264,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //POST over a collection--->Crear una nueva estadística
     app.post(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
         var newEconomicSituation = request.body;
         if (!newEconomicSituation) {
             console.log("WARNING: New POST request to /economic-situation-stats without economicSituation, sending 400...");
@@ -311,7 +311,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //POST over a single resource
     app.post(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
         var province = request.params.province;
         console.log("WARNING: New POST request to /economic-situation-stats/" + province + ",sending 405...");
         response.sendStatus(405); // method not allowed
@@ -320,7 +320,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //PUT over a collection
     app.put(BASE_API_PATH + "/economic-situation-stats", function(request, response) {  
-        if(!checkkey(request,response)) return;
+        if(!checkKey(request,response)) return;
 
         console.log("WARNING: New PUT request to /economic-situation-stats, sending 405...");
         response.sendStatus(405); // method not allowed
@@ -329,6 +329,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //PUT over a single resource--->Actualizar una estadística
     app.put(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
+                        if(!checkKey(request,response)) return;
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
         if (!updatedEconomicSituation) {
@@ -375,7 +376,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //PUT over a single resource-->por provincia y año
     app.put(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
 
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
@@ -425,7 +426,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //DELETE over a collection
     app.delete(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-        if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
 
         console.log("INFO: New DELETE request to /economic-situation-stats");
         db2.remove({}, {
@@ -454,7 +455,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //DELETE over a single resource--->Borrar una provincia
     app.delete(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
         var province = request.params.province;
         if (!province) {
             console.log("WARNING: New DELETE request to economic-situation-stats/:province without province, sending 400...");
@@ -490,7 +491,7 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     //DELETE over a single resource--->Borrar una provincia en un año concreto
     app.delete(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
-                if(!checkkey(request,response)) return;
+                if(!checkKey(request,response)) return;
         var province = request.params.province;
         var year = request.params.year;
         if (!province || !year) {
