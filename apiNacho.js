@@ -29,7 +29,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     // Tarea 1.b feedback F04:
     app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
-        if (!checkKey(request.query.apikey, response)){return;}
+        if (!checkKey(request, response)) {
+            return;
+        }
         console.log('INFO: Initialiting DB...');
         db.find({}).toArray(function(err, results) { //Se debe usar .toArray, MongoDB no funciona como nedb
             if (err) {
@@ -75,6 +77,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     // GET a collection
     app.get(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         console.log("INFO: New GET request to /elections-voting-stats");
         db.find({}).toArray(function(err, results) {
             if (err) {
@@ -91,6 +96,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     // GET a single resource
     app.get(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         console.log("INFO : new GET request to /elections-voting-stats/:province");
         var province = request.params.province;
 
@@ -122,6 +130,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     });
 
     app.get(BASE_API_PATH + "/elections-voting-stats/:province/:year", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         var province = request.params.province;
         var year = request.params.year;
         if (!province) {
@@ -165,6 +176,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //POST over a collection 
     app.post(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         var newResults = request.body;
         if (!newResults) {
             console.log("WARNING: New POST request to /elections-voting-stats without voting results, sending 400...");
@@ -178,7 +192,11 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
             }
             else {
                 db.find({
-                    province: newResults.province , pp: newResults.pp , psoe: newResults.psoe , podemos: newResults.podemos , cs: newResults.cs
+                    province: newResults.province,
+                    pp: newResults.pp,
+                    psoe: newResults.psoe,
+                    podemos: newResults.podemos,
+                    cs: newResults.cs
                 }).toArray(function(err, res) {
                     if (err) {
                         console.error('WARNING: Error getting data from DB');
@@ -210,6 +228,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //POST over a single resource: NO PERMITIDO SEGÚN LA TABLA AZUL, método no permitido
     app.post(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         console.log("WARNING: Not allowed method.");
         response.sendStatus(405);
     });
@@ -217,6 +238,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //PUT over a collection: NO PERMITIDO SEGÚN LA TABLA AZUL, método no permitido
     app.put(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         console.log("WARNING: Not allowed method.");
         response.sendStatus(405);
     });
@@ -224,6 +248,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //PUT over a single resource: updates a single resource (result) - QUÉ PASA SI SE HACE UN PUT A UN RECURSO QUE NO SE HA CREADO AUN EN LA BASE DE DATOS?
     app.put(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         var updated = request.body;
         var province = request.params.province;
         if (!updated || province != updated.province) {
@@ -233,7 +260,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         else {
             console.log("INFO: New PUT request to /elections-voting-stats/" + province + " with data " + JSON.stringify(updated, 2, null));
             if (!updated.province || !updated.year || !updated.pp || !updated.podemos || !updated.psoe || !updated.cs) {
-                console.log("WARNING: The economicSituation " + JSON.stringify(updated, 2, null) + " is not well-formed, sending 422...");
+                console.log("WARNING: The voting result " + JSON.stringify(updated, 2, null) + " is not well-formed, sending 422...");
                 response.sendStatus(422); // unprocessable entity
             }
             else {
@@ -252,11 +279,11 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                             db.update({
                                 province: province
                             }, voting);
-                            console.log("INFO: Modifying economicSituation with province " + province + " with data " + JSON.stringify(voting, 2, null));
-                            response.send(voting); // return the updated economic situation
+                            console.log("INFO: Modifying voting result with province " + province + " with data " + JSON.stringify(voting, 2, null));
+                            response.send(voting); // return the updated voting result
                         }
                         else {
-                            console.log("WARNING: There are not any economicSituation with province " + province);
+                            console.log("WARNING: There are not any voting results with province " + province);
                             response.sendStatus(404); // not found
                         }
                     }
@@ -271,24 +298,26 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //DELETE over a collection: hay diferentes maneras de hacerlo
     app.delete(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         console.log("INFO: New DELETE request to /elections-voting-stats");
         db.remove({}, {
             multi: true
         }, function(err, removed) {
             var numRemoved = JSON.parse(removed);
-            console.log("ELIMINADOS: " + numRemoved.n); //numRemoved es un "array" cuyo SEGUNDO ELEMENTO ("n") indica el número de objetos eliminados!!!
-            //Por tanto, como se toma el valor de una propiedad en JSON????
+            console.log("ELIMINADOS: " + numRemoved.n);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             }
             else {
                 if (numRemoved.n > 0) {
-                    console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted");
+                    console.log("INFO: All the voting results (" + numRemoved.n + ") have been succesfully deleted");
                     response.sendStatus(204); // no content
                 }
                 else {
-                    console.log("WARNING: There are no contacts to delete");
+                    console.log("WARNING: There are no voting results to delete");
                     response.sendStatus(404); // not found
                 }
             }
@@ -299,6 +328,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //DELETE over a single resource
     app.delete(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
         var province = request.params.province;
         if (!province) {
             console.log("WARNING: New DELETE request to /elections-voting-stats/province without especified province");
@@ -315,11 +347,11 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                 }
                 else {
                     if (numRemoved.n === 1) {
-                        console.log("INFO: All the contacts (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
+                        console.log("INFO: The voting results have been succesfully deleted");
                         response.sendStatus(204); // no content
                     }
                     else {
-                        console.log("WARNING: There are no contacts to delete");
+                        console.log("WARNING: There are no voting results to delete");
                         response.sendStatus(404); // not found
                     }
                 }
