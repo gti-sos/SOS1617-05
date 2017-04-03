@@ -13,14 +13,14 @@ var app = express();
 //Función que comprueba la clave especificada en la URL (apiKey):
 var ourKey = "cinco";
 var checkKey = function (req, res) {
-    if (!req.params.apikey) {
+    if (!req.query.apikey) {
         console.log("ERROR: No key was specified");
         res.sendStatus(401);
         return false;
     }
-    else if (req.params.apikey !== ourKey) {
+    else if (req.query.apikey !== ourKey) {
         console.log("ERROR: Wrong key");
-        res.sendStatus(403)
+        res.sendStatus(403);
         return false;
     }
     return true;

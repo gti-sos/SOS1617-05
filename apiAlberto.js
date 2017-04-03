@@ -83,7 +83,7 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
 
     // GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-                if(!checkKey(request,response)) return;
+                if(!checkKey(request,response)){return;};
         console.log("INFO: New GET request to /economic-situation-stats");
 
         db2.find({}).toArray(function(err, economicSituationStats) {
