@@ -19,13 +19,6 @@ exports.register = function(app, port, BASE_API_PATH) {
 
     });
 
-    // Base GET
-    app.get("/", function(request, response) {
-
-        console.log("INFO: Redirecting to /employment-stats");
-        response.redirect(301, BASE_API_PATH + "/employment-stats");
-
-    });
 
     // Tarea 1.b feedback F04:
     app.get(BASE_API_PATH + "/employment-stats/loadInitialData", function(request, response) {
@@ -116,23 +109,6 @@ exports.register = function(app, port, BASE_API_PATH) {
             });
         }
     });
-    /*if(!name){
-        console.log("WARNING: New request to /contacts/:name without name");
-        response.sendStatus(404);
-    }else{
-        console.log("INFO: New request to /contacts/" + name);
-        var filteredContacts = contacts.filter((contact) =>{
-             return contact.name === name; 
-        });
-        if(filteredContacts.length > 0){
-            var contact = filteredContacts[0];
-            console.log("INFO: Sending contact: " + JSON.stringify(contact,2,null));
-            response.send(contact);
-        }else{
-            console.log("WARNING: There are not any contact with name " + name);
-            response.sendStatus(404);
-        }
-    }*/
 
 
     //POST over a collection
