@@ -449,7 +449,7 @@ var search = function (economicSituationStats,from,to,nuevoarray){
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
         var year = request.params.year;
-        if (!updatedEconomicSituation) {
+        if (!updatedEconomicSituation || updatedEconomicSituation.province!=province || updatedEconomicSituation.year!=year) {
             console.log("WARNING: New PUT request to /economic-situation-stats/ without province, sending 400...");
             response.sendStatus(400); // bad request
         }
