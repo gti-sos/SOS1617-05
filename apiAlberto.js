@@ -39,7 +39,57 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
             }
             if (economicSituationStats.length === 0) {
                 console.log("Adding...");
-                var datos = [{
+                
+                    var granada = new Object();
+                    granada.province = "Granada";
+                    granada.year= "2010";
+                    granada.gdp ="563.325";
+                    granada.debt = "646.25";
+                
+                    var madrid = new Object();
+                    madrid.province = "Madrid";
+                    madrid.year = "2015";
+                    madrid.gdp= "564.325";
+                    madrid.debt= "123.56";
+                
+                    var cadiz = new Object();
+                    cadiz.province = "Cadiz";
+                    cadiz.year= "2007";
+                    cadiz.gdp= "598.365";
+                    cadiz.debt = "895.36";
+             
+                    var zaragoza = new Object();
+                    zaragoza.province= "Zaragoza";
+                    zaragoza.year ="2008";
+                    zaragoza.gdp="563.325";
+                    zaragoza.debt= "236.56";
+               
+                   var madrid2 = new Object;
+                    madrid2.province = "Madrid";
+                    madrid2.year =  "2007";
+                    madrid2.gdp= "365.256";
+                    madrid2.debt = "874.25";
+
+                 db2.insert(granada);
+                 db2.insert(madrid);
+                 db2.insert(cadiz);
+                 db2.insert(zaragoza);
+                 db2.insert(madrid2);
+                 
+                response.sendStatus(201); // created
+                
+              
+            }
+            else {
+                console.log("DataBase IS NOT EMPTY. DB has " + economicSituationStats.length + "results");
+                response.sendStatus(200); //OK
+            }
+
+        });
+    });
+  
+                
+               /* var datos = [{
                     "province": "Granada",
                     "year": "2010",
                     "gdp": "563.325",
@@ -64,41 +114,71 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                     "year": "2007",
                     "gdp": "365.256",
                     "debt": "874.25"
-                }];
-                db2.insert(datos);
-                response.sendStatus(201); // created
-            }
-            else {
-                console.log("DataBase IS NOT EMPTY. DB has " + economicSituationStats.length + "results");
-                response.sendStatus(200); //OK
-            }
+                }];*/
+             /*  db2.insert(datos);
+                response.sendStatus(201); // created*/
+//Búsqueda
 
-        });
-    });
+var search = function (economicSituationStats,from,to,nuevoarray){
+    var i = 0;
+    var fromyear = parseInt(from);
+    var toyear = parseInt(to);
+    
+    while(i<economicSituationStats.length){
+         var year = economicSituationStats[i].year;
+    if(year>=fromyear && year<=toyear){
+        nuevoarray.push(economicSituationStats[i]);
+    }
+   i++;
+    }
+    return nuevoarray;
+    
+};
 
-
-
-
-
-
-    // GET a collection --> Acceder a todas las estadísticas
+// GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-                if(!checkKey(request,response))return;
         console.log("INFO: New GET request to /economic-situation-stats");
+        if(!checkKey(request,response))return;
 
-        db2.find({}).toArray(function(err, economicSituationStats) {
+            var nuevoarray = [];
+            var fromyear = parseInt(request.query.from);
+            var toyear = parseInt(request.query.to);
+            var limit = parseInt(request.query.limit,10);//--->le ponemos 10 ya que es su valor por defecto
+            var offset = parseInt(request.query.offset,0);
+        db2.find({}).skip(offset).limit(limit).toArray(function(err, economicSituationStats) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); //internal server error
             }
             else {
+                
+                if(economicSituationStats.length===0){
+                    response.sendStatus(404);
+                }
+        
                 console.log("INFO: Sending contacts: " + JSON.stringify(economicSituationStats, 2, null));
-                response.send(economicSituationStats);
-            }
+            
+                if (fromyear && toyear ) {
+
+                    nuevoarray = search(economicSituationStats, fromyear, toyear, nuevoarray);
+                            if (nuevoarray.length > 0) {
+                                response.send(nuevoarray);
+                            }
+                            else {
+                                response.sendStatus(404); //Not found
+                            }
+                        }
+                        else {
+                        response.send(economicSituationStats); 
+                         console.log("INFO: Sending economicSituationStats: " + JSON.stringify(economicSituationStats, 2, null));
+
+                        }
+                }
+           
         });
     });
 
-
+/*
     // GET a single resource--->Acceder a todas las estadísticas de una provincia 
     app.get(BASE_API_PATH + "/economic-situation-stats/:province", function(request, response) {
         if(!checkKey(request,response)) return;
@@ -135,9 +215,80 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
 
     });
 
+*/
+
+   
+    //Acceder a un año concreto
+    app.get(BASE_API_PATH + "/economic-situation-stats/:year", function (request, response) {
+    if(!checkKey(request,response)) return;
+    var province = request.params.year;
+    var year = request.params.year;
+    
+    if(isNaN(request.params.year.charAt(0))){
+        
+        
+        
+        if (!province) {
+            console.log("WARNING: New GET request to /economic-situation-stats/:province without province, sending 400...");
+            response.sendStatus(400); // bad request
+        }
+        else {
+            console.log("INFO: New GET request to /economic-situation-stats/" + province);
+            db2.find({
+                province: province
+            }).toArray(function(err, filteredEconomicSituation) {
+                if (err) {
+                    console.error('WARNING: Error getting data form DB');
+                    response.sendStatus(500); //internal server error
+                }else if (filteredEconomicSituation.length > 0) {
+                        var economicSituation = filteredEconomicSituation;
+                        console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null)); //
+                        response.send(economicSituation);
+                    }else {
+                        console.log("WARNING: There are not any economicSituation with province " + province);
+                        response.sendStatus(404); // not found
+                    }
+
+                
+              });
+            
+
+}
+
+   
 
 
-    // Acceder a una estadística concreta --> de una provincia en un año concreto
+
+    }else{
+
+        
+             if (!year) {
+            console.log("WARNING: New GET request to /economic-situation-stats/:year without year, sending 400...");
+            response.sendStatus(400); // bad request
+        } else {
+            console.log("INFO: New GET request to /economic-situation-stats/:year" + year);
+             db2.find({year:year}).toArray(function(err, filteredEconomicSituation) {
+            if(err){
+                console.error('WARNING: Error getting data form DB');
+                response.sendStatus(500);//internal server error
+            }
+            else if (filteredEconomicSituation.length > 0) {
+               var economicSituation = filteredEconomicSituation;
+                console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));//
+                response.send(economicSituation);
+            } else {
+                console.log("WARNING: There are not any economicSituation with year " + year);
+                response.sendStatus(404); // not found
+             
+             
+            }
+            
+        });
+        
+        }
+       
+    }});
+ // Acceder a una estadística concreta --> de una provincia en un año concreto
     app.get(BASE_API_PATH + "/economic-situation-stats/:province/:year", function(request, response) {
                 if(!checkKey(request,response)) return;
         var province = request.params.province;
@@ -179,88 +330,8 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
         }
 
     });
-    //Búsqueda por provincia y año
-  /*  app.get(BASE_API_PATH + "/economic-situation-stats/:province?from=year&to=year2", function(request, response) {
-        var province = request.params.province;
-        var year = request.params.year;
-        var year2=request.params.year2;
-        if (!province) {
-            console.log("WARNING: New GET request to /economic-situation-stats/:province without province, sending 400...");
-            response.sendStatus(400); // bad request
-        }
-        else if (!year) {
-            console.log("WARNING: New GET request to /economic-situation-stats/:province?from=year without year, sending 400...");
-            response.sendStatus(400); // bad request 
 
-        }
-        else if (!year2) {
-            console.log("WARNING: New GET request to /economic-situation-stats/:province?from=year&to=year2 without year2, sending 400...");
-            response.sendStatus(400); // bad request 
-
-        }
-        else {
-            console.log("INFO: New GET request to /economic-situation-stats/" + province + year + year2);
-            db2.find({
-                province: province,
-                year: year
-                year2:year2
-                
-            }).toArray(function(err, filteredEconomicSituation) {
-                if (err) {
-                    console.error('WARNING: Error getting data form DB');
-                    response.sendStatus(500); //internal server error
-                }
-                else {
-                    if (filteredEconomicSituation.length > 0) {
-                        var economicSituation = filteredEconomicSituation[0];
-                        console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));
-                        response.send(economicSituation);
-                    }
-                    else {
-                        console.log("WARNING: There are not any economicSituation with year " + year);
-                        response.sendStatus(404); // not found
-                    }
-
-                }
-
-            });
-
-        }
-
-    });
     
-    -----------------
-*/
-    // Acceder a todas las estadísticas de un año
-    /*app.get(BASE_API_PATH + "/economic-situation-stats/:year", function (request, response) {
-        var year = request.params.year;
-             if (!year) {
-            console.log("WARNING: New GET request to /economic-situation-stats/:year without year, sending 400...");
-            response.sendStatus(400); // bad request
-        } else {
-            console.log("INFO: New GET request to /economic-situation-stats?year=" + year);
-             db2.find({year:year}).toArray(function(err, filteredEconomicSituation) {
-            if(err){
-                console.error('WARNING: Error getting data form DB');
-                response.sendStatus(500);//internal server error
-            }
-            else{
-           if (filteredEconomicSituation.length > 0) {
-               var economicSituation = filteredEconomicSituation;
-                console.log("INFO: Sending economicSituation: " + JSON.stringify(economicSituation, 2, null));//
-                response.send(economicSituation);
-            } else {
-                console.log("WARNING: There are not any economicSituation with year " + year);
-                response.sendStatus(404); // not found
-             }
-             
-            }
-            
-        });
-        
-        }
-       
-    });*/
 
     //POST over a collection--->Crear una nueva estadística
     app.post(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
@@ -332,7 +403,7 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                         if(!checkKey(request,response)) return;
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
-        if (!updatedEconomicSituation) {
+        if (!updatedEconomicSituation || updatedEconomicSituation.province!=province) {
             console.log("WARNING: New PUT request to /economic-situation-stats/ without province, sending 400...");
             response.sendStatus(400); // bad request
         }
@@ -381,7 +452,7 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
         var year = request.params.year;
-        if (!updatedEconomicSituation) {
+        if (!updatedEconomicSituation || updatedEconomicSituation.province!=province || updatedEconomicSituation.year!=year) {
             console.log("WARNING: New PUT request to /economic-situation-stats/ without province, sending 400...");
             response.sendStatus(400); // bad request
         }
@@ -526,4 +597,5 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
         }
 
     });
-}
+};
+
