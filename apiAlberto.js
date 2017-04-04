@@ -76,25 +76,58 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
         });
     });
 
+//Búsqueda
 
+var search = function (economicSituationStats,from,to,nuevoarray){
+    var i = 0;
+    var fromyear = parseInt(from);
+    var toyear = parseInt(to);
+    
+    while(i<=economicSituationStats.length-1){
+         var year = economicSituationStats[i].year;
+    if(year>=fromyear && year<=toyear){
+        nuevoarray.push(economicSituationStats[i]);
+    }
+   i++;
+    }
+    return nuevoarray;
+    
+}
 
-
-
-
-    // GET a collection --> Acceder a todas las estadísticas
+// GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-                if(!checkKey(request,response))return;
+              //  if(!checkKey(request,response))return;
         console.log("INFO: New GET request to /economic-situation-stats");
-
+            var nuevoarray = [];
+            var fromyear = request.query.from;
+            var toyear = request.query.to;
         db2.find({}).toArray(function(err, economicSituationStats) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); //internal server error
             }
             else {
+                
+                if(economicSituationStats.length===0){
+                    response.sendStatus(404);
+                }
+        
                 console.log("INFO: Sending contacts: " + JSON.stringify(economicSituationStats, 2, null));
-                response.send(economicSituationStats);
-            }
+            
+                if (fromyear && toyear) {
+                    nuevoarray = search(economicSituationStats, fromyear, toyear, nuevoarray);
+                            if (nuevoarray.length > 0) {
+                                response.send(nuevoarray);
+                            }
+                            else {
+                                response.sendStatus(404); //Not found
+                            }
+                        }
+                        else {
+                            response.send(economicSituationStats); 
+                        }
+                }
+           
         });
     });
 
@@ -518,3 +551,4 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
 
     });
 }
+
