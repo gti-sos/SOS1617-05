@@ -25,7 +25,7 @@ var checkKey = function (req, res) {
     }
     return true;
 }; 
-app.use("/", express.static(path.join(__dirname, "public/index.html")));
+app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/api/v1/tests", express.static(path.join(__dirname, "public/tests.html")));
 
 app.use(bodyParser.json()); //use default json enconding/decoding
