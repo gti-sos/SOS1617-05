@@ -1,11 +1,5 @@
 var exports = module.exports = {};
 
-//CUALES DE ESTAS PRIMERAS LINEAS SOBRAN?
-//var express = require("express");
-//var bodyParser = require("body-parser");
-//var helmet = require("helmet");
-//var path = require('path');
-
 exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     var url = "mongodb://nachodb:nachodb@ds135690.mlab.com:35690/elections-voting-stats";
@@ -27,7 +21,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     });
 
 
-    // Tarea 1.b feedback F04:
+    // loadInitialData:
     app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
         if (!checkKey(request, response)) {
             return;
@@ -63,6 +57,13 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     "podemos": "4",
                     "psoe": "3",
                     "cs": "0"
+                }, {
+                    "province": "Madrid",
+                    "year": "2016",
+                    "pp": "16",
+                    "podemos": "2",
+                    "psoe": "7",
+                    "cs": "1"
                 }];
                 db.insert(provinces);
                 response.sendStatus(201);
@@ -74,27 +75,98 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         });
     });
 
+    //Función auxiliar: Dada una consulta query, devulve un listado para ser pasado al .find con los parámetros que se hayan especificado en la URL
+    function transforma(query) {
+        console.log(query);
+        var res = "{";
+        if (query.province != undefined) {
+            res = res + " province : consulta.province ";
+        }
+        if (query.year != undefined) {
+            res = res + " year : consulta.year ";
+        }
+        if (query.pp != undefined) {
+            res = res + " pp : consulta.pp , ";
+        }
+        if (query.podemos != undefined) {
+            res = res + " podemos : consulta.podemos , ";
+        }
+        if (query.psoe != undefined) {
+            res = res + " psoe : consulta.psoe , ";
+        }
+        if (query.cs != undefined) {
+            res = res + " cs : consulta.cs , ";
+        }
+        res = res + " }";
+        console.log(res);
+        return res;
+    }
 
-    // GET a collection
+
+
+    //GET a collection: contains code for searches
     app.get(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
         if (!checkKey(request, response)) {
             return;
         }
-        console.log("INFO: New GET request to /elections-voting-stats");
-        db.find({}).toArray(function(err, results) {
-            if (err) {
-                console.error('WARNING: Error getting data from DB');
-                response.sendStatus(500);
-            }
-            else {
-                console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
-                response.send(results);
-            }
-        });
+        var consulta = request.query;
+        if (consulta.province == undefined && consulta.year == undefined && consulta.pp == undefined && consulta.podemos == undefined && consulta.psoe == undefined && consulta.cs == undefined) { //Sólo tiene apikey   JSON.stringify(consulta) == "{}"
+            console.log("NO HAY PARÁMETROS");
+            db.find({}).toArray(function(err, results) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                }
+                else {
+                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    //AQUÍ PAGINACIÓN
+                    if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        var res = results.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        response.send(res);
+                    }
+                    else {
+                        response.send(results);
+                    }
+                }
+            });
+        }
+        else {
+            console.log("SÍ HAY PARÁMETROS");
+            var query = transforma(request.query);
+
+            db.find({}).toArray(function(err, results) {
+                var res = [];
+                var i;
+                for (i = 0; i < results.length; i++) {
+                    if ((consulta.province == undefined || results[i].province == consulta.province) &&
+                        (consulta.pp == undefined || results[i].pp == consulta.pp) &&
+                        (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
+                        (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
+                        (consulta.cs == undefined || results[i].cs == consulta.cs)) {
+                        res.push(results[i]);
+                    }
+                }
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                }
+                else {
+                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    //AQUÍ PAGINACIÓN
+                    if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        var res2 = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        response.send(res2);
+                    }
+                    else {
+                        response.send(res);
+                    }
+                }
+            });
+        }
     });
 
 
-    // GET a single resource
+    //GET a single resource
     app.get(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
         if (!checkKey(request, response)) {
             return;
@@ -129,6 +201,8 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         }
     });
 
+
+    //GET a single resource
     app.get(BASE_API_PATH + "/elections-voting-stats/:province/:year", function(request, response) {
         if (!checkKey(request, response)) {
             return;
@@ -164,13 +238,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                         console.log("WARNING: There are not any voting results with year " + year);
                         response.sendStatus(404); // not found
                     }
-
                 }
-
             });
-
         }
-
     });
 
 
@@ -226,7 +296,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     });
 
 
-    //POST over a single resource: NO PERMITIDO SEGÚN LA TABLA AZUL, método no permitido
+    //POST over a single resource: Not allowed acordding to blue table
     app.post(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
         if (!checkKey(request, response)) {
             return;
@@ -236,7 +306,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     });
 
 
-    //PUT over a collection: NO PERMITIDO SEGÚN LA TABLA AZUL, método no permitido
+    //PUT over a collection: Not allowed acordding to blue table
     app.put(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
         if (!checkKey(request, response)) {
             return;
@@ -296,7 +366,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     });
 
 
-    //DELETE over a collection: hay diferentes maneras de hacerlo
+    //DELETE over a collection
     app.delete(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
         if (!checkKey(request, response)) {
             return;
