@@ -124,7 +124,7 @@ var search = function (economicSituationStats,from,to,nuevoarray){
     var fromyear = parseInt(from);
     var toyear = parseInt(to);
     
-    while(i<=economicSituationStats.length-1){
+    while(i<economicSituationStats.length){
          var year = economicSituationStats[i].year;
     if(year>=fromyear && year<=toyear){
         nuevoarray.push(economicSituationStats[i]);
@@ -133,18 +133,19 @@ var search = function (economicSituationStats,from,to,nuevoarray){
     }
     return nuevoarray;
     
-}
+};
 
 // GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-                if(!checkKey(request,response))return;
         console.log("INFO: New GET request to /economic-situation-stats");
+        if(!checkKey(request,response))return;
+
             var nuevoarray = [];
-            var fromyear = request.query.from;
-            var toyear = request.query.to;
-          /*  var limit = parseInt(request.query.limit);
-            var offset = parseInt(request.query.offset);*/
-        db2.find({}).toArray(function(err, economicSituationStats) {
+            var fromyear = parseInt(request.query.from);
+            var toyear = parseInt(request.query.to);
+            var limit = parseInt(request.query.limit,10);//--->le ponemos 10 ya que es su valor por defecto
+            var offset = parseInt(request.query.offset,0);
+        db2.find({}).skip(offset).limit(limit).toArray(function(err, economicSituationStats) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); //internal server error
@@ -168,7 +169,9 @@ var search = function (economicSituationStats,from,to,nuevoarray){
                             }
                         }
                         else {
-                            response.send(economicSituationStats); 
+                        response.send(economicSituationStats); 
+                         console.log("INFO: Sending economicSituationStats: " + JSON.stringify(economicSituationStats, 2, null));
+
                         }
                 }
            
