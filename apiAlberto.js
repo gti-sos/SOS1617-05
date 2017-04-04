@@ -39,7 +39,57 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
             }
             if (economicSituationStats.length === 0) {
                 console.log("Adding...");
-                var datos = [{
+                
+                    var granada = new Object();
+                    granada.province = "Granada";
+                    granada.year= "2010";
+                    granada.gdp ="563.325";
+                    granada.debt = "646.25";
+                
+                    var madrid = new Object();
+                    madrid.province = "Madrid";
+                    madrid.year = "2015";
+                    madrid.gdp= "564.325";
+                    madrid.debt= "123.56";
+                
+                    var cadiz = new Object();
+                    cadiz.province = "Cadiz";
+                    cadiz.year= "2007";
+                    cadiz.gdp= "598.365";
+                    cadiz.debt = "895.36";
+             
+                    var zaragoza = new Object();
+                    zaragoza.province= "Zaragoza";
+                    zaragoza.year ="2008";
+                    zaragoza.gdp="563.325";
+                    zaragoza.debt= "236.56";
+               
+                   var madrid2 = new Object;
+                    madrid2.province = "Madrid";
+                    madrid2.year =  "2007";
+                    madrid2.gdp= "365.256";
+                    madrid2.debt = "874.25";
+
+                 db2.insert(granada);
+                 db2.insert(madrid);
+                 db2.insert(cadiz);
+                 db2.insert(zaragoza);
+                 db2.insert(madrid2);
+                 
+                response.sendStatus(201); // created
+                
+              
+            }
+            else {
+                console.log("DataBase IS NOT EMPTY. DB has " + economicSituationStats.length + "results");
+                response.sendStatus(200); //OK
+            }
+
+        });
+    });
+  
+                
+               /* var datos = [{
                     "province": "Granada",
                     "year": "2010",
                     "gdp": "563.325",
@@ -64,18 +114,9 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                     "year": "2007",
                     "gdp": "365.256",
                     "debt": "874.25"
-                }];
-                db2.insert(datos);
-                response.sendStatus(201); // created
-            }
-            else {
-                console.log("DataBase IS NOT EMPTY. DB has " + economicSituationStats.length + "results");
-                response.sendStatus(200); //OK
-            }
-
-        });
-    });
-
+                }];*/
+             /*  db2.insert(datos);
+                response.sendStatus(201); // created*/
 //Búsqueda
 
 var search = function (economicSituationStats,from,to,nuevoarray){
@@ -96,11 +137,13 @@ var search = function (economicSituationStats,from,to,nuevoarray){
 
 // GET a collection --> Acceder a todas las estadísticas
     app.get(BASE_API_PATH + "/economic-situation-stats", function(request, response) {
-              //  if(!checkKey(request,response))return;
+                if(!checkKey(request,response))return;
         console.log("INFO: New GET request to /economic-situation-stats");
             var nuevoarray = [];
             var fromyear = request.query.from;
             var toyear = request.query.to;
+          /*  var limit = parseInt(request.query.limit);
+            var offset = parseInt(request.query.offset);*/
         db2.find({}).toArray(function(err, economicSituationStats) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
@@ -114,7 +157,8 @@ var search = function (economicSituationStats,from,to,nuevoarray){
         
                 console.log("INFO: Sending contacts: " + JSON.stringify(economicSituationStats, 2, null));
             
-                if (fromyear && toyear) {
+                if (fromyear && toyear ) {
+
                     nuevoarray = search(economicSituationStats, fromyear, toyear, nuevoarray);
                             if (nuevoarray.length > 0) {
                                 response.send(nuevoarray);
@@ -356,7 +400,7 @@ var search = function (economicSituationStats,from,to,nuevoarray){
                         if(!checkKey(request,response)) return;
         var updatedEconomicSituation = request.body;
         var province = request.params.province;
-        if (!updatedEconomicSituation) {
+        if (!updatedEconomicSituation || updatedEconomicSituation.province!=province) {
             console.log("WARNING: New PUT request to /economic-situation-stats/ without province, sending 400...");
             response.sendStatus(400); // bad request
         }
@@ -550,5 +594,5 @@ var search = function (economicSituationStats,from,to,nuevoarray){
         }
 
     });
-}
+};
 
