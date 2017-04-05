@@ -119,14 +119,22 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                 }
                 else {
                     console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    var res = results;
                     //AQUÍ PAGINACIÓN
+                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                        res = [];
+                        var i;
+                        for (i = 0; i < results.length; i++) {
+                            if (results[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
+                                res.push(results[i]);
+                            }
+                        }
+                    }
                     if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
-                        var res = results.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
-                        response.send(res);
+                        res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        
                     }
-                    else {
-                        response.send(results);
-                    }
+                    response.send(res);
                 }
             });
         }
@@ -152,14 +160,22 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                 }
                 else {
                     console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    var res2 = res;
                     //AQUÍ PAGINACIÓN
+                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                        res2 = [];
+                        var i;
+                        for (i = 0; i < res.length; i++) {
+                            if (res[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
+                                res2.push(res[i]);
+                            }
+                        }
+                    }
                     if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
-                        var res2 = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
-                        response.send(res2);
+                        res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        
                     }
-                    else {
-                        response.send(res);
-                    }
+                    response.send(res2);
                 }
             });
         }
