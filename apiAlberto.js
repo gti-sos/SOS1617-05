@@ -140,17 +140,17 @@ var search = function (economicSituationStats,from,to,nuevoarray){
         console.log("INFO: New GET request to /economic-situation-stats");
         if(!checkKey(request,response))return;
 
-            var from = parseInt(request.query.from);
-            var to = parseInt(request.query.to);
-            var limit = parseInt(request.query.limit);
-            var offset = parseInt(request.query.offset);
+            var from = request.query.from;
+            var to =  request.query.to;
+            var limit =  request.query.limit;
+            var offset = request.query.offset;
             var province = request.query.province;
             var year = request.query.year;
             var gdp = request.query.gdp;
             var debt = request.query.debt;
             
        
-                if ( year == undefined && province == undefined && gdp == undefined && debt ==undefined) { 
+                if (province == undefined && year == undefined  && gdp == undefined && debt ==undefined) { 
                     console.log("Ningún parámetro");
 
                      db2.find({}).toArray(function (err, filteredEconomicSituationStats){
@@ -159,12 +159,10 @@ var search = function (economicSituationStats,from,to,nuevoarray){
                        response.sendStatus(500); //internal server error
                 }else{
                  console.log("Sending..." + JSON.stringify(filteredEconomicSituationStats,2,null));
-                       var economicSituationStats = filteredEconomicSituationStats;
-                       
-                        if(offset != undefined && limit !=undefined){
-                            economicSituationStats = economicSituationStats.slice(Number(offset), Number(offset) + Number(limit));
-                        }
-                         if (from != undefined || to != undefined) { 
+                var economicSituationStats = filteredEconomicSituationStats;
+  
+                           if (from != undefined || to != undefined) { 
+
                              economicSituationStats=[];
                         var i=0;
                         while( i < filteredEconomicSituationStats.length){
@@ -174,6 +172,11 @@ var search = function (economicSituationStats,from,to,nuevoarray){
                             i++;
                         }
                     }
+           
+                        if(offset != undefined && limit !=undefined){
+                            economicSituationStats = economicSituationStats.slice(Number(offset), Number(offset) + Number(limit));
+                        }
+                     
                             
 
                                 response.send(economicSituationStats);
@@ -201,10 +204,10 @@ var search = function (economicSituationStats,from,to,nuevoarray){
                 response.sendStatus(500); //internal server error
             }
             else {
-                
+               /* 
                 if(economicSituationStats.length===0){
                     response.sendStatus(404);
-                }
+                }*/
               console.log("Sending..." + JSON.stringify(filteredEconomicSituationStats,2,null));
              var economicSituationStats2=economicSituationStats;
              if(from!=undefined || to!=undefined){
