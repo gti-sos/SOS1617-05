@@ -132,7 +132,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     }
                     if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
                         res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
-                        
+
                     }
                     response.send(res);
                 }
@@ -173,7 +173,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     }
                     if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
                         res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
-                        
+
                     }
                     response.send(res2);
                 }
@@ -363,7 +363,12 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                         });
                         if (before.length > 0) {
                             db.update({
-                                province: province
+                                province: request.params.province,
+                                year: request.params.year,
+                                pp: request.params.pp,
+                                podemos: request.podemos,
+                                psoe: request.params.psoe,
+                                cs: request.params.cs
                             }, voting);
                             console.log("INFO: Modifying voting result with province " + province + " with data " + JSON.stringify(voting, 2, null));
                             response.send(voting); // return the updated voting result
