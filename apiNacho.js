@@ -339,7 +339,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         }
         var updated = request.body;
         var province = request.params.province;
-        if (!updated || province != updated.province) {
+        if (!updated || province !== updated.province) {
             console.log("WARNING: New PUT request to /elections-voting-stats/ without province or with different ID's");
             response.sendStatus(400); // bad request
         }
