@@ -363,12 +363,12 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                         });
                         if (before.length > 0) {
                             db.update({
-                                province: province,
+                                province: request.params.province,
                                 year: request.params.year,
                                 pp: request.params.pp,
                                 podemos: request.podemos,
-                                psoe: request.psoe,
-                                cs: request.cs
+                                psoe: request.params.psoe,
+                                cs: request.params.cs
                             }, voting);
                             console.log("INFO: Modifying voting result with province " + province + " with data " + JSON.stringify(voting, 2, null));
                             response.send(voting); // return the updated voting result
