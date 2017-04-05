@@ -366,7 +366,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                                 province: request.params.province,
                             }, updated);
                             console.log("INFO: Modifying voting result with province " + province + " with data " + JSON.stringify(voting, 2, null));
-                            response.send(voting); // return the updated voting result
+                            response.send(updated); // return the updated voting result
                         }
                         else {
                             console.log("WARNING: There are not any voting results with province " + province);
