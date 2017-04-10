@@ -6,7 +6,7 @@ angular
         console.log("Controller initialized");
 
         //Sería interesante concatenar la apikey a la URL en cada método por si hubiera que agregarle algo a la URL, no???
-        $scope.url = "https://sos1617-05-ipl-sandbox-sos161705ipl.c9users.io/api/v1/elections-voting-stats";
+        $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
 
         //Como implementar búsqueda y paginación aquí? Para busqueda añadir un tercer botón en la primera fila (dónde se escribe) que diga search?
         //En ese caso no sería obligatorio introducir todos los campos...los introducidos se añadirían a la URL como: ?xxx=yyy&zzz=vvv
@@ -15,7 +15,7 @@ angular
         $scope.lid = function () {
             console.log("Loading Initial Data");
             $http
-                .get("https://sos1617-05-ipl-sandbox-sos161705ipl.c9users.io/api/v1/elections-voting-stats/loadInitialData?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url+"/loadInitialData?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Initial Data");
                     /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
