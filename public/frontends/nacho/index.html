@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="ResultsManagerApp">
+
+<head>
+    <title>
+        Elections Voting Results
+    </title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/results-manager-app.js"></script>
+    <!--Si se pusiera al revés estaría mal, daría problemas... -->
+    <script type="text/javascript" src="/list-ctrl.js"></script>
+
+</head>
+
+<body>
+    <div ng-controller="ListCtrl">
+        <h2>Elections Voting Results</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Province</th>
+                    <th>Year</th>
+                    <th>PP seats</th>
+                    <th>Podemos seats</th>
+                    <th>Psoe seats</th>
+                    <th>CS seats</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input class="form-ctrl" ng-model="newResult.province"></td>
+                    <td><input class="form-ctrl" ng-model="newResult.year"></td>
+                    <td><input class="form-ctrl" ng-model="newResult.pp"></td>
+                    <td><input class="form-ctrl" ng-model="newResult.podemos"></td>
+                    <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
+                    <td><input class="form-ctrl" ng-model="newResult.cs"></td>
+                    <td><button class="btn btn-primary" ng-click="addResult()">Add</td>
+                    <td><button class="btn btn-warning" ng-click="updateResult()">Update</td>
+                    <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</td>
+                    <td><button class="btn btn-success" ng-click="lid()">LID</td>
+            </tr>
+            
+            <tr ng-repeat="result in results">
+                <td>{{result.province}}</td>
+                <td>{{result.year}}</td>
+                <td>{{result.pp}}</td>
+                <td>{{result.podemos}}</td>
+                <td>{{result.psoe}}</td>
+                <td>{{result.cs}}</td>
+                <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+
+</html>

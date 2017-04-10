@@ -26,6 +26,12 @@ var checkKey = function (req, res) {
     return true;
 }; 
 app.use("/", express.static(path.join(__dirname, "public")));
+
+//Frontends request:
+app.use("/api/v1/frontendNacho", express.static(path.join(__dirname, "public/frontends/nacho")));
+app.use("/api/v1/frontendAlberto", express.static(path.join(__dirname, "public/frontends/alberto")));
+app.use("/api/v1/frontendAntonio", express.static(path.join(__dirname, "public/frontends/antonio")));
+
 app.use("/api/v1/tests", express.static(path.join(__dirname, "public/tests.html")));
 
 app.use(bodyParser.json()); //use default json enconding/decoding
