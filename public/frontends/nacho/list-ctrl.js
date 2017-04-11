@@ -77,23 +77,23 @@ angular
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params = "";
 
-
-            if ($scope.newResult.province !== undefined) {
+            //Diferencias entre usar == y === ?
+            if ($scope.newResult.province !== undefined && $scope.newResult.province !== "") {
                 params = params + "&province=" + $scope.newResult.province;
             }
-            if ($scope.newResult.year !== undefined) {
+            if ($scope.newResult.year !== undefined && $scope.newResult.year !== "") {
                 params = params + "&year=" + $scope.newResult.year;
             }
-            if ($scope.newResult.pp !== undefined) {
+            if ($scope.newResult.pp !== undefined && $scope.newResult.pp !== "") {
                 params = params + "&pp=" + $scope.newResult.pp;
             }
-            if ($scope.newResult.podemos !== undefined) {
+            if ($scope.newResult.podemos !== undefined && $scope.newResult.podemos !== "") {
                 params = params + "&podemos=" + $scope.newResult.podemos;
             }
-            if ($scope.newResult.psoe !== undefined) {
+            if ($scope.newResult.psoe !== undefined && $scope.newResult.psoe !== "") {
                 params = params + "&psoe=" + $scope.newResult.psoe;
             }
-            if ($scope.newResult.cs !== undefined) {
+            if ($scope.newResult.cs !== undefined && $scope.newResult.cs !== "") {
                 params = params + "&cs=" + $scope.newResult.cs;
             }
 
