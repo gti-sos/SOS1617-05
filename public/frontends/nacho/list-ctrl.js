@@ -12,10 +12,10 @@ angular
         //En ese caso no sería obligatorio introducir todos los campos...los introducidos se añadirían a la URL como: ?xxx=yyy&zzz=vvv
 
         //Load Initial Data
-        $scope.lid = function () {
+        $scope.lid = function() {
             console.log("Loading Initial Data");
             $http
-                .get($scope.url+"/loadInitialData?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "/loadInitialData?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Initial Data");
                     /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
@@ -41,7 +41,7 @@ angular
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
-            $http.post($scope.url+"?apikey=cinco", $scope.newResult).then(function(response) {
+            $http.post($scope.url + "?apikey=cinco", $scope.newResult).then(function(response) {
                 console.log("POST finished");
                 refresh();
             });
@@ -70,6 +70,42 @@ angular
             $http.delete($scope.url + "?apikey=cinco").then(function(response) {
                 refresh();
             });
+        }
+
+        //BÚSQUEDA
+        $scope.search = function() {
+            //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
+            var params;
+            var i;
+            for(i=0;i<6;i++){
+                if($scope.newResult.province != undefined){
+                    params = params + "&province="+$scope.newResult.province;
+                }
+                if($scope.newResult.year != undefined){
+                    params = params + "&year="+$scope.newResult.year;
+                }
+                if($scope.newResult.pp != undefined){
+                    params = params + "&pp="+$scope.newResult.pp;
+                }
+                if($scope.newResult.podemos != undefined){
+                    params = params + "&podemos="+$scope.newResult.podemos;
+                }
+                if($scope.newResult.psoe != undefined){
+                    params = params + "&psoe="+$scope.newResult.psoe;
+                }
+                if($scope.newResult.cs != undefined){
+                    params = params + "&cs="+$scope.newResult.cs;
+                }
+            }
+            $http
+                .get($scope.url + "?apikey=cinco" + params) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("GET collection");
+                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                    $scope.results = response.data;
+
+                });
+            
         }
 
 
