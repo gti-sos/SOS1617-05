@@ -76,27 +76,28 @@ angular
         $scope.search = function() {
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params;
-            var i;
-            for(i=0;i<6;i++){
-                if($scope.newResult.province != undefined){
-                    params = params + "&province="+$scope.newResult.province;
-                }
-                if($scope.newResult.year != undefined){
-                    params = params + "&year="+$scope.newResult.year;
-                }
-                if($scope.newResult.pp != undefined){
-                    params = params + "&pp="+$scope.newResult.pp;
-                }
-                if($scope.newResult.podemos != undefined){
-                    params = params + "&podemos="+$scope.newResult.podemos;
-                }
-                if($scope.newResult.psoe != undefined){
-                    params = params + "&psoe="+$scope.newResult.psoe;
-                }
-                if($scope.newResult.cs != undefined){
-                    params = params + "&cs="+$scope.newResult.cs;
-                }
+
+
+            if ($scope.newResult.province != undefined) {
+                params = params + "&province=" + $scope.newResult.province;
             }
+            if ($scope.newResult.year != undefined) {
+                params = params + "&year=" + $scope.newResult.year;
+            }
+            if ($scope.newResult.pp != undefined) {
+                params = params + "&pp=" + $scope.newResult.pp;
+            }
+            if ($scope.newResult.podemos != undefined) {
+                params = params + "&podemos=" + $scope.newResult.podemos;
+            }
+            if ($scope.newResult.psoe != undefined) {
+                params = params + "&psoe=" + $scope.newResult.psoe;
+            }
+            if ($scope.newResult.cs != undefined) {
+                params = params + "&cs=" + $scope.newResult.cs;
+            }
+
+            console.log(params);
             $http
                 .get($scope.url + "?apikey=cinco" + params) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
@@ -105,7 +106,7 @@ angular
                     $scope.results = response.data;
 
                 });
-            
+
         }
 
 
