@@ -75,7 +75,7 @@ angular
         //BÚSQUEDA
         $scope.search = function() {
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
-            var params;
+            var params = "";
 
 
             if ($scope.newResult.province != undefined) {
