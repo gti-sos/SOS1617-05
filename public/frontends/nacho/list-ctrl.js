@@ -78,22 +78,22 @@ angular
             var params = "";
 
 
-            if ($scope.newResult.province != undefined) {
+            if ($scope.newResult.province !== undefined) {
                 params = params + "&province=" + $scope.newResult.province;
             }
-            if ($scope.newResult.year != undefined) {
+            if ($scope.newResult.year !== undefined) {
                 params = params + "&year=" + $scope.newResult.year;
             }
-            if ($scope.newResult.pp != undefined) {
+            if ($scope.newResult.pp !== undefined) {
                 params = params + "&pp=" + $scope.newResult.pp;
             }
-            if ($scope.newResult.podemos != undefined) {
+            if ($scope.newResult.podemos !== undefined) {
                 params = params + "&podemos=" + $scope.newResult.podemos;
             }
-            if ($scope.newResult.psoe != undefined) {
+            if ($scope.newResult.psoe !== undefined) {
                 params = params + "&psoe=" + $scope.newResult.psoe;
             }
-            if ($scope.newResult.cs != undefined) {
+            if ($scope.newResult.cs !== undefined) {
                 params = params + "&cs=" + $scope.newResult.cs;
             }
 
