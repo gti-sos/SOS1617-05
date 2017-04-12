@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
-    
+
     <!-- SI NO SE LE AÑADE EL PUNTO (.) AL PRINCIPIO DE LA RUTA NO FUNCIONA...A QUÉ SE DEBE? SI EN LOCAL SÍ FUNCIONABA! -->
     <script type="text/javascript" src="./results-manager-app.js"></script>
     <!--Si se pusiera al revés estaría mal, daría problemas... -->
@@ -47,17 +47,20 @@
                     <td><button class="btn btn-info" ng-click="search()">Search</button></td>
                     <td><button class="btn btn-success" ng-click="lid()">LID</button></td>
                     <td><button class="btn btn-success" ng-click="lwd()">LWD</button></td>
+                </tr>
+
+                <tr ng-repeat="result in results">
+                    <td>{{result.province}}</td>
+                    <td>{{result.year}}</td>
+                    <td>{{result.pp}}</td>
+                    <td>{{result.podemos}}</td>
+                    <td>{{result.psoe}}</td>
+                    <td>{{result.cs}}</td>
+                    <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
             </tr>
-            
-            <tr ng-repeat="result in results">
-                <td>{{result.province}}</td>
-                <td>{{result.year}}</td>
-                <td>{{result.pp}}</td>
-                <td>{{result.podemos}}</td>
-                <td>{{result.psoe}}</td>
-                <td>{{result.cs}}</td>
-                <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
-            </tr>
+            <div data-pagination="" data-num-pages="numPages()" 
+      data-current-page="currentPage" data-max-size="maxSize"  
+      data-boundary-links="true"></div>
         </tbody>
     </table>
     
