@@ -251,6 +251,10 @@ th {
   .table {
     border-collapse: collapse !important;
   }
+  .tableMod {
+    border-collapse: collapse !important;
+    background-color: #CEF6EC;
+  }
   .table td,
   .table th {
     background-color: #fff !important;
