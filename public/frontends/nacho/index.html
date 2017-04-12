@@ -21,7 +21,7 @@
 <body>
     <div ng-controller="ListCtrl">
         <h2>Elections Voting Stats</h2>
-        <h4>Apikey</h4><input type="password" class="form-ctrl" ng-model="apikey"><button class="btn btn-primary" ng-click="addResult()">Send
+        <h4>Apikey</h4><input type="password" class="form-ctrl" ng-model="apikey"><button class="btn btn-primary" ng-click="addResult()">Send</button>
         <table class="table">
             <thead>
                 <tr>
@@ -41,11 +41,11 @@
                     <td><input class="form-ctrl" ng-model="newResult.podemos"></td>
                     <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
                     <td><input class="form-ctrl" ng-model="newResult.cs"></td>
-                    <td><button class="btn btn-primary" ng-click="addResult()">Add</td>
-                    <td><button class="btn btn-warning" ng-click="updateResult()">Update</td>
-                    <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</td>
-                    <td><button class="btn btn-info" ng-click="search()">Search</td>
-                    <td><button class="btn btn-success" ng-click="lid()">LID</td>
+                    <td><button class="btn btn-primary" ng-click="addResult()">Add</button></td>
+                    <td><button class="btn btn-warning" ng-click="updateResult()">Update</button></td>
+                    <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+                    <td><button class="btn btn-info" ng-click="search()">Search</button></td>
+                    <td><button class="btn btn-success" ng-click="lid()">LID</button></td>
             </tr>
             
             <tr ng-repeat="result in results">
