@@ -15,7 +15,7 @@ angular
         $scope.lid = function() {
             console.log("Loading Initial Data");
             $http
-                .get($scope.url + "/loadInitialData?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "/loadInitialData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Initial Data");
                     /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
@@ -29,7 +29,7 @@ angular
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
             $http
-                .get($scope.url + "?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
@@ -41,7 +41,7 @@ angular
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
-            $http.post($scope.url + "?apikey=cinco", $scope.newResult).then(function(response) {
+            $http.post($scope.url + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 console.log("POST finished");
                 refresh();
             });
@@ -49,7 +49,7 @@ angular
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=cinco", $scope.newResult).then(function(response) {
+            $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 console.log("PUT finished");
                 refresh();
             });
@@ -59,7 +59,7 @@ angular
         //No es necesario que le pase el parámetro result???
         $scope.deleteResult = function(result) {
             console.log("Trying DELETE over single resource");
-            $http.delete($scope.url + "/" + result.province + "?apikey=cinco").then(function(response) {
+            $http.delete($scope.url + "/" + result.province + "?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
             });
         }
@@ -67,7 +67,7 @@ angular
         //DELETE whole collection:
         $scope.deleteAll = function() {
             console.log("Deleting the whole collection...");
-            $http.delete($scope.url + "?apikey=cinco").then(function(response) {
+            $http.delete($scope.url + "?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
             });
         }
@@ -99,7 +99,7 @@ angular
 
             console.log(params);
             $http
-                .get($scope.url + "?apikey=cinco" + params) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "?apikey=" + $scope.apikey + params) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
