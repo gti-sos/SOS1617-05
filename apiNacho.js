@@ -255,11 +255,11 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     "cs": "0"
                 }, {
                     "province": "Ourense",
-                    "year": "",
-                    "pp": "2016",
-                    "podemos": "4",
-                    "psoe": "0",
-                    "cs": "1"
+                    "year": "2016",
+                    "pp": "4",
+                    "podemos": "0",
+                    "psoe": "1",
+                    "cs": "0"
                 }, {
                     "province": "Asturias",
                     "year": "2016",
