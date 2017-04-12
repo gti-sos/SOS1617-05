@@ -25,7 +25,7 @@ angular
                 });
 
         }
-        
+
         //Load WHOLE Data
         $scope.lwd = function() {
             console.log("Loading Whole Data");
@@ -43,8 +43,16 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
+            var limit = ""
+            var offset = ""
+            if ($scope.limit != undefined) {
+                limit = "&limit=" + $scope.limit;
+            }
+            if ($scope.offset != undefined) {
+                offset = "&offset=" + $scope.offset;
+            }
             $http
-                .get($scope.url + "?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
