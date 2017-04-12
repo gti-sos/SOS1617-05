@@ -21,12 +21,26 @@
 <body>
     <div ng-controller="ListCtrl">
         <h2>Elections Voting Stats</h2>
-        <div class="table" bg-color="green">
-            <h4>Apikey</h4><input type="password" class="form-ctrl" ng-model="apikey">
-            <h4>Limit</h4><input class="form-ctrl" ng-model="limit">
-            <h4>Offset</h4><input class="form-ctrl" ng-model="offset">
-        </div>
 
+        <!-- Apikey and pagination fields table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Apikey</th>
+                    <th>Limit</th>
+                    <th>Offset</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="password" class="form-ctrl" ng-model="apikey"></td>
+                    <td><input class="form-ctrl" ng-model="limit"></td>
+                    <td><input class="form-ctrl" ng-model="offset"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--Main Table -->
         <table class="table">
             <thead>
                 <tr>
