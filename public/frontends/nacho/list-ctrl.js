@@ -45,12 +45,13 @@ angular
         function refresh() {
             var limit = ""
             var offset = ""
-            if ($scope.limit != undefined) {
+            if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
             }
-            if ($scope.offset != undefined) {
+            if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }
+
             $http
                 .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
@@ -122,10 +123,10 @@ angular
 
             var limit = ""
             var offset = ""
-            if ($scope.limit != undefined) {
+            if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
             }
-            if ($scope.offset != undefined) {
+            if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }
 
