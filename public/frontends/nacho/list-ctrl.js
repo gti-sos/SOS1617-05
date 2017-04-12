@@ -25,6 +25,21 @@ angular
                 });
 
         }
+        
+        //Load WHOLE Data
+        $scope.lwd = function() {
+            console.log("Loading Whole Data");
+            $http
+                .get($scope.url + "/loadWholeData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("Loading Whole Data");
+                    /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+            <        $scope.results = response.data;*/
+                    refresh();
+                    //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
+                });
+
+        }
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
