@@ -25,6 +25,17 @@
             document.getElementById("actions").style.display = "none"
         }
     </script>
+    <style type="text/css">
+        #actions {
+            position: absolute;
+            top: 100%;
+            left: 0px;
+            background-color: #41338b;
+            font: normal 0.8em arial;
+            padding: 0.2em 0.5em;
+            display: none;
+        }
+    </style>
 
 </head>
 
@@ -77,17 +88,19 @@
                     <td><input class="form-ctrl" ng-model="newResult.podemos"></td>
                     <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
                     <td><input class="form-ctrl" ng-model="newResult.cs"></td>
-                    <li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
-                        <a href="#">Actions</a>
-                        <div id="actions">
-                            <td><button class="btn btn-primary" ng-click="addResult()">Add</button></td>
-                            <td><button class="btn btn-warning" ng-click="updateResult()">Update</button></td>
-                            <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
-                            <td><button class="btn btn-info" ng-click="search()">Search</button></td>
-                            <td><button class="btn btn-success" ng-click="lid()">LID</button></td>
-                            <td><button class="btn btn-success" ng-click="lwd()">LWD</button></td>
-                        </div>
-                    </li>
+                    <td>
+                        <li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
+                            <a href="#">Actions</a>
+                            <div id="actions">
+                                <button class="btn btn-primary" ng-click="addResult()">Add</button>
+                                <button class="btn btn-warning" ng-click="updateResult()">Update</button>
+                                <button class="btn btn-danger" ng-click="deleteAll()">Delete All</button>
+                                <button class="btn btn-info" ng-click="search()">Search</button>
+                                <button class="btn btn-success" ng-click="lid()">LID</button>
+                                <button class="btn btn-success" ng-click="lwd()">LWD</button>
+                            </div>
+                        </li>
+                    </td>
                 </tr>
 
                 <tr ng-repeat="result in results">

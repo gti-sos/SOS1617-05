@@ -282,15 +282,7 @@ th {
   h3 {
     page-break-after: avoid;
   }
-  .actions {
-    position: absolute;
-    top: 100%;
-    left: 0px;
-    background-color: #41338b;
-    font: normal 0.8em arial;
-    padding: 0.2em 0.5em;
-    display: none;
-  }
+  
   .navbar {
     display: none;
   }
