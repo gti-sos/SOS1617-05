@@ -62,7 +62,27 @@ angular
                 });
 
         }
-        $scope.refresh = refresh();
+        
+        //b.1.iii
+        $scope.show = function(){
+            var limit = ""
+            var offset = ""
+            if ($scope.limit != undefined & $scope.limit != "") {
+                limit = "&limit=" + $scope.limit;
+            }
+            if ($scope.offset != undefined & $scope.offset != "") {
+                offset = "&offset=" + $scope.offset;
+            }
+
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("GET collection");
+                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                    $scope.results = response.data;
+
+                });
+        }
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
