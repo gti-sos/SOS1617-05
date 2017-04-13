@@ -98,6 +98,7 @@ angular
 
         //BÚSQUEDA
         $scope.search = function() {
+            var numberOfPages;
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params = "";
 
@@ -137,11 +138,11 @@ angular
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
-
+                    numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
 
         }
 
-
-        refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí???
+        //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
+        //refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
     }]);
