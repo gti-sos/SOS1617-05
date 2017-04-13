@@ -17,12 +17,12 @@
     <script type="text/javascript" src="./list-ctrl.js"></script>
 
     <script type="text/javascript">
-        function ver(n) {
-            document.getElementById("subseccion" + n).style.display = "block"
+        function ver() {
+            document.getElementById("actions").style.display = "block"
         }
 
-        function ocultar(n) {
-            document.getElementById("subseccion" + n).style.display = "none"
+        function ocultar() {
+            document.getElementById("actions").style.display = "none"
         }
     </script>
 
@@ -77,7 +77,8 @@
                     <td><input class="form-ctrl" ng-model="newResult.podemos"></td>
                     <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
                     <td><input class="form-ctrl" ng-model="newResult.cs"></td>
-                    <li id="seccion1" onmouseover="ver(1)" onmouseout="ocultar(1)">
+                    <li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
+                        <a href="#">Actions</a>
                         <div id="actions">
                             <td><button class="btn btn-primary" ng-click="addResult()">Add</button></td>
                             <td><button class="btn btn-warning" ng-click="updateResult()">Update</button></td>
