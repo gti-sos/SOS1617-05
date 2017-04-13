@@ -18,11 +18,11 @@
 
     <script type="text/javascript">
         function ver() {
-            document.getElementById("actions").style.display = "block"
+            document.getElementById("actions").style.display = "block";
         }
 
         function ocultar() {
-            document.getElementById("actions").style.display = "none"
+            document.getElementById("actions").style.display = "none";
         }
     </script>
     <style type="text/css">
@@ -89,7 +89,7 @@
                     <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
                     <td><input class="form-ctrl" ng-model="newResult.cs"></td>
                     <td>
-                        <li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
+                        <li id="seccion1" onmouseover=ver() onmouseout=ocultar()>
                             <a href="#">Actions</a>
                             <div id="actions">
                                 <button class="btn btn-primary" ng-click="addResult()">Add</button>
