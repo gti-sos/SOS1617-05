@@ -62,6 +62,7 @@ angular
                 });
 
         }
+        $scope.refresh = refresh();
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
