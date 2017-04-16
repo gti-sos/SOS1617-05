@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="EconomicManagerApp"> <!--creo una nueva aplicacion llamada x -->
+ <head>
+        <title>EconomicManagerApp</title>
+        <!--hojas de estilo de bootstrap-->
+        <link rel="stylesheet"
+              href="/bower_components/bootstrap/dist/css/bootstrap.min.css" 
+              type="text/css" />
+        <!--tema por defecto de bootstrap-->
+        <link rel="stylesheet"
+              href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" 
+              type="text/css" />
+        <!--¡¡MUY IMPORTANTE!!->EL ORDEN DE LOS SCRIPTS ES FUNDAMENTAL-->
+        <script type="text/javascript"
+                src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript"
+                src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript"
+                src="/bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="./economic-manager-app.js"></script>
+        <script type="text/javascript" src="./list-ctrl.js"></script>
+
+     </head>
+     <body>
+         <div  ng-controller="ListCtrl">
+         <h2>Economic Situation Stats</h2>
+         <table class="table">
+             <thead>
+                 <tr>
+                     <th>province</th>
+                     <th>year</th>
+                     <th>gdp</th>
+                     <th>debt</th>
+                     <th>actions</th>
+                     
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr>
+                     <td><input class="form-control" ng-model="newEconomicSituation.province"/></td>
+                     <td><input class="form-control" ng-model="newEconomicSituation.year"/></td>
+                     <td><input class="form-control" ng-model="newEconomicSituation.gdp"/></td>
+                     <td><input class="form-control" ng-model="newEconomicSituation.debt"/></td>
+                     <td><button ng-click = "addEconomicSituation()">Add </button></td>
+
+
+                 </tr>
+                 <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local-->
+                 <tr ng-repeat="economicSituation in economicSituationStats">
+                     <td>{{economicSituation.province}}</td>
+                     <td>{{economicSituation.year}}</td>
+                     <td>{{economicSituation.gdp}}</td>
+                     <td>{{economicSituation.debt}}</td>
+                     <td><button class="button btn-danger" ng-click = "deleteEconomicSituation(economicSituation.province)">Delete </button></td>
+
+                 </tr>
+             </tbody>
+         </table>
+         </div>
+     </body>
+</html> 
