@@ -121,14 +121,15 @@
                         <td>{{result.cs}}</td>
                         <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
             </tr>
-            </div>
-        </tbody>
-    </table>
-    View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.
+             View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.
 
     <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
     <pre>The selected page no: {{currentPage}}</pre>
     <!-- <button class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button> -->
+
+                </div>
+            </tbody>
+        </table>
 
 
 
