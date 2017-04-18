@@ -41,7 +41,7 @@ $scope.addEconomicSituation = function (){
 };
 //Actualizo recurso
  $scope.updateEconomicSituation = function() {
-            $http.put("/api/v1/economic-situation-stats?apikey=cinco/" + $scope.newEconomicSituation.province + "?apikey=cinco" , $scope.newEconomicSituation).then(function(response) {
+            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco" , $scope.newEconomicSituation).then(function(response) {
                 console.log("EconomicSituation updated");
                 refresh();
             });
@@ -57,20 +57,15 @@ $scope.addEconomicSituation = function (){
         };
 
 //borra un recurso concreto
-$scope.deleteEconomicSituation = function (province){
-    console.log("Deleting economicSituation " + province + "...");
-    refresh();
-};
-refresh();
-}]);
-
-
-/*$scope.deleteEconomicSituation = function (economicSituation){
-    console.log("Deleting economicSituation ...");
+$scope.deleteEconomicSituation = function (economicSituation){
+    console.log("Deleting economicSituation ");
     $http.
-    delete("api/v1/economic-situation-stats" + "/" + economicSituation.province + "?apikey=cinco").then(function(response){
-    refresh();*/
+    delete("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco").then(function(response){
+    refresh();
+});
+};
 
+    }]);
 
 
 

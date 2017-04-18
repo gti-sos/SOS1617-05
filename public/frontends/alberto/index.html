@@ -42,6 +42,7 @@
                      <td><input class="form-control" ng-model="newEconomicSituation.gdp"/></td>
                      <td><input class="form-control" ng-model="newEconomicSituation.debt"/></td>
                      <td><button class="btn btn-success" ng-click = "addEconomicSituation()">Add </button></td>
+                     <td><button class="btn btn-warning" ng-click="updateEconomicSituation()">Update</button></td>
                      <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
                      <td><button class="btn btn-info" ng-click="lid()">LID</button></td>
 
@@ -54,8 +55,7 @@
                      <td>{{economicSituation.year}}</td>
                      <td>{{economicSituation.gdp}}</td>
                      <td>{{economicSituation.debt}}</td>
-                     <td><button class="btn btn-warning" ng-click="updateEconomicSituation()">Update</button></td>
-                     <td><button class="btn btn-danger" ng-click = "deleteEconomicSituation(economicSituation.province)">Delete </button></td>
+                     <td><button class="btn btn-danger" ng-click = "deleteEconomicSituation()">Delete </button></td>
 
                  </tr> 
                  
