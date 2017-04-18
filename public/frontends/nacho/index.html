@@ -19,7 +19,7 @@
     <!-- Scripts for pagination: http://embed.plnkr.co/eheFSh/ -->
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script> -->
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
-    <script src="./example.js"></script> 
+    <script src="./example.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
 
@@ -110,23 +110,23 @@
                         </li> -->
                     </td>
                 </tr>
-
-                <!--<tr ng-repeat="result in results"> -->
-                <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-                    <td>{{result.province}}</td>
-                    <td>{{result.year}}</td>
-                    <td>{{result.pp}}</td>
-                    <td>{{result.podemos}}</td>
-                    <td>{{result.psoe}}</td>
-                    <td>{{result.cs}}</td>
-                    <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
+                <div ng-controller="PaginationDemoCtrl">
+                    <!--<tr ng-repeat="result in results"> -->
+                    <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                        <td>{{result.province}}</td>
+                        <td>{{result.year}}</td>
+                        <td>{{result.pp}}</td>
+                        <td>{{result.podemos}}</td>
+                        <td>{{result.psoe}}</td>
+                        <td>{{result.cs}}</td>
+                        <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
             </tr>
-            
+            </div>
         </tbody>
     </table>
     View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.
 
-    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage">helloooooooOoOoO</pagination>
+    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
     <pre>The selected page no: {{currentPage}}</pre>
     <!-- <button class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button> -->
 

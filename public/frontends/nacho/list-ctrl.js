@@ -165,7 +165,7 @@ angular
         };
 
         //PAGINATION
-
+        /*
         $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
@@ -189,7 +189,33 @@ angular
             $scope.itemsPerPage = num;
             $scope.currentPage = 1; //reset to first paghe
         };
+        */
 
+        angular.module('plunker', ['ui.bootstrap']);
+        var PaginationDemoCtrl = function($scope) {
+            $scope.viewby = 10;
+            $scope.totalItems = function() {
+                return $scope.data.length;
+            };
+            $scope.currentPage = 4;
+            $scope.itemsPerPage = function() {
+                return $scope.limit;
+            };
+            $scope.maxSize = 5; //Number of pager buttons to show
+
+            $scope.setPage = function(pageNo) {
+                $scope.currentPage = pageNo;
+            };
+
+            $scope.pageChanged = function() {
+                console.log('Page changed to: ' + $scope.currentPage);
+            };
+
+            $scope.setItemsPerPage = function(num) {
+                $scope.itemsPerPage = num;
+                $scope.currentPage = 1; //reset to first paghe
+            }
+        };
 
         //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
         //refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
