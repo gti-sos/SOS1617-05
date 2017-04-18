@@ -1,4 +1,4 @@
-angular.module('ResultsManagerApp', ['ui.bootstrap']);
+/*angular.module('ResultsManagerApp', ['ui.bootstrap']);
 var PaginationDemoCtrl = function($scope) {
    
     $scope.viewby = 10;
@@ -20,3 +20,4 @@ var PaginationDemoCtrl = function($scope) {
         $scope.currentPage = 1; //reset to first paghe
     }
 };
+*/
