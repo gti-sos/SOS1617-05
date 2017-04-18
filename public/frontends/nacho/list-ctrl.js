@@ -167,10 +167,15 @@ angular
         //PAGINATION
 
         $scope.viewby = 10;
-        $scope.totalItems = $scope.data.length;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
         $scope.currentPage = 4;
-        $scope.itemsPerPage = $scope.viewby;
+        $scope.itemsPerPage = function() {
+            return $scope.limit;
+        };
         $scope.maxSize = 5; //Number of pager buttons to show
+
 
         $scope.setPage = function(pageNo) {
             $scope.currentPage = pageNo;
