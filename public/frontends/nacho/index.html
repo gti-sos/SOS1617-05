@@ -110,7 +110,7 @@
                         </li> -->
                     </td>
                 </tr>
-                <div ng-controller="PaginationDemoCtrl">
+                
                     <!--<tr ng-repeat="result in results"> -->
                     <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                         <td>{{result.province}}</td>
@@ -127,7 +127,7 @@
     <pre>The selected page no: {{currentPage}}</pre>
     <!-- <button class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button> -->
 
-                </div>
+            
             </tbody>
         </table>
 
