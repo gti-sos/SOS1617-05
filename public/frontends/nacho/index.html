@@ -16,6 +16,13 @@
     <!--Si se pusiera al revés estaría mal, daría problemas... -->
     <script type="text/javascript" src="./list-ctrl.js"></script>
 
+    <!--Scripts for pagination: http://embed.plnkr.co/eheFSh/ -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="./example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+
     <script type="text/javascript">
         function ver() {
             document.getElementById("actions").style.display = "block";
@@ -69,55 +76,62 @@
         </table>
 
         <!--Main Table -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Province</th>
-                    <th>Year</th>
-                    <th>PP seats</th>
-                    <th>Podemos seats</th>
-                    <th>Psoe seats</th>
-                    <th>CS seats</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input class="form-ctrl" ng-model="newResult.province"></td>
-                    <td><input class="form-ctrl" ng-model="newResult.year"></td>
-                    <td><input class="form-ctrl" ng-model="newResult.pp"></td>
-                    <td><input class="form-ctrl" ng-model="newResult.podemos"></td>
-                    <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
-                    <td><input class="form-ctrl" ng-model="newResult.cs"></td>
-                    <td>
-                        <!--<li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
+        <div ng-controller="PaginationDemoCtrl">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Province</th>
+                        <th>Year</th>
+                        <th>PP seats</th>
+                        <th>Podemos seats</th>
+                        <th>Psoe seats</th>
+                        <th>CS seats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="form-ctrl" ng-model="newResult.province"></td>
+                        <td><input class="form-ctrl" ng-model="newResult.year"></td>
+                        <td><input class="form-ctrl" ng-model="newResult.pp"></td>
+                        <td><input class="form-ctrl" ng-model="newResult.podemos"></td>
+                        <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
+                        <td><input class="form-ctrl" ng-model="newResult.cs"></td>
+                        <td>
+                            <!--<li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
                             <a href="#">Actions</a>
                             <div id="actions"> -->
-                        <button class="btn btn-primary" ng-click="addResult()">Add</button>
-                        <button class="btn btn-warning" ng-click="updateResult()">Update</button>
-                        <button class="btn btn-danger" ng-click="deleteAll()">Delete All</button>
-                        <button class="btn btn-info" ng-click="search()">Search</button>
-                        <button class="btn btn-success" ng-click="lid()">LID</button>
-                        <button class="btn btn-success" ng-click="lwd()">LWD</button>
-                        <!--</div>
+                            <button class="btn btn-primary" ng-click="addResult()">Add</button>
+                            <button class="btn btn-warning" ng-click="updateResult()">Update</button>
+                            <button class="btn btn-danger" ng-click="deleteAll()">Delete All</button>
+                            <button class="btn btn-info" ng-click="search()">Search</button>
+                            <button class="btn btn-success" ng-click="lid()">LID</button>
+                            <button class="btn btn-success" ng-click="lwd()">LWD</button>
+                            <!--</div>
                         </li> -->
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-                <tr ng-repeat="result in results">
-                    <td>{{result.province}}</td>
-                    <td>{{result.year}}</td>
-                    <td>{{result.pp}}</td>
-                    <td>{{result.podemos}}</td>
-                    <td>{{result.psoe}}</td>
-                    <td>{{result.cs}}</td>
-                    <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
+                    <!--<tr ng-repeat="result in results"> -->
+                    <tr ng-repeat="row in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                        <td>{{result.province}}</td>
+                        <td>{{result.year}}</td>
+                        <td>{{result.pp}}</td>
+                        <td>{{result.podemos}}</td>
+                        <td>{{result.psoe}}</td>
+                        <td>{{result.cs}}</td>
+                        <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
             </tr>
-            <div data-pagination="" data-num-pages="numPages()" 
-      data-current-page="currentPage" data-max-size="maxSize"  
-      data-boundary-links="true"></div>
+            
         </tbody>
     </table>
-    
+    View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.
+
+    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+    <pre>The selected page no: {{currentPage}}</pre>
+    <button class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button>
+
+        </div>
+
 </body>
 
 </html>
