@@ -24,7 +24,7 @@ angular
                     //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
                 });
 
-        }
+        };
 
         //Load WHOLE Data
         $scope.lwd = function() {
@@ -39,7 +39,7 @@ angular
                     //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
                 });
 
-        }
+        };
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
@@ -62,11 +62,11 @@ angular
                 });
 
         }
-        
+
         //b.1.iii
-        $scope.show = function(){
-            var limit = ""
-            var offset = ""
+        $scope.show = function() {
+            var limit = "";
+            var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
             }
@@ -82,7 +82,7 @@ angular
                     $scope.results = response.data;
 
                 });
-        }
+        };
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
@@ -90,7 +90,7 @@ angular
                 console.log("POST finished");
                 refresh();
             });
-        }
+        };
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
@@ -98,7 +98,7 @@ angular
                 console.log("PUT finished");
                 refresh();
             });
-        }
+        };
 
         //DELETE single resource: Se debe modificar la URL añadiendole la provincia antes de la apikey
         //No es necesario que le pase el parámetro result???
@@ -107,7 +107,7 @@ angular
             $http.delete($scope.url + "/" + result.province + "?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
             });
-        }
+        };
 
         //DELETE whole collection:
         $scope.deleteAll = function() {
@@ -115,7 +115,7 @@ angular
             $http.delete($scope.url + "?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
             });
-        }
+        };
 
         //BÚSQUEDA
         $scope.search = function() {
@@ -143,8 +143,8 @@ angular
                 params = params + "&cs=" + $scope.newResult.cs;
             }
 
-            var limit = ""
-            var offset = ""
+            var limit = "";
+            var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
             }
@@ -162,7 +162,60 @@ angular
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
 
-        }
+        };
+
+        //PAGINATION
+        
+        $scope.viewby = 10;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
+        $scope.currentPage = 4;
+        $scope.itemsPerPage = function() {
+            return $scope.limit;
+        };
+        $scope.maxSize = 5; //Number of pager buttons to show
+
+
+        $scope.setPage = function(pageNo) {
+            $scope.currentPage = pageNo;
+        };
+
+        $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        $scope.setItemsPerPage = function(num) {
+            $scope.itemsPerPage = num;
+            $scope.currentPage = 1; //reset to first paghe
+        };
+        
+
+        /*angular.module('plunker', ['ui.bootstrap']);
+        var PaginationDemoCtrl = function($scope) {
+            $scope.viewby = 10;
+            $scope.totalItems = function() {
+                return $scope.data.length;
+            };
+            $scope.currentPage = 4;
+            $scope.itemsPerPage = function() {
+                return $scope.limit;
+            };
+            $scope.maxSize = 5; //Number of pager buttons to show
+
+            $scope.setPage = function(pageNo) {
+                $scope.currentPage = pageNo;
+            };
+
+            $scope.pageChanged = function() {
+                console.log('Page changed to: ' + $scope.currentPage);
+            };
+
+            $scope.setItemsPerPage = function(num) {
+                $scope.itemsPerPage = num;
+                $scope.currentPage = 1; //reset to first paghe
+            }
+        }; */
 
         //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
         //refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
