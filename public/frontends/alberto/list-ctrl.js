@@ -14,6 +14,23 @@ function refresh(){
 
         });
 }
+//LOAD INITIAL DATA
+   $scope.lid = function() {
+            console.log("Loading Initial Data");
+            $http
+                .get("/api/v1/economic-situation-stats/loadInitialData?apikey=cinco" ) 
+                .then(function(response) { 
+                    console.log("Loading Initial Data");
+                    refresh();
+                });
+
+        };
+
+
+
+
+
+//Añadir nuevo recurso
 $scope.addEconomicSituation = function (){
      $http
      .post("/api/v1/economic-situation-stats?apikey=cinco",$scope.newEconomicSituation) 
@@ -22,16 +39,33 @@ $scope.addEconomicSituation = function (){
          refresh();
         });
 };
-$scope.deleteEconomicSituation = function (province){
-    console.log("Deleting economicSituation " + province + "...");
+//Actualizo recurso
+ $scope.updateEconomicSituation = function() {
+            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco" , $scope.newEconomicSituation).then(function(response) {
+                console.log("EconomicSituation updated");
+                refresh();
+            });
+        };
+
+
+//borra todos los recursos
+  $scope.deleteAll = function() {
+            console.log("Deleting all collection...");
+            $http.delete("/api/v1/economic-situation-stats?apikey=cinco").then(function(response) {
+                refresh();
+            });
+        };
+
+//borra un recurso concreto
+$scope.deleteEconomicSituation = function (economicSituation){
+    console.log("Deleting economicSituation ");
+    $http.
+    delete("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco").then(function(response){
     refresh();
+});
 };
-refresh();
-}]);
-                
 
-
-
+    }]);
 
 
 
