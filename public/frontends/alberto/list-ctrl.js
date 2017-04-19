@@ -60,7 +60,7 @@ $scope.addEconomicSituation = function (){
 $scope.deleteEconomicSituation = function (economicSituation){
     console.log("Deleting economicSituation ");
     $http.
-    delete("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco").then(function(response){
+    delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=cinco").then(function(response){
     refresh();
 });
 };
