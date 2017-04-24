@@ -17,13 +17,19 @@
                 src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript"
                 src="/bower_components/angular/angular.min.js"></script>
+       <script type="text/javascript"
+                src="/bower_components/angular-route/angular-route.min.js"></script>
+                
         <script type="text/javascript" src="./economic-manager-app.js"></script>
         <script type="text/javascript" src="./list-ctrl.js"></script>
+        <script type="text/javascript" src="./edit-ctrl.js"></script>
+
 
      </head>
      <body>
-         <div  ng-controller="ListCtrl">
-         <h2>Economic Situation Stats</h2>
+         <div ng-view>    <!--Con ng view estoy diciendo donde quiero que se cargen las vistas-->
+             <!--Me lo llevo a list.html-->
+        <!-- <h2>Economic Situation Stats</h2>
          <table class="table">
              <thead>
                  <tr>
@@ -48,7 +54,7 @@
 
 
                  </tr>
-                 <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local-->
+                 <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local--
                  <tr ng-repeat="economicSituation in economicSituationStats">
                      <td>{{economicSituation.province}}</td>
                      <td>{{economicSituation.year}}</td>
@@ -61,7 +67,7 @@
                  
 
              </tbody>
-         </table>
+         </table>-->
          </div>
      </body>
 </html> 

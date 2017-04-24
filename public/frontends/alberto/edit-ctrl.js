@@ -1,0 +1,32 @@
+//En este caso no ponemos [] ya que machacaría la aplicación de nuevo
+angular
+//Para crear el modulo.Lista de dependencias que quieres cargar,nombre de ng-app 
+ .module("EconomicManagerApp")
+ //app.controller(Nombre controlador,dependencias)..scope-->accede al modelo..http->hace peticiones a la API
+ .controller("EditCtrl",["$scope","$http","$routeParams","$location",
+ function($scope,$http,$routeParams,$location){
+console.log("Edit Controller initialized ");
+function refresh(){
+//Siempre actualizamos los modelos dentro del callback
+ $http
+     .get("/api/v1/economic-situation-stats/" + $routeParams.province +"?apikey=cinco") //ya que está en el mismo servidor
+     .then(function (response){
+         $scope.updatedEconomicSituation = response.data;
+
+        });
+}
+
+//Actualizo recurso
+ $scope.updateEconomicSituation = function() {
+            $http
+            .put("/api/v1/economic-situation-stats/" + $routeParams.province + "?apikey=cinco" , $scope.updatedEconomicSituation)
+            .then(function(response) {
+                console.log("EconomicSituation updated");
+                $location.path("/");
+            });
+        };
+
+    }]);
+
+
+
