@@ -4,7 +4,7 @@ angular
  .module("EconomicManagerApp")
  //app.controller(Nombre controlador,dependencias)..scope-->accede al modelo..http->hace peticiones a la API
  .controller("ListCtrl",["$scope","$http",function($scope,$http){
-console.log("Controller initialized(splited right)");
+console.log("List controller initialized ");
 function refresh(){
 //Siempre actualizamos los modelos dentro del callback
  $http

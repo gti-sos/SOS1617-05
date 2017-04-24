@@ -1,0 +1,39 @@
+<h2>Economic Situation Stats List</h2>
+     <table class="table">
+         <thead>
+             <tr>
+                 <th>province</th>
+                 <th>year</th>
+                 <th>gdp</th>
+                 <th>debt</th>
+                 <th>actions</th>
+                 
+             </tr>
+         </thead>
+         <tbody>
+             <tr>
+                 <td><input class="form-control" ng-model="newEconomicSituation.province"/></td>
+                 <td><input class="form-control" ng-model="newEconomicSituation.year"/></td>
+                 <td><input class="form-control" ng-model="newEconomicSituation.gdp"/></td>
+                 <td><input class="form-control" ng-model="newEconomicSituation.debt"/></td>
+                 <td><button class="btn btn-success" ng-click = "addEconomicSituation()">Add </button></td>
+                 <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+                 <td><button class="btn btn-info" ng-click="lid()">LID</button></td>
+
+
+
+             </tr>
+             <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local-->
+             <tr ng-repeat="economicSituation in economicSituationStats">
+                 <td><a href="#!/economicSituation/{{economicSituation.province}}">{{economicSituation.province}}</a></td>
+                 <td>{{economicSituation.year}}</td>
+                 <td>{{economicSituation.gdp}}</td>
+                 <td>{{economicSituation.debt}}</td>
+                 <td><button class="btn btn-warning" ng-click="updateEconomicSituation(economicSituation)">Update</button></td>
+                 <td><button class="btn btn-danger" ng-click = "deleteEconomicSituation(economicSituation)">Delete </button></td>
+
+             </tr> 
+             
+
+         </tbody>
+     </table>
