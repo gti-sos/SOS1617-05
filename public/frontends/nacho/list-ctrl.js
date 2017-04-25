@@ -104,7 +104,7 @@ angular
         $scope.addResult = function() { //Se define una función send dentro del modelo
             chekKey();
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
-                if (response.status == 409) {
+                if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
                 else {
@@ -185,7 +185,7 @@ angular
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
-                    response
+                    
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
 
