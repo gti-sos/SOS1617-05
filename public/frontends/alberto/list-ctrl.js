@@ -10,10 +10,25 @@ function refresh(){
  $http
      .get("/api/v1/economic-situation-stats?apikey=cinco") //ya que está en el mismo servidor
      .then(function (response){
+         $scope.data = JSON.stringify(response.data,null,2);
          $scope.economicSituationStats = response.data;
 
         });
 }
+
+//Muestra lista de recursos
+ $http
+     .get("/api/v1/economic-situation-stats?apikey=cinco") //ya que está en el mismo servidor
+     .then(function (response){
+         console.log("GET");
+         $scope.data = JSON.stringify(response.data,null,2);
+         $scope.economicSituationStats = response.data;
+         refresh();
+        });
+
+
+  
+
 //LOAD INITIAL DATA
    $scope.lid = function() {
             console.log("Loading Initial Data");
@@ -41,7 +56,8 @@ $scope.addEconomicSituation = function (){
 };
 //Actualizo recurso
  $scope.updateEconomicSituation = function() {
-            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco" , $scope.newEconomicSituation).then(function(response) {
+            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco" , $scope.newEconomicSituation)
+            .then(function(response) {
                 console.log("EconomicSituation updated");
                 refresh();
             });
