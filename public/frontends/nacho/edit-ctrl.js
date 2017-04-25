@@ -46,11 +46,23 @@ angular
     .module("ResultsManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
         console.log("Edit Controller initialized");
+        var pass = "cinco";
 
+        function chekKey() {
+            if ($scope.apikey != pass) {
+                alert("Wrong apikey!");
+            }
+            else if ($scope.apikey != undefined || $scope.apikey == "") {
+                alert("No apikey was specified");
+            }
+            else if ($scope.apikey == pass) {
+                alert("Correct apikey!");
+            }
+        }
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-
+            chekKey();
 
 
             $http
@@ -75,7 +87,8 @@ angular
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-             console.log("PREVIO: ", $routeParams.province, $scope.updatedResult);
+            chekKey();
+            console.log("PREVIO: ", $routeParams.province, $scope.updatedResult);
             $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updatedResult).then(function(response) {
                 console.log("URL: ", $scope.url + "/" + $routeParams.province + "?apikey=cinco");
                 console.log("PUT finished", $routeParams.province, $scope.updatedResult);
