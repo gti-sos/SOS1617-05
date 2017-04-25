@@ -684,7 +684,6 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     else {
                         if (res.length == 1) {
                             console.log("WARNING: The voting results " + JSON.stringify(newResults, 2, null) + " already extis, sending 409...");
-                            alert("There is already a resource that matches the specified fields in the data base.");
                             response.sendStatus(409); // conflict
                         }
                         else {

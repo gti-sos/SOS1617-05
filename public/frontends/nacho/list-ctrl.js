@@ -115,7 +115,7 @@ angular
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            chekKey();
+            //chekKey();
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 console.log("PUT finished");
                 refresh();
