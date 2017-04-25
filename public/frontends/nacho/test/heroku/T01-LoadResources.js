@@ -5,7 +5,7 @@ describe('Resources is loaded', function(){
        //TO DO--->Tengo que cambiarlo para heroku
         browser.get('https://sos1617-05.herokuapp.com/api/v1/frontendNacho/#!/');//El puerto es 8080 ya que estoy lanzando el navegador fantasma sobre lo que está en c9
         //me devuelve toda la lista de reccursos que hay.
-        var electionsVotingStats = elemet.all(by.repeater('economicSituation in economicSituationStats'));//genera un array seleccionando todos los elementos de la pagina renderizada(element.all), seleccionando por una directiva (by.repeater) 
+        var electionsVotingStats = elemet.all(by.repeater('votingResults in electionsVotingStats'));//genera un array seleccionando todos los elementos de la pagina renderizada(element.all), seleccionando por una directiva (by.repeater) 
         //El tamaño del array debe ser mayor que x:
         expect(electionsVotingStats.count()).toBeGreaterThan(3);
         
