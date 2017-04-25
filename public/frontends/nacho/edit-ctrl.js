@@ -74,9 +74,9 @@ angular
         }; */
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
-        $scope.updateResult = function(updatedResult) {
-            $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", updatedResult).then(function(response) {
-                console.log("PUT finished");
+        $scope.updateResult = function() {
+            $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updatedResult).then(function(response) {
+                console.log("PUT finished",$scope.updatedResult);
                 $location.path("/");
             });
         };

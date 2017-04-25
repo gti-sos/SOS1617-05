@@ -7,7 +7,7 @@ angular.module("ResultsManagerApp", ["ngRoute"]).config(function($routeProvider)
         templateUrl: "edit.html",
         controller: "EditCtrl" //Se asocia a un objeto que se supone que ya está registrado en Angular (el controlador)
 
-    })
+    });
 
     console.log("App initialized");
 });
