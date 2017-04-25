@@ -58,6 +58,7 @@ angular
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET single resource to be updated");
                     $scope.updatedResult = response.data;
+                    console.log($scope.updatedResult, response.data);
 
                 });
 
