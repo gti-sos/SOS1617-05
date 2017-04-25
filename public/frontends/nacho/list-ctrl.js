@@ -232,7 +232,11 @@ angular
         $scope.setPage = function(pageNo) {
             $scope.currentPage = pageNo;
         };
-
+        $scope.prevPage = function() {
+            if ($scope.currentPage > 1) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        }
         $scope.pageChanged = function() {
             console.log('Page changed to: ' + $scope.currentPage);
         };
