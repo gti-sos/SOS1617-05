@@ -47,7 +47,7 @@ angular
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
         console.log("Edit Controller initialized");
         var pass = "cinco";
-        console.log($scope.apikey);
+        
         function chekKey() {
             if (!$scope.apikey) {
                 alert("No apikey was specified");

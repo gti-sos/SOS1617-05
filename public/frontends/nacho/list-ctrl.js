@@ -4,16 +4,17 @@ angular
     .module("ResultsManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("ListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
         console.log(" List Controller initialized");
-        var pass = "cinco";
         //Sería interesante concatenar la apikey a la URL en cada método por si hubiera que agregarle algo a la URL, no???
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
 
+        var pass = "cinco";
+        
         function chekKey() {
-            if ($scope.apikey != pass) {
-                alert("Wrong apikey!");
-            }
-            else if ($scope.apikey != undefined || $scope.apikey == "") {
+            if (!$scope.apikey) {
                 alert("No apikey was specified");
+            }
+            else if ($scope.apikey !== pass) {
+                alert("Wrong apikey!");
             }
             else if ($scope.apikey == pass) {
                 alert("Correct apikey!");
