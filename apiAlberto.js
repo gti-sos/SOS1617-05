@@ -64,7 +64,7 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                     zaragoza.gdp="563.325";
                     zaragoza.debt= "236.56";
                
-                   var madrid2 = new Object;
+                    var madrid2 = new Object;
                     madrid2.province = "Madrid";
                     madrid2.year =  "2007";
                     madrid2.gdp= "365.256";

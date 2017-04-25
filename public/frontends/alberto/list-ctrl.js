@@ -81,6 +81,42 @@ $scope.deleteEconomicSituation = function (economicSituation){
 });
 };
 
+//Búsqueda
+
+    $scope.search = function() {
+            var results = "";
+
+            if ($scope.newEconomicSituation.province !== undefined && $scope.newEconomicSituation.province !== "") {
+                results = results + "&province=" + $scope.newEconomicSituation.province;
+            }
+           
+            if ($scope.newEconomicSituation.year !== undefined && $scope.newEconomicSituation.year !== "") {
+                results = results + "&year=" + $scope.newEconomicSituation.year;
+            }
+            
+            if($scope.newEconomicSituation.gdp != undefined && $scope.newEconomicSituation.gdp !==""){
+                results = results + "&gdp=" + $scope.newEconomicSituation.gdp; 
+            }
+            if($scope.newEconomicSituation.debt !=undefined && $scope.newEconomicSituation.debt !==""){
+                results = results + "&debt=" + $scope.newEconomicSituation.debt; 
+
+            }
+             console.log(results);
+           $http
+         .get("/api/v1/economic-situation-stats?apikey=cinco" + results) //ya que está en el mismo servidor
+         .then(function (response){
+         console.log("GET");
+         $scope.data = JSON.stringify(response.data,null,2);
+         $scope.economicSituationStats = response.data;
+         
+        
+             
+                });
+
+        };
+            
+
+
     }]);
 
 
