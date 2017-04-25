@@ -54,7 +54,7 @@ angular
 
 
             $http
-                .get($scope.url + "/results/" + $routeParams.province + "?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "/" + $routeParams.province + "?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET single resource to be updated");
                     $scope.updatedResult = response.data;
