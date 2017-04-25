@@ -25,7 +25,7 @@ angular
 
         //Load Initial Data
         $scope.lid = function() {
-            chekKey();
+            //chekKey();
             console.log("Loading Initial Data");
             $http
                 .get($scope.url + "/loadInitialData?apikey=" + pass) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -41,7 +41,7 @@ angular
 
         //Load WHOLE Data
         $scope.lwd = function() {
-            chekKey();
+            //chekKey();
             console.log("Loading Whole Data");
             $http
                 .get($scope.url + "/loadWholeData?apikey=" + pass) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -57,7 +57,7 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-            chekKey();
+            //chekKey();
             var limit = "";
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
@@ -101,15 +101,14 @@ angular
         };
 
         //POST
-        $scope.addResult = function() { //Se define una función send dentro del modelo
+        $scope.addResult = function(r) { //Se define una función send dentro del modelo
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
+                console.log("POST finished");
+                refresh();
+            }, function(response) {
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
-                else {
-                    console.log("POST finished");
-                }
-                refresh();
             });
         };
 
@@ -143,7 +142,6 @@ angular
 
         //BÚSQUEDA
         $scope.search = function() {
-            chekKey();
             var numberOfPages;
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params = "";
@@ -184,7 +182,7 @@ angular
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
-                    
+
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
 
