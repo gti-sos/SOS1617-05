@@ -109,7 +109,7 @@ angular
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
-                if (response.status === 200 || response.status === 201) {
+                else if (response.status === 200 || response.status === 201) {
                     alert("Successful action. ");
                 }
             });
@@ -125,7 +125,7 @@ angular
                 if (response.status === 422) {
                     alert("WARNING: The voting result is not well-formed");
                 }
-                if (response.status === 200 || response.status === 201) {
+                else if (response.status === 200 || response.status === 201) {
                     alert("Successful action. ");
                 }
             });
@@ -134,7 +134,7 @@ angular
         //DELETE single resource: Se debe modificar la URL añadiendole la provincia antes de la apikey
         //No es necesario que le pase el parámetro result???
         $scope.deleteResult = function(result) {
-            checkKey();
+            //checkKey();
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + pass).then(function(response) {
                 refresh();
@@ -142,7 +142,7 @@ angular
                 if (response.status === 404) {
                     alert("There are no resources to be deleted.");
                 }
-                if (response.status === 200 || response.status === 201) {
+                else if (response.status === 200 || response.status === 201) {
                     alert("Successful action. ");
                 }
             });
@@ -158,7 +158,7 @@ angular
                 if (response.status === 404) {
                     alert("There are no resources to be deleted.");
                 }
-                if (response.status === 200 || response.status === 201) {
+                else if (response.status === 200 || response.status === 201) {
                     alert("Successful action. ");
                 }
             });
