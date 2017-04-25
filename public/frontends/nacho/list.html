@@ -63,7 +63,7 @@
 
         <!--<tr ng-repeat="result in results"> -->
         <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-            <td><a href="#!/results/{{">{{result.province}}</a></td>
+            <td><a href="#!/results/{{result.province}}">{{result.province}}</a></td>
             <td>{{result.year}}</td>
             <td>{{result.pp}}</td>
             <td>{{result.podemos}}</td>

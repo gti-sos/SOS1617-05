@@ -2,7 +2,7 @@
 
 angular
     .module("ResultsManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
-    .controller("EditCtrl", ["$scope", "$http","$routeParams", function($scope, $http,$routeParams) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
+    .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
         console.log("Edit Controller initialized");
 
         //Sería interesante concatenar la apikey a la URL en cada método por si hubiera que agregarle algo a la URL, no???
@@ -15,8 +15,8 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-            
-            
+
+
 
             $http
                 .get($scope.url + "/" + $routeParams.province + "?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -34,7 +34,7 @@ angular
         $scope.updateResult = function() {
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 console.log("PUT finished");
-                refresh();
+                $location.path("/");
             });
         };
 
