@@ -49,11 +49,11 @@ angular
         var pass = "cinco";
 
         function chekKey() {
-            if ($scope.apikey != pass) {
-                alert("Wrong apikey!");
-            }
-            else if ($scope.apikey != undefined || $scope.apikey == "") {
+            if ($scope.apikey == undefined || $scope.apikey == "") {
                 alert("No apikey was specified");
+            }
+            else if ($scope.apikey != pass) {
+                alert("Wrong apikey!");
             }
             else if ($scope.apikey == pass) {
                 alert("Correct apikey!");
