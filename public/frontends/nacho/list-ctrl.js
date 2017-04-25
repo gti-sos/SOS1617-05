@@ -9,7 +9,7 @@ angular
 
         var pass = "cinco";
 
-        function chekKey() {
+        function checkKey() {
             if (!$scope.apikey) {
                 alert("No apikey was specified");
             }
@@ -25,7 +25,7 @@ angular
 
         //Load Initial Data
         $scope.lid = function() {
-            //chekKey();
+            //checkKey();
             console.log("Loading Initial Data");
             $http
                 .get($scope.url + "/loadInitialData?apikey=" + pass) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -41,7 +41,7 @@ angular
 
         //Load WHOLE Data
         $scope.lwd = function() {
-            //chekKey();
+            //checkKey();
             console.log("Loading Whole Data");
             $http
                 .get($scope.url + "/loadWholeData?apikey=" + pass) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -57,7 +57,7 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-            //chekKey();
+            //checkKey();
             var limit = "";
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
@@ -80,7 +80,7 @@ angular
 
         //b.1.iii
         $scope.show = function() {
-            chekKey();
+            checkKey();
             var limit = "";
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
@@ -109,34 +109,58 @@ angular
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
+                if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            //chekKey();
+            //checkKey();
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 console.log("PUT finished");
                 refresh();
+            }, function(response) {
+                if (response.status === 422) {
+                    alert("WARNING: The voting result is not well-formed");
+                }
+                if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
         //DELETE single resource: Se debe modificar la URL añadiendole la provincia antes de la apikey
         //No es necesario que le pase el parámetro result???
         $scope.deleteResult = function(result) {
-            chekKey();
+            checkKey();
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + pass).then(function(response) {
                 refresh();
+            }, function(response) {
+                if (response.status === 404) {
+                    alert("There are no resources to be deleted.");
+                }
+                if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
         //DELETE whole collection:
         $scope.deleteAll = function() {
-            chekKey();
+            //checkKey();
             console.log("Deleting the whole collection...");
             $http.delete($scope.url + "?apikey=" + pass).then(function(response) {
                 refresh();
+            }, function(response) {
+                if (response.status === 404) {
+                    alert("There are no resources to be deleted.");
+                }
+                if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
@@ -184,6 +208,10 @@ angular
                     $scope.results = response.data;
 
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                }, function(response) {
+                    if (response.status === 200 || response.status === 201) {
+                        alert("Successful action. ");
+                    }
                 });
 
         };

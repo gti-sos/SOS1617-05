@@ -47,7 +47,7 @@ angular
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
         console.log("Edit Controller initialized");
         var pass = "cinco";
-        
+
         function chekKey() {
             if (!$scope.apikey) {
                 alert("No apikey was specified");
@@ -87,7 +87,7 @@ angular
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            chekKey();
+            //chekKey();
             console.log("PREVIO: ", $routeParams.province, $scope.updatedResult);
             $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updatedResult).then(function(response) {
                 alert(response.status);
@@ -95,6 +95,13 @@ angular
                 console.log("PUT finished", $routeParams.province, $scope.updatedResult);
                 $location.path("/");
 
+            }, function(response) {
+                if (response.status === 422) {
+                    alert("WARNING: The voting result is not well-formed");
+                }
+                if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
