@@ -102,7 +102,6 @@ angular
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
-            chekKey();
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
