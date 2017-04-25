@@ -72,6 +72,6 @@ angular
             });
         };
 
-
+    refresh();
 
     }]);
