@@ -8,7 +8,7 @@ angular
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
 
         var pass = "cinco";
-        
+
         function chekKey() {
             if (!$scope.apikey) {
                 alert("No apikey was specified");
@@ -102,9 +102,14 @@ angular
 
         //POST
         $scope.addResult = function() { //Se define una función send dentro del modelo
-        chekKey();
+            chekKey();
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
-                console.log("POST finished");
+                if (response.status == 409) {
+                    alert("There is already a voting result for that province in the data base!");
+                }
+                else {
+                    console.log("POST finished");
+                }
                 refresh();
             });
         };
@@ -180,6 +185,7 @@ angular
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
+                    response
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
 
