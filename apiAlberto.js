@@ -69,12 +69,33 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                     madrid2.year =  "2007";
                     madrid2.gdp= "365.256";
                     madrid2.debt = "874.25";
+                    
+                    var huelva = new Object();
+                    huelva.province = "Huelva";
+                    huelva.year =  "2008";
+                    huelva.gdp= "9,391,749";
+                    huelva.debt = "230.679";
+                    
+                    var segovia = new Object();
+                    segovia.province = "Segovia";
+                    segovia.year =  "2008";
+                    segovia.gdp= "3,795,363";
+                    segovia.debt = "50.262";
+
+                    var navarra = new Object();
+                    navarra.province = "Navarra";
+                    navarra.year =  "2008";
+                    navarra.gdp= "17,722,300";
+                    navarra.debt = "235.765"; 
 
                  db2.insert(granada);
                  db2.insert(madrid);
                  db2.insert(cadiz);
                  db2.insert(zaragoza);
                  db2.insert(madrid2);
+                 db2.insert(huelva);
+                 db2.insert(segovia);
+                 db2.insert(navarra);
                  
                 response.sendStatus(201); // created
                 
