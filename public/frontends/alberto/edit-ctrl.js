@@ -23,6 +23,7 @@ function refresh(){
             .then(function(response) {
                 console.log("EconomicSituation updated");
                 $location.path("/");
+                
             });
         };
 
