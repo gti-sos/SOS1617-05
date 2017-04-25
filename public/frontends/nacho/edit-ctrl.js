@@ -54,7 +54,7 @@ angular
 
 
             $http
-                .get($scope.url + "/" + $routeParams.province + "?apikey=cinco" ) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "/" + $routeParams.province + "?apikey=cinco") //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET single resource to be updated");
                     $scope.updatedResult = response.data[0];
@@ -65,14 +65,24 @@ angular
         }
 
 
-        //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
+        /* //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco" , $scope.updateResult).then(function(response) {
+            $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updateResult).then(function(response) {
                 console.log("Result updated");
                 $location.path("/");
             });
+        }; */
+
+        //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
+        $scope.updateResult = function() {
+            $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=cinco", $scope.newResult).then(function(response) {
+                console.log("PUT finished");
+                refresh();
+            });
         };
 
-    refresh();
+
+
+        refresh();
 
     }]);
