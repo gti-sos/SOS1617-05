@@ -90,6 +90,7 @@ angular
             chekKey();
             console.log("PREVIO: ", $routeParams.province, $scope.updatedResult);
             $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updatedResult).then(function(response) {
+                alert(response.status);
                 console.log("URL: ", $scope.url + "/" + $routeParams.province + "?apikey=cinco");
                 console.log("PUT finished", $routeParams.province, $scope.updatedResult);
                 $location.path("/");
