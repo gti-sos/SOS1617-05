@@ -77,7 +77,7 @@ angular
         $scope.updateResult = function() {
             $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updatedResult).then(function(response) {
                 console.log("PUT finished");
-                refresh();
+                $location.path("/");
             });
         };
 
