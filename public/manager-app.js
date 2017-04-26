@@ -6,7 +6,7 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/", {
             templateUrl: "main.html"
         })
-        .when("/elections-voting-results", {
+        .when("/api/v1/frontendNacho", {
             templateUrl: "frontends/nacho/list.html",
             controller: "ResultsListCtrl" //le asocio el objeto registrado en angular-->ListCtrl
         }).when("/elections-voting-results/:province", {
