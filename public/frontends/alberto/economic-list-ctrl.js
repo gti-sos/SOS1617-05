@@ -70,26 +70,33 @@ angular
 
 
 
-        //Añadir nuevo recurso
-        $scope.addEconomicSituation = function() {
-            confirmApikey();
-            $http
-                .post("/api/v1/economic-situation-stats?apikey=" + $scope.apikey, $scope.newEconomicSituation)
-                .then(function(response) {
-                    console.log("EconomicSituation added");
-                    refresh();
-                });
+//Añadir nuevo recurso
+$scope.addEconomicSituation = function (){
+    confirmApikey();
+     $http
+     .post("/api/v1/economic-situation-stats?apikey=" + $scope.apikey,$scope.newEconomicSituation) 
+     .then(function (response){
+         console.log("EconomicSituation added");
+         refresh();
+        });
+};
+//Actualizo recurso
+ $scope.updateEconomicSituation = function() {
+     confirmApikey();
+            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=" + $scope.apikey , $scope.newEconomicSituation)
+            .then(function(response) {
+                console.log("EconomicSituation updated");
+                refresh();
+            }, function(response) {
+                if (response.status == 200) {
+                    alert("Successful execution");
+                }
+                else if (response.status == 400) {
+                    alert("ATTENTION: the economic situation  is not well formed");
+                }
+            });
         };
-        //Actualizo recurso
-        $scope.updateEconomicSituation = function() {
-            confirmApikey();
-            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=" + $scope.apikey, $scope.newEconomicSituation)
-                .then(function(response) {
-                    console.log("EconomicSituation updated");
-                    refresh();
-                });
-        };
-
+        
 
         //borra todos los recursos
         $scope.deleteAll = function() {
@@ -97,18 +104,32 @@ angular
             console.log("Deleting all collection...");
             $http.delete("/api/v1/economic-situation-stats?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
+                },function(response) {
+                if (response.status == 200) {
+                    alert("Successful execution");
+                }
+                else if (response.status == 404) {
+                    alert("There are not economicSituation");
+                }
             });
         };
 
-        //borra un recurso concreto
-        $scope.deleteEconomicSituation = function(economicSituation) {
-            confirmApikey();
-            console.log("Deleting economicSituation ");
-            $http.
-            delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=" + $scope.apikey).then(function(response) {
-                refresh();
-            });
-        };
+//borra un recurso concreto
+$scope.deleteEconomicSituation = function (economicSituation){
+    confirmApikey();
+    console.log("Deleting economicSituation ");
+    $http.
+    delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=" + $scope.apikey).then(function(response){
+    refresh();
+    }, function(response) {
+                if (response.status == 200) {
+                    alert("Successful execution");
+                }
+                else if (response.status == 404) {
+                    alert("There are not economicSituation");
+                }
+});
+};
 
         //Búsqueda
 
@@ -139,19 +160,22 @@ angular
             if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }
-
-            console.log(results);
-            $http
-                .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey + results + limit + offset) //ya que está en el mismo servidor
-                .then(function(response) {
-                    console.log("GET");
-                    $scope.data = JSON.stringify(response.data, null, 2);
-                    $scope.economicSituationStats = response.data;
-                    var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
-
-
-
-
+            
+             console.log(results);
+           $http
+         .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey + results + limit + offset) //ya que está en el mismo servidor
+         .then(function (response){
+         console.log("GET");
+         $scope.data = JSON.stringify(response.data,null,2);
+         $scope.economicSituationStats = response.data;
+         var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                }, function(response) {
+                    if (response.status === 200) {
+                        alert("Successful execution");
+                    }
+         
+        
+             
                 });
 
         };
