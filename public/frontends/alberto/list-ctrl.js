@@ -87,9 +87,16 @@ $scope.addEconomicSituation = function (){
             .then(function(response) {
                 console.log("EconomicSituation updated");
                 refresh();
+            }, function(response) {
+                if (response.status == 200) {
+                    alert("Successful execution");
+                }
+                else if (response.status == 400) {
+                    alert("ATTENTION: the economic situation  is not well formed");
+                }
             });
         };
-
+        
 
 //borra todos los recursos
   $scope.deleteAll = function() {
@@ -97,6 +104,13 @@ $scope.addEconomicSituation = function (){
             console.log("Deleting all collection...");
             $http.delete("/api/v1/economic-situation-stats?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
+                },function(response) {
+                if (response.status == 200) {
+                    alert("Successful execution");
+                }
+                else if (response.status == 404) {
+                    alert("There are not economicSituation");
+                }
             });
         };
 
@@ -107,6 +121,13 @@ $scope.deleteEconomicSituation = function (economicSituation){
     $http.
     delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=" + $scope.apikey).then(function(response){
     refresh();
+    }, function(response) {
+                if (response.status == 200) {
+                    alert("Successful execution");
+                }
+                else if (response.status == 404) {
+                    alert("There are not economicSituation");
+                }
 });
 };
 
@@ -148,7 +169,10 @@ $scope.deleteEconomicSituation = function (economicSituation){
          $scope.data = JSON.stringify(response.data,null,2);
          $scope.economicSituationStats = response.data;
          var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
-
+                }, function(response) {
+                    if (response.status === 200) {
+                        alert("Successful execution");
+                    }
          
         
              
