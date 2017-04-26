@@ -87,6 +87,12 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                     navarra.year =  "2008";
                     navarra.gdp= "17,722,300";
                     navarra.debt = "235.765"; 
+                    
+                    var huesca = new Object();
+                    huesca.province = "Huesca";
+                    huesca.year =  "2009";
+                    huesca.gdp= "836.26";
+                    huesca.debt = "895.36"; 
 
                  db2.insert(granada);
                  db2.insert(madrid);
@@ -96,6 +102,7 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                  db2.insert(huelva);
                  db2.insert(segovia);
                  db2.insert(navarra);
+                 db2.insert(huesca);
                  
                 response.sendStatus(201); // created
                 

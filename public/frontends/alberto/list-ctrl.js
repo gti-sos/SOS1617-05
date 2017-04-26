@@ -5,10 +5,34 @@ angular
  //app.controller(Nombre controlador,dependencias)..scope-->accede al modelo..http->hace peticiones a la API
  .controller("ListCtrl",["$scope","$http",function($scope,$http){
 console.log("List controller initialized ");
+
+//Apikey
+var password = "cinco";
+
+function confirmApikey() {
+            if (!$scope.apikey) {
+                alert("Enter a apikey");
+            }
+            else if ($scope.apikey !== password) {
+                alert("Wrong apikey!, enter a correct apikey");
+            }
+            else if ($scope.apikey == password) {
+                alert("Correct apikey!");
+            }
+        }
+
 function refresh(){
+      var limit = "";
+            var offset = "";
+            if ($scope.limit != undefined & $scope.limit != "") {
+                limit = "&limit=" + $scope.limit;
+            }
+            if ($scope.offset != undefined & $scope.offset != "") {
+                offset = "&offset=" + $scope.offset;
+            }
 //Siempre actualizamos los modelos dentro del callback
  $http
-     .get("/api/v1/economic-situation-stats?apikey=cinco") //ya que está en el mismo servidor
+     .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey + limit + offset) //ya que está en el mismo servidor
      .then(function (response){
          $scope.data = JSON.stringify(response.data,null,2);
          $scope.economicSituationStats = response.data;
@@ -18,7 +42,7 @@ function refresh(){
 
 //Muestra lista de recursos
  $http
-     .get("/api/v1/economic-situation-stats?apikey=cinco") //ya que está en el mismo servidor
+     .get("/api/v1/economic-situation-stats?apikey="+ $scope.apikey) //ya que está en el mismo servidor
      .then(function (response){
          console.log("GET");
          $scope.data = JSON.stringify(response.data,null,2);
@@ -31,9 +55,10 @@ function refresh(){
 
 //LOAD INITIAL DATA
    $scope.lid = function() {
+       confirmApikey();
             console.log("Loading Initial Data");
             $http
-                .get("/api/v1/economic-situation-stats/loadInitialData?apikey=cinco" ) 
+                .get("/api/v1/economic-situation-stats/loadInitialData?apikey=" +  $scope.apikey ) 
                 .then(function(response) { 
                     console.log("Loading Initial Data");
                     refresh();
@@ -47,8 +72,9 @@ function refresh(){
 
 //Añadir nuevo recurso
 $scope.addEconomicSituation = function (){
+    confirmApikey();
      $http
-     .post("/api/v1/economic-situation-stats?apikey=cinco",$scope.newEconomicSituation) 
+     .post("/api/v1/economic-situation-stats?apikey=" + $scope.apikey,$scope.newEconomicSituation) 
      .then(function (response){
          console.log("EconomicSituation added");
          refresh();
@@ -56,7 +82,8 @@ $scope.addEconomicSituation = function (){
 };
 //Actualizo recurso
  $scope.updateEconomicSituation = function() {
-            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=cinco" , $scope.newEconomicSituation)
+     confirmApikey();
+            $http.put("/api/v1/economic-situation-stats/" + $scope.newEconomicSituation.province + "?apikey=" + $scope.apikey , $scope.newEconomicSituation)
             .then(function(response) {
                 console.log("EconomicSituation updated");
                 refresh();
@@ -66,17 +93,19 @@ $scope.addEconomicSituation = function (){
 
 //borra todos los recursos
   $scope.deleteAll = function() {
+      confirmApikey();
             console.log("Deleting all collection...");
-            $http.delete("/api/v1/economic-situation-stats?apikey=cinco").then(function(response) {
+            $http.delete("/api/v1/economic-situation-stats?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
             });
         };
 
 //borra un recurso concreto
 $scope.deleteEconomicSituation = function (economicSituation){
+    confirmApikey();
     console.log("Deleting economicSituation ");
     $http.
-    delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=cinco").then(function(response){
+    delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=" + $scope.apikey).then(function(response){
     refresh();
 });
 };
@@ -84,6 +113,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
 //Búsqueda
 
     $scope.search = function() {
+        confirmApikey();
             var results = "";
 
             if ($scope.newEconomicSituation.province !== undefined && $scope.newEconomicSituation.province !== "") {
@@ -101,13 +131,24 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 results = results + "&debt=" + $scope.newEconomicSituation.debt; 
 
             }
+              var limit = "";
+            var offset = "";
+            if ($scope.limit != undefined & $scope.limit != "") {
+                limit = "&limit=" + $scope.limit;
+            }
+            if ($scope.offset != undefined & $scope.offset != "") {
+                offset = "&offset=" + $scope.offset;
+            }
+            
              console.log(results);
            $http
-         .get("/api/v1/economic-situation-stats?apikey=cinco" + results) //ya que está en el mismo servidor
+         .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey + results + limit + offset) //ya que está en el mismo servidor
          .then(function (response){
          console.log("GET");
          $scope.data = JSON.stringify(response.data,null,2);
          $scope.economicSituationStats = response.data;
+         var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+
          
         
              
@@ -115,9 +156,52 @@ $scope.deleteEconomicSituation = function (economicSituation){
 
         };
             
+            $scope.enter = function() {
+            confirmApikey();
+              var limit = "";
+            var offset = "";
+            if ($scope.limit != undefined & $scope.limit != "") {
+                limit = "&limit=" + $scope.limit;
+            }
+            if ($scope.offset != undefined & $scope.offset != "") {
+                offset = "&offset=" + $scope.offset;
+            }
+            $http
+                .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("GET collection");
+                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                    $scope.results = response.data;
+                    refresh();
+
+                });
+        };
+//Paginación
+ $scope.viewby = 10;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = function() {
+            return $scope.limit;
+        };
+        $scope.maxSize = 5; //Number of pager buttons to show
+
+
+        $scope.setPage = function(pageNo) {
+            $scope.currentPage = pageNo;
+        };
+
+        $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        $scope.setItemsPerPage = function(num) {
+            $scope.itemsPerPage = num;
+            $scope.currentPage = 1; //reset to first paghe
+        };
 
 
     }]);
-
 
 

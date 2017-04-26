@@ -1,6 +1,37 @@
 <h2>Economic Situation Stats List</h2>
      <table class="table">
          <thead>
+        <tr>
+            <th>
+                <h3>Apikey</h3>
+            </th>
+            
+           <th>
+                <h3>Limit</h3>
+            </th>
+            
+            <th>
+                <h3>Offset</h3>
+            </th>
+        </tr>
+        </thead>
+         </thead>
+    <tbody>
+        <tr>
+            <td><input type="password" class="form-ctrl" ng-model="apikey"></td>
+            <td><input class="form-ctrl" ng-model="limit"></td>
+            <td><input class="form-ctrl" ng-model="offset"></td>
+          
+        </tr>
+                 <td><button class="btn" ng-click="enter(apikey)">Enter</button></td>
+                 
+
+             </tr> 
+    </tbody>
+            </table>
+            
+       <table class="table">       
+            
              <tr>
                  <th>province</th>
                  <th>year</th>
@@ -27,16 +58,31 @@
 
              </tr>
              <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local-->
-             <tr ng-repeat="economicSituation in economicSituationStats">
+             <tr ng-repeat="economicSituation in economicSituationStats.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                  <td><a href="#!/economicSituation/{{economicSituation.province}}">{{economicSituation.province}}</a></td>
                  <td>{{economicSituation.year}}</td>
                  <td>{{economicSituation.gdp}}</td>
                  <td>{{economicSituation.debt}}</td>
                  <td><button class="btn btn-warning" ng-click="updateEconomicSituation(economicSituation)">Update</button></td>
                  <td><button class="btn btn-danger" ng-click = "deleteEconomicSituation(economicSituation)">Delete </button></td>
-
-             </tr> 
+              </tr>
+              View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</option></select> records at a time.
+               <pre>The selected page no: {{currentPage}}</pre>
+    
+    <button class="btn btn-info" ng-click="setPage(currentPage-1)">Prev</button>
+    <button class="btn btn-info" ng-click="setPage(1)">1</button>
+                <button class="btn btn-info" ng-click="setPage(2)">2</button>
+                <button class="btn btn-info" ng-click="setPage(3)">3</button>
+                <button class="btn btn-info" ng-click="setPage(4)">4</button>
+                <button class="btn btn-info" ng-click="setPage(5)">5</button>
+                <button class="btn btn-info" ng-click="setPage(6)">6</button>
+                <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
+             
              
 
          </tbody>
      </table>
+
+            
+    
+  
