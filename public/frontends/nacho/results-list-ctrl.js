@@ -103,16 +103,16 @@ angular
         //POST
         $scope.addResult = function(r) { //Se define una función send dentro del modelo
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
+                if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
                 console.log("POST finished");
                 refresh();
             }, function(response) {
-                if (response.status === 201) {
-                    alert("Successful action. ");
-                }
-                else if (response.status === 409) {
+                if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
-
+                
             });
         };
 
