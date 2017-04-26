@@ -22,13 +22,21 @@ angular
 
    //Actualizo recurso
    $scope.updateEconomicSituation = function() {
+    var object = new Object();
+    object.province = $scope.updateEconomicSituation.province;
+    object.year = $scope.updateEconomicSituation.year;
+    object.gdp = $scope.updateEconomicSituation.gdp;
+    object.debt = $scope.updateEconomicSituation.debt;
+
     $http
-     .put("/api/v1/economic-situation-stats/" + $routeParams.province + "?apikey=cinco", $scope.updatedEconomicSituation)
+     .put("/api/v1/economic-situation-stats/" + $routeParams.province + "?apikey=cinco", object)
      .then(function(response) {
       console.log("EconomicSituation updated");
-      $location.path("/economic-situation-stats");
+       $location.path("/economic-situation-stats");
 
      });
+
+     
    };
    refresh();
   }
