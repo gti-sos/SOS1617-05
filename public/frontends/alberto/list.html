@@ -59,7 +59,7 @@
              </tr>
              <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local-->
              <tr ng-repeat="economicSituation in economicSituationStats.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-                 <td><a href="#!/economicSituation/{{economicSituation.province}}">{{economicSituation.province}}</a></td>
+                 <td><a href="#!/economic-situation-stats/{{economicSituation.province}}">{{economicSituation.province}}</a></td>
                  <td>{{economicSituation.year}}</td>
                  <td>{{economicSituation.gdp}}</td>
                  <td>{{economicSituation.debt}}</td>
