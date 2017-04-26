@@ -89,7 +89,16 @@ angular
         $scope.updateResult = function() {
             //chekKey();
             console.log("PREVIO: ", $routeParams.province, $scope.updatedResult);
-            $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", $scope.updatedResult).then(function(response) {
+
+            var obj = new Object();
+            obj.province = $scope.updatedResult.province;
+            obj.year = $scope.updatedResult.year;
+            obj.pp = $scope.updatedResult.pp;
+            obj.podemos = $scope.updatedResult.podemos;
+            obj.psoe = $scope.updatedResult.psoe;
+            obj.cs = $scope.updatedResult.cs;
+
+            $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", obj).then(function(response) {
                 alert(response.status);
                 console.log("URL: ", $scope.url + "/" + $routeParams.province + "?apikey=cinco");
                 console.log("PUT finished", $routeParams.province, $scope.updatedResult);
