@@ -106,7 +106,7 @@ angular
                 console.log("POST finished");
                 refresh();
             }, function(response) {
-                if (response.status === 200 || response.status === 201) {
+                if (response.status === 201) {
                     alert("Successful action. ");
                 }
                 else if (response.status === 409) {
