@@ -93,7 +93,7 @@ angular
                 alert(response.status);
                 console.log("URL: ", $scope.url + "/" + $routeParams.province + "?apikey=cinco");
                 console.log("PUT finished", $routeParams.province, $scope.updatedResult);
-                $location.path("/");
+                $location.path("/elections-voting-stats");
 
             }, function(response) {
                 if (response.status === 422) {

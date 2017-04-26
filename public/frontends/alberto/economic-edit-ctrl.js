@@ -26,7 +26,7 @@ angular
      .put("/api/v1/economic-situation-stats/" + $routeParams.province + "?apikey=cinco", $scope.updatedEconomicSituation)
      .then(function(response) {
       console.log("EconomicSituation updated");
-      $location.path("/");
+      $location.path("/economic-situation-stats");
 
      });
    };
