@@ -62,7 +62,7 @@ angular
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-            chekKey();
+            //chekKey();
 
 
             $http
