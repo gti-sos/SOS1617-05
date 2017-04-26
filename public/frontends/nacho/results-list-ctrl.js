@@ -139,7 +139,7 @@ angular
             //checkKey();
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + pass).then(function(response) {
-                if (response.status === 200 || response.status === 201) {
+                if (response.status === 200 || response.status === 201 || response.status === 204) {
                     alert("Successful action. ");
                 }
                 refresh();
@@ -156,7 +156,7 @@ angular
             //checkKey();
             console.log("Deleting the whole collection...");
             $http.delete($scope.url + "?apikey=" + pass).then(function(response) {
-                if (response.status === 200 || response.status === 201) {
+                if (response.status === 200 || response.status === 201 || response.status === 204) {
                     alert("Successful action. ");
                 }
                 refresh();
