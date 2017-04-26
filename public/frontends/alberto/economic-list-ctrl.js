@@ -76,8 +76,15 @@ $scope.addEconomicSituation = function (){
      $http
      .post("/api/v1/economic-situation-stats?apikey=" + $scope.apikey,$scope.newEconomicSituation) 
      .then(function (response){
+         if(response.status === 200 || response.status === 201){
+             alert("Correct");
+         }
          console.log("EconomicSituation added");
          refresh();
+        }, function(response){
+            if(response.status===409){
+                alert("wrong action");
+            }
         });
 };
 //Actualizo recurso
@@ -88,7 +95,7 @@ $scope.addEconomicSituation = function (){
                 console.log("EconomicSituation updated");
                 refresh();
             }, function(response) {
-                if (response.status == 200) {
+                if (response.status === 200 || response.status === 201) {
                     alert("Successful execution");
                 }
                 else if (response.status == 400) {
@@ -105,7 +112,7 @@ $scope.addEconomicSituation = function (){
             $http.delete("/api/v1/economic-situation-stats?apikey=" + $scope.apikey).then(function(response) {
                 refresh();
                 },function(response) {
-                if (response.status == 200) {
+                if (response.status === 200 || response.status === 201) {
                     alert("Successful execution");
                 }
                 else if (response.status == 404) {
@@ -122,7 +129,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
     delete("/api/v1/economic-situation-stats/" + economicSituation.province + "?apikey=" + $scope.apikey).then(function(response){
     refresh();
     }, function(response) {
-                if (response.status == 200) {
+                if (response.status === 200 || response.status === 201) {
                     alert("Successful execution");
                 }
                 else if (response.status == 404) {
@@ -170,7 +177,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
          $scope.economicSituationStats = response.data;
          var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 }, function(response) {
-                    if (response.status === 200) {
+                    if (response.status === 200 || response.status === 201) {
                         alert("Successful execution");
                     }
          

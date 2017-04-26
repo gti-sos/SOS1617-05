@@ -23,10 +23,10 @@ angular
    //Actualizo recurso
    $scope.updateEconomicSituation = function() {
     var object = new Object();
-    object.province = $scope.updateEconomicSituation.province;
-    object.year = $scope.updateEconomicSituation.year;
-    object.gdp = $scope.updateEconomicSituation.gdp;
-    object.debt = $scope.updateEconomicSituation.debt;
+    object.province = $scope.updatedEconomicSituation.province;
+    object.year = $scope.updatedEconomicSituation.year;
+    object.gdp = $scope.updatedEconomicSituation.gdp;
+    object.debt = $scope.updatedEconomicSituation.debt;
 
     $http
      .put("/api/v1/economic-situation-stats/" + $routeParams.province + "?apikey=cinco", object)
@@ -39,5 +39,5 @@ angular
      
    };
    refresh();
-  }
- ]);
+  
+ }]);
