@@ -1,40 +1,60 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>SOS1617-05</title>
-    </head>
-    <body>
-        <h2>## SOS1617-05: Economic situation, employment and elections in Spain</h2>
-        <ul>
+<html ng-app="ResultsManagerApp">
+
+<head>
+    <title>
+        Elections Voting Stats
+    </title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <!--L11-->
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+
+    <!-- SI NO SE LE AÑADE EL PUNTO (.) AL PRINCIPIO DE LA RUTA NO FUNCIONA...A QUÉ SE DEBE? SI EN LOCAL SÍ FUNCIONABA! -->
+    <script type="text/javascript" src="./results-manager-app.js"></script>
+    <!--Si se pusiera al revés estaría mal, daría problemas... -->
+    <script type="text/javascript" src="./list-ctrl.js"></script>
+    <script type="text/javascript" src="./edit-ctrl.js"></script>
+
+    <!-- Scripts for pagination (dont add the same script twice): http://embed.plnkr.co/eheFSh/ -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script> -->
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="./example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script type="text/javascript">
+        function ver() {
+            document.getElementById("actions").style.display = "block";
+        }
+
+        function ocultar() {
+            document.getElementById("actions").style.display = "none";
+        }
+
         
-        <li><strong>Project description</strong>: Analyze, at provincial level, what relation there is between the economic situation, the employment and what the spanish society voted on last elections.</li>
-        <li><strong>Repository</strong>: <a href="https://github.com/SOS1617/SOS1617-05" target="_blank">SOS1617/SOS1617-05</a></li>
-        <li><strong>Postman Tests</strong>: <a href="https://sos1617-05.herokuapp.com/api/v1/tests" target="_blank">Postman Tests</a></li>
-        <li><strong>Team</strong>
-            <ul>
-                <li><a href="https://github.com/Albertogmv" target="_blank"><strong><i>Alberto Jesús García-Márquez Varela</i></strong></a></li>
-                <p><a href="https://sos1617-05.herokuapp.com/api/v1/economic-situation-stats?apikey=cinco" target="_blank">economic-situation-stats</a>: Data showing the economic situation in the country back in 2016. It stores both gdp and debt quantities.</p>
-                
-                <li><a href="https://github.com/ignpelloz" target="_blank"><strong><i>Ignacio Peluaga Lozada</i></strong></a></li>
-                <p><a href="https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats?apikey=cinco" target="_blank">elections-voting-stats</a>: This data resource contains information about 2016's general elections results. It stores the number of seats achieved by the main parties in Spain.</p>
-                
-                <li><a href="https://github.com/antoniops96" target="_blank"><strong><i>Antonio Pérez Solís</i></strong></a></li>
-                <p><a href="https://sos1617-05.herokuapp.com/api/v1/employment-stats?apikey=cinco" target="_blank">employment-stats</a>: In this resource there is data that informs about the employment situation in the country using different rates like average salary and unemployment percentage.</p>
-                
-            </ul>
-        </li>
-        <li><strong>Frontends</strong>
-            <ul>
-                <li><a href="https://sos1617-05.herokuapp.com/api/v1/frontendNacho" target="_blank"><strong><i>Elections Voting Stats</i></strong></a></li>
-                <li><a href="https://sos1617-05.herokuapp.com/api/v1/frontendAlberto" target="_blank"><strong><i>Economic Situation Stats</i></strong></a></li>
-                <li><a href="https://sos1617-05.herokuapp.com/api/v1/frontendAntonio" target="_blank"><strong><i>Employment Stats</i></strong></a></li>
-                
-            </ul>
-        </li>
-        <!-- <li><strong>URL</strong>: <a href="#">TBD</a></li> -->
-        </ul>
-    </body>
-    
+    </script>
+    <style type="text/css">
+        #actions {
+            position: absolute;
+            top: 100%;
+            left: 0px;
+            background-color: #41338b;
+            font: normal 0.8em arial;
+            padding: 0.2em 0.5em;
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div ng-view>
+    </div>
+
+</body>
+
 </html>
-
-
