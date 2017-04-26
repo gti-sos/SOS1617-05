@@ -9,7 +9,7 @@ angular
 
         var pass = "cinco";
 
-        function chekKey() {
+        function checkKey() {
             if (!$scope.apikey) {
                 alert("No apikey was specified");
             }
@@ -25,7 +25,7 @@ angular
 
         //Load Initial Data
         $scope.lid = function() {
-            chekKey();
+            //checkKey();
             console.log("Loading Initial Data");
             $http
                 .get($scope.url + "/loadInitialData?apikey=" + pass) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -41,7 +41,7 @@ angular
 
         //Load WHOLE Data
         $scope.lwd = function() {
-            chekKey();
+            //checkKey();
             console.log("Loading Whole Data");
             $http
                 .get($scope.url + "/loadWholeData?apikey=" + pass) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -57,7 +57,7 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-            chekKey();
+            //checkKey();
             var limit = "";
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
@@ -80,7 +80,7 @@ angular
 
         //b.1.iii
         $scope.show = function() {
-            chekKey();
+            checkKey();
             var limit = "";
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
@@ -101,49 +101,71 @@ angular
         };
 
         //POST
-        $scope.addResult = function() { //Se define una función send dentro del modelo
+        $scope.addResult = function(r) { //Se define una función send dentro del modelo
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
+                console.log("POST finished");
+                refresh();
+            }, function(response) {
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
-                else {
-                    console.log("POST finished");
+                else if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
                 }
-                refresh();
             });
         };
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            chekKey();
+            //checkKey();
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 console.log("PUT finished");
                 refresh();
+            }, function(response) {
+                if (response.status === 422) {
+                    alert("WARNING: The voting result is not well-formed");
+                }
+                else if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
         //DELETE single resource: Se debe modificar la URL añadiendole la provincia antes de la apikey
         //No es necesario que le pase el parámetro result???
         $scope.deleteResult = function(result) {
-            chekKey();
+            //checkKey();
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + pass).then(function(response) {
                 refresh();
+            }, function(response) {
+                if (response.status === 404) {
+                    alert("There are no resources to be deleted.");
+                }
+                else if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
         //DELETE whole collection:
         $scope.deleteAll = function() {
-            chekKey();
+            //checkKey();
             console.log("Deleting the whole collection...");
             $http.delete($scope.url + "?apikey=" + pass).then(function(response) {
                 refresh();
+            }, function(response) {
+                if (response.status === 404) {
+                    alert("There are no resources to be deleted.");
+                }
+                else if (response.status === 200 || response.status === 201) {
+                    alert("Successful action. ");
+                }
             });
         };
 
         //BÚSQUEDA
         $scope.search = function() {
-            chekKey();
             var numberOfPages;
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params = "";
@@ -184,8 +206,12 @@ angular
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
-                    
+
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                }, function(response) {
+                    if (response.status === 200 || response.status === 201) {
+                        alert("Successful action. ");
+                    }
                 });
 
         };
@@ -196,7 +222,7 @@ angular
         $scope.totalItems = function() {
             return $scope.data.length;
         };
-        $scope.currentPage = 4;
+        $scope.currentPage = 1;
         $scope.itemsPerPage = function() {
             return $scope.limit;
         };
@@ -206,7 +232,11 @@ angular
         $scope.setPage = function(pageNo) {
             $scope.currentPage = pageNo;
         };
-
+        $scope.prevPage = function() {
+            if ($scope.currentPage > 1) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        }
         $scope.pageChanged = function() {
             console.log('Page changed to: ' + $scope.currentPage);
         };
