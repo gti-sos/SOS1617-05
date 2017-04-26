@@ -13,12 +13,12 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "frontends/nacho/edit.html",
             controller: "ResultsEditCtrl" //Se asocia a un objeto que se supone que ya está registrado en Angular (el controlador)
 
-        }).when("/economic-stats", {
+        }).when("/economic-situation-stats", {
             templateUrl: "frontends/alberto/list.html",
-            controller: "ListCtrl" //Se asocia a un objeto que se supone que ya está registrado en Angular (el controlador)
-        }).when("/economic-stats/:province", {
+            controller: "EconomicListCtrl" //Se asocia a un objeto que se supone que ya está registrado en Angular (el controlador)
+        }).when("/economic-situation-stats/:province", {
             templateUrl: "frontends/albertoedit.html",
-            controller: "EditCtrl"
+            controller: "EconomicEditCtrl"
         });
     //Para crear el modulo.Lista de dependencias que quieres cargar,nombre de ng-app 
     console.log("App initialized and configured");
