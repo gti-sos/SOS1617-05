@@ -1,6 +1,6 @@
 describe('Add economicSituation',function(){
     it('should add a economicSituation',function(){
-        browser.get('http//localhost:8080');
+        browser.get('http//localhost:8080/');
         
         element.all(by.repeater(economicSituation in economicSituationStats))
         .then(function(initialeconomicSituationStats){
