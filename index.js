@@ -35,7 +35,7 @@ app.use("/api/v1/frontendAntonio", express.static(path.join(__dirname, "public/f
 app.use("/api/v1/tests", express.static(path.join(__dirname, "public/tests.html")));
 
 app.use(bodyParser.json()); //use default json enconding/decoding
-app.use(helmet()); //improve security
+app.use(helmet()); //improve security       
 
 
 apiNacho.register(app,port,BASE_API_PATH, checkKey);  

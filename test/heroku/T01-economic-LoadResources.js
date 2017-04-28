@@ -7,7 +7,7 @@ describe('Resources is loaded', function(){
         //me devuelve toda la lista de reccursos que hay.
         var economicSituationStats = element.all(by.repeater('economicSituation in economicSituationStats'));//genera un array seleccionando todos los elementos de la pagina renderizada(element.all), seleccionando por una directiva (by.repeater) 
         //El tamaño del array debe ser mayor que x:
-        expect(economicSituationStats.count()).toBeGreaterThan(3);
+        expect(economicSituationStats.count()).toBeGreaterThan(2);
         
     });
     
