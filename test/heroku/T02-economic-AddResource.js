@@ -1,9 +1,9 @@
 describe('Add economicSituation',function(){
     it('should add a economicSituation',function(){
-        browser.get('https://sos1617-05.herokuapp.com/#!/economic-situation-stats');
+        browser.get('https://sos1617-05.herokuapp.com/#!/economic-situation-stats/');
         
         element.all(by.repeater(economicSituation in economicSituationStats))
-        .then(function(initialeconomicSituationStats){
+        .then(function(initialEconomicSituationStats){
             browser.driver.sleep(2000);
             
            element(by.model('economicSituationStats.province')).sendKeys('Almería');
@@ -16,7 +16,7 @@ describe('Add economicSituation',function(){
                element.all(by.repeater('economicSituation in economicSituationStats'))
                .then(function(economicSituationStats){
                    expect(economicSituationStats.length)
-                   .toEqual(initialeconomicSituationStats.length+1);
+                   .toEqual(initialEconomicSituationStats.length+1);
                });
                
                
