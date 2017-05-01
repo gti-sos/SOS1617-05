@@ -4,6 +4,8 @@ describe('Add economicSituation',function(){
         
         element.all(by.repeater('economicSituation in economicSituationStats'))
         .then(function(initialEconomicSituationStats){
+        
+        browser.driver.sleep(3000);
 
            element(by.model('newEconomicSituation.province')).sendKeys('Almería');
            element(by.model('newEconomicSituation.year')).sendKeys('2015');
