@@ -2,7 +2,7 @@ describe('Add economicSituation',function(){
     it('should add a economicSituation',function(){
         browser.get('https://sos1617-05.herokuapp.com/#!/economic-situation-stats/');
         
-        element.all(by.repeater(economicSituation in economicSituationStats))
+        element.all(by.repeater('economicSituation in economicSituationStats'))
         .then(function(initialEconomicSituationStats){
             browser.driver.sleep(2000);
             
