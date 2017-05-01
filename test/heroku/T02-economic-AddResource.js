@@ -6,10 +6,10 @@ describe('Add economicSituation',function(){
         .then(function(initialEconomicSituationStats){
             browser.driver.sleep(2000);
             
-           element(by.model('economicSituationStats.province')).sendKeys('Almería');
-           element(by.model('economicSituationStats.year')).sendKeys('2015');
-           element(by.model('economicSituationStats.gdp')).sendKeys('563.23');
-           element(by.model('economicSituationStats.debt')).sendKeys('865.32');
+           element(by.model('newEconomicSituation.province')).sendKeys('Almería');
+           element(by.model('newEconomicSituation.year')).sendKeys('2015');
+           element(by.model('newEconomicSituation.gdp')).sendKeys('563.23');
+           element(by.model('newEconomicSituation.debt')).sendKeys('865.32');
            
            element(by.buttonText('Add')).click().then(function(){
                
