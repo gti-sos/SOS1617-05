@@ -1,0 +1,62 @@
+<head>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        angular
+            .module("testApp", [])
+            .controller("mainCtrl", ["$http", function($http) {
+                console.log("Controller intialized");
+                $http
+                    .get("/economic-situation-stats")
+                    .then(function(res) {
+                        console.log(res.data);
+
+                        Highcharts.chart('chart', {
+                            series: [{
+                                data: res.data.map(function(d) {
+                                    return Number(d.data);
+                                })
+                            }]
+
+                        });
+                        //Geocharts
+                        google.charts.load('current', {
+                            'packages': ['geochart']
+                        });
+                        google.charts.setOnLoadCallback(drawRegionsMap);
+
+                        function drawRegionsMap() {
+
+                            var myData = [['Provinces', 'Popularity']];
+                            res.data.forEach(function (d){
+                                myData.push([d.country,d.data]);
+                            });
+
+                            var data = google
+                                            .visualization
+                                            .arrayToDataTable(myData);
+
+                             var options = {
+                              region: 'ES',
+                              displayMode: 'markers',
+                                colorAxis: {colors: ['green', 'blue']}
+                          };
+
+                            var chart = new google.visualization.GeoChart(
+                                        document.getElementById('map'));
+
+                            chart.draw(data, options);
+                        }
+
+                    });
+            }]);
+    </script>
+</head>
+
+<body ng-controller="mainCtrl">
+    <h1>Test</h1>
+    <div id="chart"></div>
+    <div id="map"  style="width: 500px; height: 300px;"></div>
+</body>
+
