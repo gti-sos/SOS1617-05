@@ -1,5 +1,5 @@
 angular
-            .module("ManagerApp", [])
+            .module("ManagerApp")
             .controller("EconomicWidgetsCtrl", ["$http","$scope", function($http,$scope) {
                 console.log("Controller intialized");
                 $scope.apikey = "cinco";

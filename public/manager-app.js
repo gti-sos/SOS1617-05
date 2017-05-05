@@ -19,7 +19,7 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/economic-situation-stats/:province", {
             templateUrl: "frontends/alberto/edit.html",
             controller: "EconomicEditCtrl"
-        }).when("/economic-situation-stats/analytics",{
+        }).when("/economic-situation/widgets",{
             templateUrl: "frontends/alberto/widgets.html",
             controller: "EconomicWidgetsCtrl"
         });
