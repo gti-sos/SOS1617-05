@@ -276,5 +276,5 @@ angular
         }; */
 
         //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
-        //refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
+        refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
     }]);
