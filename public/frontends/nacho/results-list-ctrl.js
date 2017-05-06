@@ -68,7 +68,12 @@ angular
             if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }
-
+            if ($scope.limit == undefined | $scope.limit == "") {
+                $scope.itemsPerPage = $scope.data.length;
+            }
+            else {
+                $scope.itemsPerPage = $scope.limit;
+            }
             $http
                 .get($scope.url + "?apikey=" + pass + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
@@ -76,12 +81,7 @@ angular
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     console.log($scope.results);
-                    if ($scope.limit == undefined | $scope.limit == "") {
-                        $scope.itemsPerPage = $scope.data.length;
-                    }
-                    else {
-                        $scope.itemsPerPage = $scope.limit;
-                    }
+
                 });
 
         }
