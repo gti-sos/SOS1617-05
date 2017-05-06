@@ -2,6 +2,8 @@ angular
     .module("ManagerApp")
     .controller("ElectionsWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
 
+         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
+
         $scope.apikey = "cinco";
         $scope.categories = [];
         $scope.gdp = [];
@@ -30,50 +32,46 @@ angular
             .then(function(res) {
 
                 Highcharts.chart('container', {
-                    title: {
-                        text: 'Highcharts'
-                    },
                     chart: {
-                        type: 'area'
+                        type: 'column'
                     },
-                    xAxis: {
-                        categories: $scope.categories
-
+                    title: {
+                        text: 'Stacked column chart'
                     },
-                    legend: {
-                        layout: 'vertical',
-                        floating: true,
-                        backgroundColor: '#FFFFFF',
-                        verticalAlign: 'top',
-                        align: 'right',
-                        y: 60,
-                        x: -60
+                    xAxis: { //Estas serían las provincias (SÓLO ES OBLIGATORIO QUE SE MUESTREN TODAS EN UN ÚNICO WIDGET)
+                        categories: ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Granada', 'Cordoba', 'Almeria', 'Huelva', 'Cadiz', 'Jaen', 'Malaga']
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: "Spain's 2016 general elections voting results"
+                        }
                     },
                     tooltip: {
-                        formatter: function() {
-                            return '<b>' + this.series.province + '</b><br/>' +
-                                (this.x) + ': ' + this.y;
-                        }
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                        shared: true
                     },
                     plotOptions: {
-                        area: {
-                            stacking: 'normal',
-                            lineColor: '#666666',
-                            lineWidth: 1,
-                            marker: {
-                                lineWidth: 1,
-                                lineColor: '#666666'
-                            }
+                        column: {
+                            stacking: 'percent'
                         }
                     },
+                    //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
                     series: [{
-                        name: 'gdp',
-                        data: $scope.gdp
+                        name: 'pp',
+                        data: [, , , , , , , , , ,]
                     }, {
-                        name: 'debt',
-                        data: $scope.debt
+                        name: 'podemos',
+                        data: [, , , , , , , , , ,]
+                    }, {
+                        name: 'psoe',
+                        data: [, , , , , , , , , ,]
+                    }, {
+                        name: 'cs',
+                        data: [, , , , , , , , , ,]
                     }]
                 });
+                
                 //Geocharts
                 google.charts.load('current', {
                     'packages': ['geochart']
