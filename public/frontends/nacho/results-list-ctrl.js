@@ -79,7 +79,7 @@ angular
                     $scope.results = response.data;
                     console.log($scope.results);
                     if ($scope.limit == undefined | $scope.limit == "") {
-                        $scope.itemsPerPage = $scope.data.length;
+                        $scope.itemsPerPage = $scope.results.length;
                     }
 
                 });
