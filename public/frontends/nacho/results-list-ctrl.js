@@ -227,7 +227,12 @@ angular
         };
         $scope.currentPage = 1;
         $scope.itemsPerPage = function() {
-            return $scope.limit;
+            if ($scope.limit == undefined) {
+                return $scope.data.length;
+            }
+            else {
+                return $scope.limit;
+            }
         };
         $scope.maxSize = 5; //Number of pager buttons to show
 
@@ -239,7 +244,7 @@ angular
             if ($scope.currentPage > 1) {
                 $scope.currentPage = $scope.currentPage - 1;
             }
-        }
+        };
         $scope.pageChanged = function() {
             console.log('Page changed to: ' + $scope.currentPage);
         };
