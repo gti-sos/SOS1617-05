@@ -288,12 +288,13 @@ angular
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        $scope.rangeCreator = function(ar,ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
-            var pages =  (Math.floor(ar/ab))+1;
+        $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
+            $scope.setItemsPerPage(ab);
+            var pages = (Math.floor(ar / ab)) + 1;
             console.log(ar, ab);
             var res = [];
             var i;
-            for(i=1;i<=pages;i++){
+            for (i = 1; i <= pages; i++) {
                 res.push(i);
             }
             return res;
