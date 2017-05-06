@@ -284,9 +284,12 @@ angular
             }
         };
         $scope.range = function(pages) {
-            Array.apply(null, Array(pages)).map(function(_, i) {
-                return i;
-            });
+            var res = [];
+            var i;
+            for(i=1;i<=pages;i++){
+                res.push(i);
+            }
+            return res;
         };
         $scope.pageChanged = function() {
             console.log('Page changed to: ' + $scope.currentPage);
