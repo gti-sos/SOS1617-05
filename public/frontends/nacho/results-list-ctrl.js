@@ -226,7 +226,7 @@ angular
             return $scope.data.length;
         };
         $scope.currentPage = 1;
-        $scope.itemsPerPage = 10;/*function() {
+        $scope.itemsPerPage = $scope.data.length;/*function() {
             var res;
             if ($scope.limit == undefined) {
                 res = $scope.data.length;
