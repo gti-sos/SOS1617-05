@@ -1,5 +1,6 @@
 //CONSULTAR: https://docs.angularjs.org/api/ng/service/$http
 
+
 angular
     .module("ManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("ResultsListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
@@ -281,6 +282,11 @@ angular
             if ($scope.currentPage > 1) {
                 $scope.currentPage = $scope.currentPage - 1;
             }
+        };
+        $scope.range = function(pages) {
+            Array.apply(null, Array(pages)).map(function(_, i) {
+                return i;
+            });
         };
         $scope.pageChanged = function() {
             console.log('Page changed to: ' + $scope.currentPage);
