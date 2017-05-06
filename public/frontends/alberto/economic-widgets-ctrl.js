@@ -40,9 +40,9 @@ angular
                         google.charts.load('current', {
                             'packages': ['geochart']
                         });
-                        google.charts.setOnLoadCallback(drawRegionsMap);
+                        google.charts.setOnLoadCallback(drawMarkersMap);
 
-                        function drawRegionsMap() {
+                        function drawMarkersMap() {
 
                             var myData = [['Province','gdp','debt']];
                             res.data.forEach(function (d){
@@ -60,7 +60,7 @@ angular
                           };
 
                             var chart = new google.visualization.GeoChart(
-                                        document.getElementById('map'));
+                                        document.getElementById('chart_div'));
 
                             chart.draw(data, options);
                         }
