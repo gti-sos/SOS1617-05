@@ -227,12 +227,15 @@ angular
         };
         $scope.currentPage = 1;
         $scope.itemsPerPage = function() {
+            var res;
             if ($scope.limit == undefined) {
-                return $scope.data.length;
+                res = $scope.data.length;
             }
             else {
-                return $scope.limit;
+                res = $scope.limit;
             }
+            console.log("VALOR DE itemsPerPage: ",res);
+            return res;
         };
         $scope.maxSize = 5; //Number of pager buttons to show
 
