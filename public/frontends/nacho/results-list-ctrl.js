@@ -285,6 +285,7 @@ angular
         };
         $scope.rangeCreator = function(ar,ab) {
             var pages =  Math.floor(ar/ab);
+            console.log(ar, ab);
             var res = [];
             var i;
             for(i=1;i<=pages;i++){
