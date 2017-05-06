@@ -16,6 +16,7 @@ describe('Add voting results', function() {
                 element(by.model('newResult.cs')).sendKeys('2');
 
                 element(by.buttonText('Add')).click().then(function() {
+                    element(by.buttonText('Aceptar')).click()
                     console.log("CLICK SOBRE BOTÓN Add OKAY!");
                     element.all(by.repeater('result in results'))
                         .then(function(electionsVotingStats) {
