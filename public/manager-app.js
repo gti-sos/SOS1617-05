@@ -5,7 +5,12 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "main.html"
-        })//NACHO
+        })
+        .when("/analytics",{
+            templateUrl: "analytics.html"
+        })
+        
+        //NACHO
         .when("/elections-voting-stats", {
             templateUrl: "frontends/nacho/list.html",
             controller: "ResultsListCtrl" //le asocio el objeto registrado en angular-->ListCtrl
