@@ -284,6 +284,7 @@ angular
 
             var pages = (Math.floor($scope.data.length / $scope.limit)) + 1;
             if (pageNo < pages) {
+                console.log("PÁGINAS: ",pages);
                 $scope.currentPage = pageNo;
             }
         };
