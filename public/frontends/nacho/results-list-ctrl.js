@@ -76,7 +76,7 @@ angular
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     console.log($scope.results);
-                    if ($scope.limit == undefined) {
+                    if ($scope.limit == undefined | $scope.limit == "") {
                         $scope.itemsPerPage = $scope.data.length;
                     }
                     else {
