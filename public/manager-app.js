@@ -16,7 +16,7 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/elections-voting-stats/:province", {
             templateUrl: "frontends/nacho/edit.html",
             controller: "ResultsEditCtrl" //Se asocia a un objeto que se supone que ya está registrado en Angular (el controlador)
-        }).when("/elections-voting-stats/widgets", {
+        }).when("/elections-results/widgets", { //Cambio el nombre de la base de datos por conflictos con la versión edit
             templateUrl: "frontends/nacho/widgets.html",
             controller: "ElectionsWidgetsCtrl"
         }) //ALBERTO
