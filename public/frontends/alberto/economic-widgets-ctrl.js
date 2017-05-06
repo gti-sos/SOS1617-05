@@ -1,3 +1,5 @@
+/*global google*/
+/*global angular*/
 angular
             .module("ManagerApp")
             .controller("EconomicWidgetsCtrl", ["$http","$scope", function($http,$scope) {
