@@ -1,5 +1,6 @@
 //CONSULTAR: https://docs.angularjs.org/api/ng/service/$http
 
+
 angular
     .module("ManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("ResultsListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
@@ -57,6 +58,7 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
+            console.log("ENTRA EN FUNCIÓN REFRESH");
             //checkKey();
             var limit = "";
             var offset = "";
@@ -70,10 +72,11 @@ angular
             $http
                 .get($scope.url + "?apikey=" + pass + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("GET collection");
+                    console.log("GET collection (refresh)");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
-
+                    console.log($scope.results);
+                    $scope.itemsPerPage = $scope.data.length;
                 });
 
         }
@@ -85,6 +88,7 @@ angular
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
+                $scope.itemsPerPage = $scope.limit;
             }
             if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
@@ -218,35 +222,6 @@ angular
 
         };
 
-        //PAGINATION
-
-        $scope.viewby = 10;
-        $scope.totalItems = function() {
-            return $scope.data.length;
-        };
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = function() {
-            return $scope.limit;
-        };
-        $scope.maxSize = 5; //Number of pager buttons to show
-
-
-        $scope.setPage = function(pageNo) {
-            $scope.currentPage = pageNo;
-        };
-        $scope.prevPage = function() {
-            if ($scope.currentPage > 1) {
-                $scope.currentPage = $scope.currentPage - 1;
-            }
-        }
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
-        };
-
-        $scope.setItemsPerPage = function(num) {
-            $scope.itemsPerPage = num;
-            $scope.currentPage = 1; //reset to first paghe
-        };
 
 
         /*angular.module('plunker', ['ui.bootstrap']);
@@ -276,5 +251,57 @@ angular
         }; */
 
         //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
-        //refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
+        refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
+
+        //PAGINATION
+
+        $scope.viewby = 10;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
+        $scope.currentPage = 1;
+
+        /*function() {
+                    var res;
+                    if ($scope.limit == undefined) {
+                        res = $scope.data.length;
+                    }
+                    else {
+                        res = $scope.limit;
+                    }
+                    console.log("VALOR DE itemsPerPage: ",res);
+                    return res;
+                };*/
+        $scope.maxSize = 5; //Number of pager buttons to show
+
+
+        $scope.setPage = function(pageNo) {
+            $scope.currentPage = pageNo;
+        };
+        $scope.prevPage = function() {
+            if ($scope.currentPage > 1) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        };
+        $scope.rangeCreator = function(ar,ab) {
+            var pages =  Math.floor(ar/ab);
+            console.log(ar, ab);
+            var res = [];
+            var i;
+            for(i=1;i<=pages;i++){
+                res.push(i);
+            }
+            return res;
+        };
+        $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        $scope.setItemsPerPage = function(num) {
+            $scope.itemsPerPage = num;
+            $scope.currentPage = 1; //reset to first page
+        };
+
+
+
     }]);

@@ -62,6 +62,7 @@
         </tr>
 
         <!--<tr ng-repeat="result in results"> -->
+        <!-- EL PROBLEMA ESTÁ EN itemsPerPage, QUE POR DEFECTO VALE 0    results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))  -->
         <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <td><a href="#!/elections-voting-stats/{{result.province}}">{{result.province}}</a></td>
             <td>{{result.year}}</td>
@@ -71,19 +72,21 @@
             <td>{{result.cs}}</td>
             <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
             </tr>
-             View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</option></select> records at a time.
+    <!--
+             View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option value="10" selected="selected">10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</option></select> records at a time.
+    -->
     <!--
     <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
     -->
     <pre>The selected page no: {{currentPage}}</pre>
     
-    <button class="btn btn-info" ng-click="prevPage()">Prev</button>
-    <button class="btn btn-info" ng-click="setPage(1)">1</button>
-                <button class="btn btn-info" ng-click="setPage(2)">2</button>
+    <button class="btn btn-info" ng-click="prevPage()">Prev</button> <!-- El problema está en el parámetro que le paso a rangeCreator -->
+                <button ng-repeat="page in rangeCreator(results.length,itemsPerPage)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
+                <!-- <button class="btn btn-info" ng-click="setPage(2)">2</button>
                 <button class="btn btn-info" ng-click="setPage(3)">3</button>
                 <button class="btn btn-info" ng-click="setPage(4)">4</button>
-                <button class="btn btn-info" ng-click="setPage(5)">5</button>
-                <button class="btn btn-info" ng-click="setPage(6)">6</button>
+                <button class="btn btn-info" ng-click="setPage(5)">5</button> 
+                <button class="btn btn-info" ng-click="setPage(6)">6</button> -->
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
 
 
