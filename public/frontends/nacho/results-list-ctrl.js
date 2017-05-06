@@ -289,7 +289,7 @@ angular
             }
         };
         $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
-            $scope.setItemsPerPage(ab);
+            setItemsPerPage(ab);
             var pages = (Math.floor(ar / ab)) + 1;
             console.log(ar, ab);
             var res = [];
@@ -303,10 +303,10 @@ angular
             console.log('Page changed to: ' + $scope.currentPage);
         };
 
-        $scope.setItemsPerPage = function(num) {
+        function setItemsPerPage(num) {
             $scope.itemsPerPage = num;
-            $scope.currentPage = 1; //reset to first page
-        };
+            //$scope.currentPage = 1; //reset to first page
+        }
 
 
 
