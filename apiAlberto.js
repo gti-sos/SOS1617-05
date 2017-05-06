@@ -73,19 +73,19 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
                     var huelva = new Object();
                     huelva.province = "Huelva";
                     huelva.year =  "2008";
-                    huelva.gdp= "9,391,749";
+                    huelva.gdp= "9.391.749";
                     huelva.debt = "230.679";
                     
                     var segovia = new Object();
                     segovia.province = "Segovia";
                     segovia.year =  "2008";
-                    segovia.gdp= "3,795,363";
+                    segovia.gdp= "3.795.363";
                     segovia.debt = "50.262";
 
                     var navarra = new Object();
                     navarra.province = "Navarra";
                     navarra.year =  "2008";
-                    navarra.gdp= "17,722,300";
+                    navarra.gdp= "17.722.300";
                     navarra.debt = "235.765"; 
                     
                     var huesca = new Object();
