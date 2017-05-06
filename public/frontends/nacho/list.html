@@ -81,7 +81,7 @@
     <pre>The selected page no: {{currentPage}}</pre>
     
     <button class="btn btn-info" ng-click="prevPage()">Prev</button>
-                <button ng-repeat="page in rangeCreator(itemsPerPage)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
+                <button ng-repeat="page in rangeCreator(results.length)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
                 <!-- <button class="btn btn-info" ng-click="setPage(2)">2</button>
                 <button class="btn btn-info" ng-click="setPage(3)">3</button>
                 <button class="btn btn-info" ng-click="setPage(4)">4</button>
