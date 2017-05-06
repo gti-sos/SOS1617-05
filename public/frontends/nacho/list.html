@@ -62,6 +62,7 @@
         </tr>
 
         <!--<tr ng-repeat="result in results"> -->
+        <!-- EL PROBLEMA ESTÁ EN itemsPerPage, QUE POR DEFECTO VALE 0 -->
         <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <td><a href="#!/elections-voting-stats/{{result.province}}">{{result.province}}</a></td>
             <td>{{result.year}}</td>

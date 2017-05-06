@@ -57,7 +57,7 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
-            console.log("SE PASA POR AQUÍ");
+            console.log("ENTRA EN FUNCIÓN REFRESH");
             //checkKey();
             var limit = "";
             var offset = "";
@@ -71,10 +71,10 @@ angular
             $http
                 .get($scope.url + "?apikey=" + pass + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("GET collection");
+                    console.log("GET collection (refresh)");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
-
+                    console.log($scope.results);
                 });
 
         }
