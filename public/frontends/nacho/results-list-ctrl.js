@@ -59,7 +59,7 @@ angular
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
             console.log("ENTRA EN FUNCIÓN REFRESH");
-            //checkKey();
+            checkKey();
             var limit = "";
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
