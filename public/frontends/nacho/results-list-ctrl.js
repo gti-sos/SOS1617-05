@@ -283,7 +283,8 @@ angular
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        $scope.rangeCreator = function(pages) {
+        $scope.rangeCreator = function(ar,ab) {
+            var pages =  Math.floor(ar/ab);
             var res = [];
             var i;
             for(i=1;i<=pages;i++){
