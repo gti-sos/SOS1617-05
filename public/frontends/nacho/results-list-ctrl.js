@@ -225,7 +225,7 @@ angular
         $scope.totalItems = function() {
             return $scope.data.length;
         };
-        $scope.currentPage = 1;
+        $scope.currentPage = 3;
         $scope.itemsPerPage = function() {
             var res;
             if ($scope.limit == undefined) {
@@ -254,7 +254,7 @@ angular
 
         $scope.setItemsPerPage = function(num) {
             $scope.itemsPerPage = num;
-            $scope.currentPage = 1; //reset to first paghe
+            $scope.currentPage = 1; //reset to first page
         };
 
 
