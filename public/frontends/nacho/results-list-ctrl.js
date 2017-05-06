@@ -226,7 +226,7 @@ angular
             return $scope.data.length;
         };
         $scope.currentPage = 3;
-        $scope.itemsPerPage = function() {
+        $scope.itemsPerPage = 10;/*function() {
             var res;
             if ($scope.limit == undefined) {
                 res = $scope.data.length;
@@ -236,7 +236,7 @@ angular
             }
             console.log("VALOR DE itemsPerPage: ",res);
             return res;
-        };
+        };*/
         $scope.maxSize = 5; //Number of pager buttons to show
 
 
