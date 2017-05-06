@@ -19,6 +19,7 @@ describe('Add voting results', function() {
                     //Cómo hacer para que presione la tecla de enter por sí mismo?
                     //phantomjs.actions().sendKeys(protractor.Key.ENTER).perform();
                     console.log("CLICK SOBRE BOTÓN Add OKAY!");
+                    browser.driver.sleep(5000);
                     element.all(by.repeater('result in results'))
                         .then(function(electionsVotingStats) {
                             expect(electionsVotingStats.length)
