@@ -114,7 +114,8 @@ angular
         $scope.addResult = function(r) { //Se define una función send dentro del modelo
             $http.post($scope.url + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    alert("Successful action. ");
+                    //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
+                    //alert("Successful action. ");
                 }
                 console.log("POST finished");
                 refresh();

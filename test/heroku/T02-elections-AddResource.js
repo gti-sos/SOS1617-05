@@ -16,7 +16,8 @@ describe('Add voting results', function() {
                 element(by.model('newResult.cs')).sendKeys('2');
 
                 element(by.buttonText('Add')).click().then(function() {
-                    phantomjs.actions().sendKeys(protractor.Key.ENTER).perform();
+                    //Cómo hacer para que presione la tecla de enter por sí mismo?
+                    //phantomjs.actions().sendKeys(protractor.Key.ENTER).perform();
                     console.log("CLICK SOBRE BOTÓN Add OKAY!");
                     element.all(by.repeater('result in results'))
                         .then(function(electionsVotingStats) {
