@@ -57,6 +57,7 @@ angular
 
         //GET: get over single resource en este caso no tendría mucho sentido, no? Si se puede hacer por búsqueda!!
         function refresh() {
+            console.log("SE PASA POR AQUÍ");
             //checkKey();
             var limit = "";
             var offset = "";

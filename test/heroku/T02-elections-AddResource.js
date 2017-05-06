@@ -1,5 +1,7 @@
 describe('Add voting results', function() {
     it('should add a votingResults', function() {
+        
+        //EL PROBLEMA ESTÁ EN QUE AL ACCEDER A ESTA RUTA NO SE MUESTRA NINGÚN RECURSO!! PONER QUE CADA VEZ QUE SE ACCEDA APAREZCAN RESURSOS
         browser.get('https://sos1617-05.herokuapp.com/#!/elections-voting-stats');
 
         element.all(by.repeater('result in results'))
