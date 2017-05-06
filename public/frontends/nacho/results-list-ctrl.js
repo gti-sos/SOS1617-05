@@ -219,43 +219,6 @@ angular
 
         };
 
-        //PAGINATION
-
-        $scope.viewby = 10;
-        $scope.totalItems = function() {
-            return $scope.data.length;
-        };
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = $scope.data.length;/*function() {
-            var res;
-            if ($scope.limit == undefined) {
-                res = $scope.data.length;
-            }
-            else {
-                res = $scope.limit;
-            }
-            console.log("VALOR DE itemsPerPage: ",res);
-            return res;
-        };*/
-        $scope.maxSize = 5; //Number of pager buttons to show
-
-
-        $scope.setPage = function(pageNo) {
-            $scope.currentPage = pageNo;
-        };
-        $scope.prevPage = function() {
-            if ($scope.currentPage > 1) {
-                $scope.currentPage = $scope.currentPage - 1;
-            }
-        };
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
-        };
-
-        $scope.setItemsPerPage = function(num) {
-            $scope.itemsPerPage = num;
-            $scope.currentPage = 1; //reset to first page
-        };
 
 
         /*angular.module('plunker', ['ui.bootstrap']);
@@ -286,4 +249,46 @@ angular
 
         //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
         refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
+
+        //PAGINATION
+
+        $scope.viewby = 10;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = $scope.data.length;
+        /*function() {
+                    var res;
+                    if ($scope.limit == undefined) {
+                        res = $scope.data.length;
+                    }
+                    else {
+                        res = $scope.limit;
+                    }
+                    console.log("VALOR DE itemsPerPage: ",res);
+                    return res;
+                };*/
+        $scope.maxSize = 5; //Number of pager buttons to show
+
+
+        $scope.setPage = function(pageNo) {
+            $scope.currentPage = pageNo;
+        };
+        $scope.prevPage = function() {
+            if ($scope.currentPage > 1) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        };
+        $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        $scope.setItemsPerPage = function(num) {
+            $scope.itemsPerPage = num;
+            $scope.currentPage = 1; //reset to first page
+        };
+
+
+
     }]);
