@@ -1,5 +1,6 @@
 /*global google*/
 /*global angular*/
+/*global Highcharts*/
 angular
             .module("ManagerApp")
             .controller("EconomicWidgetsCtrl", ["$http","$scope", function($http,$scope) {
@@ -26,19 +27,11 @@ angular
                     });
                                     console.log("Controller intialized");
 
-                    /*
-                        Highcharts.chart('chart', {
-                            series: [{
-                                data: res.data.map(function(d) {
-                                    return Number(d.data);
-                                })
-                            }]
-
-                        });*/
+                  
                         $http
                     .get("/api/v1/economic-situation-stats?" + "apikey=" + $scope.apikey)
                     .then(function(res) {
-                        //Geocharts
+                        //Geocharts 
                         google.charts.load('current', {
                             'packages': ['geochart']
                         });
@@ -67,5 +60,43 @@ angular
                             chart.draw(data, options);
                         }
 
-                    });
+                   
+                    //HighCharts
+     Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Economic Situatuion Stats in Spain'
+    },
+
+
+    yAxis: {
+        title: {
+            text: 'EUROS'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            pointStart: 2006
+        }
+    },
+
+    series: [{
+        name: 'gdp',
+        data: $scope.gdp
+    }, {
+        name: 'debt',
+        data: $scope.debt
+     
+    }]
+     });
+
+});
             }]);
