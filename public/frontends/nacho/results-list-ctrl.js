@@ -281,7 +281,11 @@ angular
 
 
         $scope.setPage = function(pageNo) {
-            $scope.currentPage = pageNo;
+
+            var pages = (Math.floor($scope.data.length / $scope.limit)) + 1;
+            if (pageNo < pages) {
+                $scope.currentPage = pageNo;
+            }
         };
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
