@@ -87,6 +87,7 @@ angular
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
+                $scope.itemsPerPage = $scope.limit;
             }
             if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
