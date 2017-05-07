@@ -89,14 +89,58 @@ angular
     },
 
     series: [{
-        name: 'gdp',
-        data: $scope.gdp
+        name: 'gdp ',
+        data: $scope.gdp 
     }, {
         name: 'debt',
         data: $scope.debt
-     
+    
     }]
      });
+     //dygraphs
+     /*
+      g = new Dygraph(
+    document.getElementById("graph"),
+    // For possible data formats, see http://dygraphs.com/data.html
+    // The x-values could also be dates, e.g. "2012/03/15"
+    "X,Y,Z\n" +
+    "1,0,3\n" +
+    "2,2,6\n" +
+    "3,4,8\n" +
+    "4,6,9\n" +
+    "5,8,9\n" +
+    "6,10,8\n" +
+    "7,12,6\n" +
+    "8,14,3\n",
+    {
+      // options go here. See http://dygraphs.com/options.html
+      legend: 'always',
+      animatedZooms: true,
+      title: 'Economic Situation Template'
+    });
+     /*
+     $(document).ready(function () {
+      var lastClickedGraph;
+      document.addEventListener("mousewheel", function() { lastClickedGraph = null; });
+      document.addEventListener("click", function() { lastClickedGraph = null; });
+  
+      var g3 = new Dygraph(document.getElementById("div_g3"),
+           NoisyData, { errorBars : true, interactionModel : {
+            'mousedown' : downV3,
+            'mousemove' : moveV3,
+            'mouseup' : upV3,
+            'click' : clickV3,
+            'dblclick' : dblClickV3,
+            'mousewheel' : scrollV3
+      }});
+      document.getElementById("restore3").onclick = function() {
+        restorePositioning(g3);
+      };
+     
+     
+    */ 
+     
+     
 
 });
             }]);
