@@ -58,6 +58,7 @@
 
              </tr>
              <!--genera un tr nuevo instanciando un objeto economicSituation que puedes utilizar de manera local-->
+            
              <tr ng-repeat="economicSituation in economicSituationStats.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                  <td><a href="#!/economic-situation-stats/{{economicSituation.province}}">{{economicSituation.province}}</a></td>
                  <td>{{economicSituation.year}}</td>
@@ -71,16 +72,15 @@
               -->
               <pre>The selected page no: {{currentPage}}</pre>
     
-    <button class="btn btn-info" ng-click="setPage(currentPage-1)">Prev</button>
-    <button class="btn btn-info" ng-click="setPage(1)">1</button>
+              <button class="btn btn-info" ng-click="setPage(currentPage-1)">Prev</button>
+                <button class="btn btn-info" ng-click="setPage(1)">1</button>
                 <button class="btn btn-info" ng-click="setPage(2)">2</button>
                 <button class="btn btn-info" ng-click="setPage(3)">3</button>
                 <button class="btn btn-info" ng-click="setPage(4)">4</button>
                 <button class="btn btn-info" ng-click="setPage(5)">5</button>
                 <button class="btn btn-info" ng-click="setPage(6)">6</button>
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
-             
-             
+         
 
          </tbody>
      </table>
