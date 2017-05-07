@@ -125,23 +125,78 @@ angular
                         [4, 2],
                         [5, 3]
                     ]))); */
+                /*
+                                var chart8a = new EJSC.Chart("myChart", {});
 
-                var chart8a = new EJSC.Chart("myChart", {});
+                                var series1 = chart8a.addSeries(new EJSC.PieSeries(
+                                    new EJSC.ArrayDataHandler([
 
-                var series1 = chart8a.addSeries(new EJSC.PieSeries(
+                                        /*[151, "pp"], //pp
+                                        [73, "podemos"], //podemos
+                                        [82, "psoe"], //psoe
+                                        [30, "cs"], //cs 
+
+                                        [1, "pp"], //pp
+                                        [2, "podemos"], //podemos
+                                        [3, "psoe"], //psoe
+                                        [40, "cs"], //cs
+                                    ]), {
+                                        onAfterDataAvailable: function(chart, series) {
+                                            chart.selectPoint(series.__points[0], true);
+                                        }
+                                    }
+                                ));
+
+                                series1.onPieceNeedsColor = function(point, series, chart) {
+                                    var colors = [
+                                        null,
+                                        'rgb(0,0,255)', //pp
+                                        'rgb(102,0,102)', //podemos
+                                        'rgb(255,0,0)', //psoe
+                                        'rgb(255,128,0)', //cs
+                                    ];
+                                    return colors[point.x];
+                                }; */
+
+                var chart = new EJSC.Chart("myChart", {
+                    show_legend: false,
+                    title: 'DoughnutSeries'
+                });
+
+                var series1 = chart.addSeries(new EJSC.DoughnutSeries(
                     new EJSC.ArrayDataHandler([
                         [151, "pp"], //pp
                         [73, "podemos"], //podemos
                         [82, "psoe"], //psoe
                         [30, "cs"], //cs
                     ]), {
+                        opacity: 30, //default: 50
+                        doughnutOffset: .2, //default: .5
+                        position: "topRight", //default: "center"
+                        height: "50%", //default: "100%"
+                        width: "50%" //default: "100%"
+                    }
+                ));
+                var series2 = chart.addSeries(new EJSC.DoughnutSeries(
+                    new EJSC.ArrayDataHandler([
+                        [151, "pp"], //pp
+                        [73, "podemos"], //podemos
+                        [82, "psoe"], //psoe
+                        [30, "cs"], //cs
+                    ]), {
+                        opacity: 80, //default: 50
+                        doughnutOffset: .7, //default: .5
+                        position: "bottomLeft", //default: "center"
+                        height: "70%", //default: "100%"
+                        width: "70%", //default: "100%"
                         onAfterDataAvailable: function(chart, series) {
                             chart.selectPoint(series.__points[0], true);
                         }
+
                     }
                 ));
-
-                series1.onPieceNeedsColor = function(point, series, chart) {
+                //Si intento cambiarle el color como a la versión PIE no se muestra el grafo
+                /*series1.onPieceNeedsColor = function(point, series, chart) {
                     var colors = [
                         null,
                         'rgb(0,0,255)', //pp
@@ -151,7 +206,14 @@ angular
                     ];
                     return colors[point.x];
                 };
-
-
+                series2.onPieceNeedsColor = function(point, series, chart) {
+                    var colors = [
+                        'rgb(0,0,255)', //pp
+                        'rgb(102,0,102)', //podemos
+                        'rgb(255,0,0)', //psoe
+                        'rgb(255,128,0)', //cs
+                    ];
+                    return colors[point.x];
+                };*/
             });
     }]);
