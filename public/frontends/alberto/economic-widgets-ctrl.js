@@ -39,13 +39,17 @@ angular
                             text: 'gdp and debt in Spain'
                         },
                          xAxis: {
-                                 categories: $scope.categories
+                                 categories: $scope.categories,
+                                title: {
+                                text: 'province-year',
+                                align: 'high'
+                            },
                                         },
                     
                         yAxis: {
                             min: 0,
                             title: {
-                                text: 'EUROS',
+                                text: 'Euros',
                                 align: 'high'
                             },
                             labels:{
