@@ -67,12 +67,15 @@
                  <td><button class="btn btn-danger" ng-click = "deleteEconomicSituation(economicSituation)">Delete </button></td>
               </tr>
               <!--comentado para protractor-->
-              
-               View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</option></select> records at a time.
+             <!-- 
+               View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</option></select> records at a time.-->
               
               <pre>The selected page no: {{currentPage}}</pre>
-    
-    <button class="btn btn-info" ng-click="setPage(currentPage-1)">Prev</button>
+   
+   
+   
+    <!--ANTES DE MODIFICAR PARA PROTRACTOR-->
+    <!--<button class="btn btn-info" ng-click="setPage(currentPage-1)">Prev</button>
     <button class="btn btn-info" ng-click="setPage(1)">1</button>
                 <button class="btn btn-info" ng-click="setPage(2)">2</button>
                 <button class="btn btn-info" ng-click="setPage(3)">3</button>
@@ -80,8 +83,11 @@
                 <button class="btn btn-info" ng-click="setPage(5)">5</button>
                 <button class="btn btn-info" ng-click="setPage(6)">6</button>
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
-             
-             
+             -->
+       <!--modificado-->
+           <button class="btn btn-info" ng-click="prevPage()">Prev</button>
+                <button ng-repeat="page in rangeCreator(results.length,limit)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
+                <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
 
          </tbody>
      </table>
