@@ -2,7 +2,7 @@ angular
     .module("ManagerApp")
     .controller("ElectionsWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
 
-         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
+        // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
 
         $scope.apikey = "cinco";
         $scope.categories = [];
@@ -25,11 +25,11 @@ angular
 
                     console.log($scope.data[i].province);
                 }
-            });
-        console.log("Controller intialized");
-        $http
-            .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
-            .then(function(res) {
+
+                console.log("Controller intialized");
+
+
+
 
                 Highcharts.chart('container', {
                     chart: {
@@ -56,22 +56,25 @@ angular
                             stacking: 'percent'
                         }
                     },
+
+
+
                     //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
                     series: [{
                         name: 'pp',
-                        data: [, , , , , , , , , ,]
+                        data: [17, 4, 7, 5, 3, 2, 4, 2, 3, 2, 4]
                     }, {
                         name: 'podemos',
-                        data: [, , , , , , , , , ,]
+                        data: [6, 9, 5, 4, 1, 1, 0, 1, 2, 2, 2]
                     }, {
                         name: 'psoe',
-                        data: [, , , , , , , , , ,]
+                        data: [8, 5, 3, 3, 2, 2, 2, 2, 3, 2, 3]
                     }, {
                         name: 'cs',
-                        data: [, , , , , , , , , ,]
+                        data: [5, 4, 2, 0, 1, 1, 1, 0, 1, 0, 2]
                     }]
                 });
-                
+
                 //Geocharts
                 google.charts.load('current', {
                     'packages': ['geochart']
