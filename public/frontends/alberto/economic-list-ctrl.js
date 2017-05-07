@@ -74,12 +74,11 @@ angular
 
         };
 
-
-
+ 
 
 
 //Añadir nuevo recurso
-$scope.addEconomicSituation = function (){
+$scope.addEconomicSituation = function (e){
   //PARA QUE FUNCIONE PROTRACTOR  confirmApikey();
      $http//$scope.apikey por password para protractor
      .post("/api/v1/economic-situation-stats?apikey=" + password,$scope.newEconomicSituation) 
