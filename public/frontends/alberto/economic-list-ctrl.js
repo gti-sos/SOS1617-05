@@ -209,7 +209,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 });
         };
         //Paginación
-      //   $scope.viewby = 10;
+      /*  $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
         };
@@ -232,8 +232,8 @@ $scope.deleteEconomicSituation = function (economicSituation){
 
         $scope.setItemsPerPage = function(num) {
             $scope.itemsPerPage = num;
-            $scope.currentPage = 1; //reset to first paghe
+            //$scope.currentPage = 1; //reset to first paghe
         };
-
+*/
 
     }]);
