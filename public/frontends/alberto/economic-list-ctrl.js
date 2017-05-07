@@ -31,13 +31,11 @@ angular
                 offset = "&offset=" + $scope.offset;
             }
             //Siempre actualizamos los modelos dentro del callback
-              //$scope.apikey por password en la URL para los tests de protractor
             $http
                 .get("/api/v1/economic-situation-stats?apikey=" + password + limit + offset) //ya que está en el mismo servidor
                 .then(function(response) {
-                    //PARA PROTRACTOR
-                 /*   $scope.data = JSON.stringify(response.data, null, 2);
-                    $scope.economicSituationStats = response.data;*/
+                    $scope.data = JSON.stringify(response.data, null, 2);
+                    $scope.economicSituationStats = response.data;
 
                 });
         }
@@ -210,16 +208,14 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 });
         };
         //Paginación
-         $scope.viewby = 10;
+        $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
         };
         $scope.currentPage = 1;
-        
         $scope.itemsPerPage = function() {
             return $scope.limit;
         };
-        
         $scope.maxSize = 5; //Number of pager buttons to show
 
 
@@ -233,7 +229,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
 
         $scope.setItemsPerPage = function(num) {
             $scope.itemsPerPage = num;
-            //$scope.currentPage = 1; //reset to first paghe
+            $scope.currentPage = 1; //reset to first paghe
         };
 
 
