@@ -42,7 +42,7 @@ angular
 
         //Muestra lista de recursos
         $http
-            .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey) //ya que está en el mismo servidor
+            .get("/api/v1/economic-situation-stats?apikey=" + password) //ya que está en el mismo servidor
             .then(function(response) {
                 console.log("GET");
                 $scope.data = JSON.stringify(response.data, null, 2);
