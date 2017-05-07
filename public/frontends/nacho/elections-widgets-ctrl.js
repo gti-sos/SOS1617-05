@@ -83,11 +83,11 @@ angular
 
                 function drawRegionsMap() {
 
-                    var myData = [
-                        ['Province', 'Gdp', 'Year']
+                    var myData = [ //no tienen que estar todos los campos
+                        ['Province', 'podemos', 'Year']
                     ];
                     res.data.forEach(function(d) {
-                        myData.push([d.province, Number(d.gdp), Number(d.year)]);
+                        myData.push([d.province, Number(d.podemos), Number(d.year)]);
                     });
 
                     var data = google
