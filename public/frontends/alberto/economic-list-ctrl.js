@@ -40,9 +40,9 @@ angular
                     console.log("GET collection (refresh)");
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.economicSituationStats = response.data;
-                    console.log($scope.results);
+                    console.log($scope.economicSituationStats);
                     if ($scope.limit == undefined | $scope.limit == "") {
-                        $scope.itemsPerPage = $scope.results.length;
+                        $scope.itemsPerPage = $scope.economicSituationStats.length;
                     }
                 });
         }
@@ -211,7 +211,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-                    $scope.results = response.data;
+                    $scope.economicSituationStats = response.data;
                     refresh();
 
                 });
@@ -252,9 +252,9 @@ $scope.deleteEconomicSituation = function (economicSituation){
 
         $scope.setPage = function(pageNo) {
 
-            var pages = (Math.floor($scope.results.length / $scope.limit)) + 1;
+            var pages = (Math.floor($scope.economicSituationStats.length / $scope.limit)) + 1;
             if (pageNo <= pages) {
-                console.log("Páginas: ",$scope.results.length , $scope.limit,pages);
+                console.log("Páginas: ",$scope.economicSituationStats.length , $scope.limit,pages);
                 $scope.currentPage = pageNo;
             }
         };
@@ -265,7 +265,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
         };
         $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a page
             if(ab==undefined){
-                ab=$scope.results.length;
+                ab=$scope.economicSituationStats.length;
             }
             setItemsPerPage(ab);
             var pages = (Math.floor(ar / ab)) + 1;
