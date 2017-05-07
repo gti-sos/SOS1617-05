@@ -33,7 +33,7 @@ angular
                     //HighCharts
                          Highcharts.chart('container', {
                         chart: {
-                            type: 'column'
+                            type: 'spline'
                         },
                         title: {
                             text: 'gdp and debt in Spain'
