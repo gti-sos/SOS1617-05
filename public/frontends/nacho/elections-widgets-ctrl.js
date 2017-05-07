@@ -31,7 +31,7 @@ angular
 
 
 
-
+                //Highcharts
                 Highcharts.chart('container', {
                     chart: {
                         type: 'column'
@@ -102,7 +102,7 @@ angular
                         //CONSULTAR: https://developers.google.com/chart/interactive/docs/gallery/geochart
                         displayMode: 'markers',
                         colorAxis: {
-                            colors: ['green', 'blue', 'yellow']
+                            colors: ['blue', 'red', 'purple']
                         }
                     };
 
@@ -111,6 +111,9 @@ angular
 
                     chart.draw(data, options);
                 }
+                
+                //EJSchart
+                //debería poner aquí algo de EJSchart o ya con que esté en la carpeta aquella vale?
 
             });
     }]);
