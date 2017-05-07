@@ -35,8 +35,9 @@ angular
             $http
                 .get("/api/v1/economic-situation-stats?apikey=" + password + limit + offset) //ya que está en el mismo servidor
                 .then(function(response) {
-                    $scope.data = JSON.stringify(response.data, null, 2);
-                    $scope.economicSituationStats = response.data;
+                    //PARA PROTRACTOR
+                 /*   $scope.data = JSON.stringify(response.data, null, 2);
+                    $scope.economicSituationStats = response.data;*/
 
                 });
         }
@@ -209,7 +210,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 });
         };
         //Paginación
-      /*  $scope.viewby = 10;
+         $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
         };
@@ -234,6 +235,6 @@ $scope.deleteEconomicSituation = function (economicSituation){
             $scope.itemsPerPage = num;
             //$scope.currentPage = 1; //reset to first paghe
         };
-*/
+
 
     }]);
