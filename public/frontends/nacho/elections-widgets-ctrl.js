@@ -2,7 +2,7 @@ angular
     .module("ManagerApp")
     .controller("ElectionsWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
 
-         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
+        // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
 
         $scope.apikey = "cinco";
         $scope.categories = [];
@@ -18,6 +18,7 @@ angular
                 data = res.data;
                 $scope.data = data;
 
+                //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
                     $scope.categories.push($scope.data[i].province + "-" + $scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i].gdp));
@@ -25,12 +26,12 @@ angular
 
                     console.log($scope.data[i].province);
                 }
-            });
-        console.log("Controller intialized");
-        $http
-            .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
-            .then(function(res) {
 
+                console.log("Controller intialized");
+
+
+
+                //Highcharts
                 Highcharts.chart('container', {
                     chart: {
                         type: 'column'
@@ -56,35 +57,40 @@ angular
                             stacking: 'percent'
                         }
                     },
+
+
+
                     //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
                     series: [{
                         name: 'pp',
-                        data: [, , , , , , , , , ,]
+                        data: [17, 4, 7, 5, 3, 2, 4, 2, 3, 2, 4]
                     }, {
                         name: 'podemos',
-                        data: [, , , , , , , , , ,]
+                        data: [6, 9, 5, 4, 1, 1, 0, 1, 2, 2, 2]
                     }, {
                         name: 'psoe',
-                        data: [, , , , , , , , , ,]
+                        data: [8, 5, 3, 3, 2, 2, 2, 2, 3, 2, 3]
                     }, {
                         name: 'cs',
-                        data: [, , , , , , , , , ,]
+                        data: [5, 4, 2, 0, 1, 1, 1, 0, 1, 0, 2]
                     }]
                 });
-                
+
+
                 //Geocharts
                 google.charts.load('current', {
+                    'mapsApiKey': 'AIzaSyDft-LAnK-6P_m7RTRsbV7-oCLjEYe9ITU',
                     'packages': ['geochart']
                 });
                 google.charts.setOnLoadCallback(drawRegionsMap);
 
                 function drawRegionsMap() {
 
-                    var myData = [
-                        ['Province', 'Gdp', 'Year']
+                    var myData = [ //no tienen que estar todos los campos
+                        ['Province', 'podemos', 'Year']
                     ];
                     res.data.forEach(function(d) {
-                        myData.push([d.province, Number(d.gdp), Number(d.year)]);
+                        myData.push([d.province, Number(d.podemos), Number(d.year)]);
                     });
 
                     var data = google
@@ -93,9 +99,10 @@ angular
 
                     var options = {
                         region: 'ES',
+                        //CONSULTAR: https://developers.google.com/chart/interactive/docs/gallery/geochart
                         displayMode: 'markers',
                         colorAxis: {
-                            colors: ['green', 'blue', 'yellow']
+                            colors: ['blue', 'red', 'purple']
                         }
                     };
 
@@ -104,6 +111,9 @@ angular
 
                     chart.draw(data, options);
                 }
+                
+                //EJSchart
+                //debería poner aquí algo de EJSchart o ya con que esté en la carpeta aquella vale?
 
             });
     }]);
