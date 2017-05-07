@@ -14,7 +14,6 @@ describe('Add economicSituation',function(){
            element(by.model('newEconomicSituation.debt')).sendKeys('865.32');
            
            element(by.buttonText('Add')).click().then(function(){
-                browser.driver.sleep(5000);
 
                element.all(by.repeater('economicSituation in economicSituationStats'))
                .then(function(economicSituationStats){
