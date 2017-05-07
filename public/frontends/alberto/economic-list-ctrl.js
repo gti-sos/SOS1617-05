@@ -32,7 +32,7 @@ angular
             }
             //Siempre actualizamos los modelos dentro del callback
             $http
-                .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey + limit + offset) //ya que está en el mismo servidor
+                .get("/api/v1/economic-situation-stats?apikey=cinco" + limit + offset) //ya que está en el mismo servidor
                 .then(function(response) {
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.economicSituationStats = response.data;
