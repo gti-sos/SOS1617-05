@@ -7,7 +7,7 @@ angular
                 $scope.apikey = "cinco";
                 $scope.data = {};
                 var data = {};
-                $scope.categorias = [];
+                $scope.categories = [];
                 $scope.gdp = [];
                 $scope.debt = [];
                 $http
@@ -18,7 +18,7 @@ angular
                         $scope.data=data;
                         
                         for(var i=0;i<res.data.length;i++){
-                            $scope.categorias.push($scope.data[i].province);
+                            $scope.categories.push($scope.data[i].province + "-" + $scope.data[i].year);
                             $scope.gdp.push(Number($scope.data[i]["gdp"]));
                             $scope.debt.push(Number($scope.data[i]["debt"]));
                             
@@ -26,11 +26,64 @@ angular
                         }
                     });
                                     console.log("Controller intialized");
-//AIzaSyBXwhHffNwu6bGBn99_if09hsbx5XPFNGY
-                  
+
                         $http
                     .get("/api/v1/economic-situation-stats?" + "apikey=" + $scope.apikey)
                     .then(function(res) {
+                    //HighCharts
+                         Highcharts.chart('container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'gdp and debt in Spain'
+                        },
+                         xAxis: {
+                                 categories: $scope.categories
+                                        },
+                    
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'EUROS',
+                                align: 'high'
+                            },
+                            labels:{
+                                overflow :'justify'
+                            }
+                        },
+                        tooltip: {
+                          valueSuffix: 'millions'  
+                        },
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                    enabled :true
+                                },
+
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 80,
+                            floating: true,
+                            borderWidth: 1,
+                            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                            shadow: true
+                        }
+                    ,
+                        series: [{
+                            name: 'gdp ',
+                            data: $scope.gdp 
+                        }, {
+                            name: 'debt',
+                            data: $scope.debt
+                        
+                        }]
+                         });
                         //Geocharts 
                         google.charts.load('current', {
                             'mapsApiKey':'AIzaSyDft-LAnK-6P_m7RTRsbV7-oCLjEYe9ITU',
@@ -62,86 +115,27 @@ angular
                         }
 
                    
-                    //HighCharts
-     Highcharts.chart('container', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Economic Situatuion Stats in Spain'
-    },
 
-
-    yAxis: {
-        title: {
-            text: 'EUROS'
-        }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-    },
-
-    plotOptions: {
-        series: {
-            pointStart: 2006
-        }
-    },
-
-    series: [{
-        name: 'gdp ',
-        data: $scope.gdp 
-    }, {
-        name: 'debt',
-        data: $scope.debt
-    
-    }]
-     });
      //dygraphs
-     /*
-      g = new Dygraph(
-    document.getElementById("graph"),
-    // For possible data formats, see http://dygraphs.com/data.html
-    // The x-values could also be dates, e.g. "2012/03/15"
-    "X,Y,Z\n" +
-    "1,0,3\n" +
-    "2,2,6\n" +
-    "3,4,8\n" +
-    "4,6,9\n" +
-    "5,8,9\n" +
-    "6,10,8\n" +
-    "7,12,6\n" +
-    "8,14,3\n",
-    {
-      // options go here. See http://dygraphs.com/options.html
-      legend: 'always',
-      animatedZooms: true,
-      title: 'Economic Situation Template'
-    });
-     /*
      $(document).ready(function () {
-      var lastClickedGraph;
-      document.addEventListener("mousewheel", function() { lastClickedGraph = null; });
-      document.addEventListener("click", function() { lastClickedGraph = null; });
-  
-      var g3 = new Dygraph(document.getElementById("div_g3"),
-           NoisyData, { errorBars : true, interactionModel : {
-            'mousedown' : downV3,
-            'mousemove' : moveV3,
-            'mouseup' : upV3,
-            'click' : clickV3,
-            'dblclick' : dblClickV3,
-            'mousewheel' : scrollV3
-      }});
-      document.getElementById("restore3").onclick = function() {
-        restorePositioning(g3);
-      };
-     
-     
-    */ 
-     
-     
+    var myData = [['year','gdp','debt']];
+   res.data.forEach(function (d){
+     myData.push([d.year,Number(d["gdp"]),Number(d["debt"])]);
+                            });
+    var data = google.visualization.arrayToDataTable(myData);
+    var g = new Dygraph(document.getElementById('graphdiv'), data,
+    {     /* options */ 
+        
+    labels: ["Date","gdp","debt"],
+    title: "Comparative gdp and debt in Spain",
+    labelsDiv: "Legend",
+    fillGraph: true
+    });
+ 
+
+
 
 });
+       });
+                
             }]);
