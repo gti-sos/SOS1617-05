@@ -26,15 +26,15 @@ angular
                         }
                     });
                                     console.log("Controller intialized");
-
+//AIzaSyBXwhHffNwu6bGBn99_if09hsbx5XPFNGY
                   
                         $http
                     .get("/api/v1/economic-situation-stats?" + "apikey=" + $scope.apikey)
                     .then(function(res) {
                         //Geocharts 
                         google.charts.load('current', {
-                            'mapsApikey':'AIzaSyBXwhHffNwu6bGBn99_if09hsbx5XPFNGY',
-                            'packages': ['geochart']
+                            'mapsApiKey':'AIzaSyDft-LAnK-6P_m7RTRsbV7-oCLjEYe9ITU',
+                            'packages': ['geochart'],
                         });
                         google.charts.setOnLoadCallback(drawMarkersMap);
 
