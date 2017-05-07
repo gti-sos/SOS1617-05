@@ -111,9 +111,47 @@ angular
 
                     chart.draw(data, options);
                 }
-                
-                //EJSchart
+
+                //EJSchart (puede ser un donut/pastel con colores, uno por cada partido político. Suponiendo que x sea la suma de escaños totales, cada porción 
+                //representará la parte de x que ha ganado cada uno de los cuatro partidos, y así se tendrían todos los recursos con todos los datos en uso.)
                 //debería poner aquí algo de EJSchart o ya con que esté en la carpeta aquella vale?
+
+                /*var chart = new EJSC.Chart("myChart");
+                chart.addSeries(new EJSC.AreaSeries(
+                    new EJSC.ArrayDataHandler([
+                        [1, 1],
+                        [2, 2],
+                        [3, 3],
+                        [4, 2],
+                        [5, 3]
+                    ]))); */
+
+                var chart8a = new EJSC.Chart("myChart", {});
+
+                var series1 = chart8a.addSeries(new EJSC.PieSeries(
+                    new EJSC.ArrayDataHandler([
+                        [151, "pp"], //pp
+                        [73, "podemos"], //podemos
+                        [82, "psoe"], //psoe
+                        [30, "cs"], //cs
+                    ]), {
+                        onAfterDataAvailable: function(chart, series) {
+                            chart.selectPoint(series.__points[0], true);
+                        }
+                    }
+                ));
+
+                series1.onPieceNeedsColor = function(point, series, chart) {
+                    var colors = [
+                        null,
+                        'rgb(0,0,255)', //pp
+                        'rgb(102,0,102)', //podemos
+                        'rgb(255,0,0)', //psoe
+                        'rgb(255,128,0)', //cs
+                    ];
+                    return colors[point.x];
+                };
+
 
             });
     }]);
