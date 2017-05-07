@@ -31,6 +31,7 @@ angular
                 offset = "&offset=" + $scope.offset;
             }
             //Siempre actualizamos los modelos dentro del callback
+              //$scope.apikey por password en la URL para los tests de protractor
             $http
                 .get("/api/v1/economic-situation-stats?apikey=" + password + limit + offset) //ya que está en el mismo servidor
                 .then(function(response) {
@@ -42,7 +43,7 @@ angular
 
         //Muestra lista de recursos
         $http
-            .get("/api/v1/economic-situation-stats?apikey=" + $scope.apikey) //ya que está en el mismo servidor
+            .get("/api/v1/economic-situation-stats?apikey=" + password) //ya que está en el mismo servidor
             .then(function(response) {
                 console.log("GET");
                 $scope.data = JSON.stringify(response.data, null, 2);
