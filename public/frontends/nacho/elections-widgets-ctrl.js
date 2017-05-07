@@ -75,8 +75,12 @@ angular
                     }]
                 });
 
+
+
+
                 //Geocharts
                 google.charts.load('current', {
+                    'key' : 'AIzaSyDft-LAnK-6P_m7RTRsbV7-oCLjEYe9ITU',
                     'packages': ['geochart']
                 });
                 google.charts.setOnLoadCallback(drawRegionsMap);
