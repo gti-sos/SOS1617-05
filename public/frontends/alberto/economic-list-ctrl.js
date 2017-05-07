@@ -209,7 +209,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 });
         };
         //Paginación
-        $scope.viewby = 10;
+        $scope.viewby.click(40);
         $scope.totalItems = function() {
             return $scope.data.length;
         };
