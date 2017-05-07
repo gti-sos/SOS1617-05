@@ -78,8 +78,9 @@ angular
 
 
 //Añadir nuevo recurso
-$scope.addEconomicSituation = function (e){
-  //PARA QUE FUNCIONE PROTRACTOR  confirmApikey();
+$scope.addEconomicSituation = function (){
+  //PARA QUE FUNCIONE PROTRACTOR  
+  //confirmApikey();
      $http//$scope.apikey por password para protractor
      .post("/api/v1/economic-situation-stats?apikey=" + password,$scope.newEconomicSituation) 
      .then(function (response){
@@ -106,7 +107,7 @@ $scope.addEconomicSituation = function (e){
                 if (response.status === 200 || response.status === 201) {
                     alert("Successful execution");
                 }
-                else if (response.status == 400) {
+                else if (response.status == 422) {
                     alert("ATTENTION: the economic situation  is not well formed");
                 }
             });
