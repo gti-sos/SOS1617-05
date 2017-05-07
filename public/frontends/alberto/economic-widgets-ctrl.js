@@ -33,7 +33,7 @@ angular
                     .then(function(res) {
                         //Geocharts 
                         google.charts.load('current', {
-                            'mapsApikey':'AIzaSyDft-LAnK-6P_M7RTRsbV7-oCLjEYe9ITU',
+                            'mapsApikey':'AIzaSyBXwhHffNwu6bGBn99_if09hsbx5XPFNGY',
                             'packages': ['geochart']
                         });
                         google.charts.setOnLoadCallback(drawMarkersMap);
