@@ -18,6 +18,7 @@ angular
                 data = res.data;
                 $scope.data = data;
 
+                //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
                     $scope.categories.push($scope.data[i].province + "-" + $scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i].gdp));
@@ -76,11 +77,9 @@ angular
                 });
 
 
-
-
                 //Geocharts
                 google.charts.load('current', {
-                    'key' : 'AIzaSyDft-LAnK-6P_m7RTRsbV7-oCLjEYe9ITU',
+                    'mapsApiKey': 'AIzaSyDft-LAnK-6P_m7RTRsbV7-oCLjEYe9ITU',
                     'packages': ['geochart']
                 });
                 google.charts.setOnLoadCallback(drawRegionsMap);
@@ -100,6 +99,7 @@ angular
 
                     var options = {
                         region: 'ES',
+                        //CONSULTAR: https://developers.google.com/chart/interactive/docs/gallery/geochart
                         displayMode: 'markers',
                         colorAxis: {
                             colors: ['green', 'blue', 'yellow']
