@@ -30,15 +30,23 @@ angular
             if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }
+            if ($scope.limit != undefined & $scope.limit != "") {
+                $scope.itemsPerPage = $scope.limit;
+            }
             //Siempre actualizamos los modelos dentro del callback
             $http
                 .get("/api/v1/economic-situation-stats?apikey=" + password + limit + offset) //ya que está en el mismo servidor
                 .then(function(response) {
+                    console.log("GET collection (refresh)");
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.economicSituationStats = response.data;
-
+                    console.log($scope.results);
+                    if ($scope.limit == undefined | $scope.limit == "") {
+                        $scope.itemsPerPage = $scope.results.length;
+                    }
                 });
         }
+   
 
         //Muestra lista de recursos
         $http
@@ -209,7 +217,8 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 });
         };
         //Paginación
-        $scope.viewby.click(40);
+        /*(COMENTADO PARA PROTRACTOR)
+        $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
         };
@@ -232,6 +241,51 @@ $scope.deleteEconomicSituation = function (economicSituation){
             $scope.itemsPerPage = num;
             $scope.currentPage = 1; //reset to first paghe
         };
+*/
+//NUEVO PARA QUE FUNCIONE BIE:
+ $scope.viewby = 10;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
+        $scope.currentPage = 1;
+        $scope.maxSize = 5; 
+
+        $scope.setPage = function(pageNo) {
+
+            var pages = (Math.floor($scope.results.length / $scope.limit)) + 1;
+            if (pageNo <= pages) {
+                console.log("Páginas: ",$scope.results.length , $scope.limit,pages);
+                $scope.currentPage = pageNo;
+            }
+        };
+        $scope.prevPage = function() {
+            if ($scope.currentPage > 1) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        };
+        $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a page
+            if(ab==undefined){
+                ab=$scope.results.length;
+            }
+            setItemsPerPage(ab);
+            var pages = (Math.floor(ar / ab)) + 1;
+            console.log(ar, ab);
+            var res = [];
+            var i;
+            for (i = 1; i <= pages; i++) {
+                res.push(i);
+            }
+            return res;
+        };
+        $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        function setItemsPerPage(num) {
+            $scope.itemsPerPage = num;
+        }
+
+
 
 
     }]);
