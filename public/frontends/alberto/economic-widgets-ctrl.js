@@ -10,6 +10,7 @@ angular
                 $scope.categories = [];
                 $scope.gdp = [];
                 $scope.debt = [];
+                $scope.year = [];
                 $http
                     .get("/api/v1/economic-situation-stats?" + "apikey=" + $scope.apikey)
                     .then(function(res) {
@@ -18,6 +19,7 @@ angular
                         $scope.data=data;
                         
                         for(var i=0;i<res.data.length;i++){
+                            $scope.year.push($scope.data[i].year);
                             $scope.categories.push($scope.data[i].province + "-" + $scope.data[i].year);
                             $scope.gdp.push(Number($scope.data[i]["gdp"]));
                             $scope.debt.push(Number($scope.data[i]["debt"]));
@@ -36,7 +38,7 @@ angular
                             type: 'spline'
                         },
                         title: {
-                            text: 'gdp and debt in Spain'
+                            text: 'gdp,debt and year of provinces in Spain'
                         },
                          xAxis: {
                                  categories: $scope.categories,
@@ -121,24 +123,20 @@ angular
                    
 
      //dygraphs
-     $(document).ready(function () {
-    var myData = [['year','gdp','debt']];
-   res.data.forEach(function (d){
-     myData.push([d.year,Number(d["gdp"]),Number(d["debt"])]);
-                            });
-    var data = google.visualization.arrayToDataTable(myData);
-    var g = new Dygraph(document.getElementById('graphdiv'), data,
-    {     /* options */ 
-        
-    labels: ["Date","gdp","debt"],
-    title: "Comparative gdp and debt in Spain",
-    labelsDiv: "Legend",
-    fillGraph: true
+    $(document).ready(function () {
+     var myData2= [];
+     res.data.forEach(function (d){
+     myData2.push([Number($scope.year),Number($scope.gdp),Number($scope.debt)]);
+     });
+    var g = new Dygraph(document.getElementById("graph"),myData2,
+    {
+     labels:["year","gdp","dbt"],
+      legend: 'always',
+      title: "Comparative chart of gdp and debt in Spain",
+      labelsDiv: "mathLegend",
+      animatedZooms: true,
     });
  
-
-
-
 });
        });
                 
