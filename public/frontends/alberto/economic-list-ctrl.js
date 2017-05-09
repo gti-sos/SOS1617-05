@@ -80,9 +80,9 @@ angular
 //Añadir nuevo recurso
 $scope.addEconomicSituation = function (){
   //PARA QUE FUNCIONE PROTRACTOR  
-  //confirmApikey();
+     confirmApikey();
      $http//$scope.apikey por password para protractor
-     .post("/api/v1/economic-situation-stats?apikey=" + password,$scope.newEconomicSituation) 
+     .post("/api/v1/economic-situation-stats?apikey=" + $scope.apikey,$scope.newEconomicSituation) 
      .then(function (response){
          if(response.status === 200 || response.status === 201){
             //Para poder pasar el test de protractor:comento:

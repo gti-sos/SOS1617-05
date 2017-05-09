@@ -7,7 +7,7 @@ describe('Add economicSituation',function(){
         
         browser.driver.sleep(10000);
         console.log(initialEconomicSituationStats); 
-
+           element(by.model('apikey').sendKeys('cinco'));
            element(by.model('newEconomicSituation.province')).sendKeys('Almería');
            element(by.model('newEconomicSituation.year')).sendKeys('2015');
            element(by.model('newEconomicSituation.gdp')).sendKeys('563.23');

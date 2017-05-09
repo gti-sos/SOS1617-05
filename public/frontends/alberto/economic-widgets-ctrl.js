@@ -138,6 +138,18 @@ angular
       animatedZooms: true,
   
     });
+     var sync = Dygraph.synchronize(g);
+      
+      function update() {
+        var zoom = document.getElementById('chk-zoom').checked;
+        var selection = document.getElementById('chk-selection').checked;
+        sync.detach();
+        sync = Dygraph.synchronize(g, {
+          zoom: zoom,
+          selection: selection
+        });
+      }
+      $('#chk-zoom, #chk-selection').change(update);
  
 });
        });
