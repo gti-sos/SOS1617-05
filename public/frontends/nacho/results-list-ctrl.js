@@ -12,13 +12,13 @@ angular
 
         function checkKey() {
             if (!$scope.apikey) {
-                alert("No apikey was specified");
+                Materialize.toast('No apikey was specified');
             }
             else if ($scope.apikey !== pass) {
-                alert("Wrong apikey!");
+                Materialize.toast('Wrong apikey!');
             }
             else if ($scope.apikey == pass) {
-                alert("Correct apikey!");
+                Materialize.toast('Correct apikey!');
             }
         }
         //Como implementar búsqueda y paginación aquí? Para busqueda añadir un tercer botón en la primera fila (dónde se escribe) que diga search?
