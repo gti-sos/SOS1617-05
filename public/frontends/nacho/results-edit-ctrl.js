@@ -50,10 +50,10 @@ angular
 
         function chekKey() {
             if (!$scope.apikey) {
-                Materialize.toast('No apikey was specified',1000);
+                Materialize.toast('No apikey was specified',1500);
             }
             else if ($scope.apikey !== pass) {
-                Materialize.toast('Wrong apikey!',1000);
+                Materialize.toast('Wrong apikey!',1500);
             }
             else if ($scope.apikey == pass) {
                 Materialize.toast('Correct apikey!');
@@ -99,17 +99,17 @@ angular
             obj.cs = $scope.updatedResult.cs;
 
             $http.put($scope.url + "/" + $routeParams.province + "?apikey=cinco", obj).then(function(response) {
-                Materialize.toast(response.status,1000);
+                Materialize.toast(response.status,1500);
                 console.log("URL: ", $scope.url + "/" + $routeParams.province + "?apikey=cinco");
                 console.log("PUT finished", $routeParams.province, $scope.updatedResult);
                 $location.path("/elections-voting-stats");
 
             }, function(response) {
                 if (response.status === 422) {
-                    Materialize.toast('WARNING: The voting result is not well-formed',1000);
+                    Materialize.toast('WARNING: The voting result is not well-formed',1500);
                 }
                 if (response.status === 200 || response.status === 201) {
-                    Materialize.toast('Successful action. ',1000);
+                    Materialize.toast('Successful action. ',1500);
                 }
             });
         };
