@@ -92,7 +92,7 @@ $scope.addEconomicSituation = function (){
          refresh();
         }, function(response){
             if(response.status===409){
-                Materialize.toast("wrong action");
+                Materialize.toast("<h2>wrong action<h2>",5000);
             }
         });
 };
@@ -122,10 +122,10 @@ $scope.addEconomicSituation = function (){
                 refresh();
                 },function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    Materialize.toast("Successful execution");
+                    Materialize.toast("<h2>Successful execution<h2>",5000);
                 }
                 else if (response.status == 404) {
-                    Materialize.toast("There are not economicSituation");
+                    Materialize.toast("<h2>There are not economicSituation<h2>",5000);
                 }
             });
         };
@@ -139,10 +139,10 @@ $scope.deleteEconomicSituation = function (economicSituation){
     refresh();
     }, function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    Materialize.toast("Successful execution");
+                    Materialize.toast("<h2>Successful execution<h2>",5000);
                 }
                 else if (response.status == 404) {
-                    Materialize.toast("There are not economicSituation");
+                    Materialize.toast("<h2>There are not economicSituation<h2>",5000);
                 }
 });
 };
@@ -187,7 +187,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
          var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 }, function(response) {
                     if (response.status === 200 || response.status === 201) {
-                        Materialize.toast("Successful execution");
+                        Materialize.toast("<h2>Successful execution<h2>",5000);
                     }
          
         
@@ -242,7 +242,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
             $scope.currentPage = 1; //reset to first paghe
         };
 */
-//NUEVO PARA QUE FUNCIONE BIE:
+//NUEVO PARA QUE FUNCIONE BIEN:
  $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
