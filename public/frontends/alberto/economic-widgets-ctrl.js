@@ -69,7 +69,7 @@ angular
                         },
                         legend: {
                             layout: 'vertical',
-                            align: 'high',
+                            align: 'right',
                             verticalAlign: 'top',
                             x: -40,
                             y: 80,
