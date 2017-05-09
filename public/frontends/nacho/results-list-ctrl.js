@@ -113,7 +113,7 @@ angular
         //POST: En esta función comento el tema de la apikey para poder pasar los tests de protractor
         $scope.addResult = function(r) { //Se define una función send dentro del modelo
             checkKey();
-            $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
+            $http.post($scope.url + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
                     //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
 
@@ -129,7 +129,6 @@ angular
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
-
             });
         };
 
