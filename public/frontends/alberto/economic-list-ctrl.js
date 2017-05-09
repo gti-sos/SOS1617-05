@@ -11,13 +11,13 @@ angular
 
         function confirmApikey() {
             if (!$scope.apikey) {
-                alert("Enter a apikey");
+                Materialize.toast("<h1>Enter a apikey<h1>",5000);
             }
             else if ($scope.apikey !== password) {
-                alert("Wrong apikey!, enter a correct apikey");
+                Materialize.toast("<h1>Wrong apikey!, enter a correct apikey<h1>",5000);
             }
             else if ($scope.apikey == password) {
-                alert("Correct apikey!");
+                Materialize.toast("<h1>Correct apikey!<h1>",5000);
             }
         }
 
@@ -86,13 +86,13 @@ $scope.addEconomicSituation = function (){
      .then(function (response){
          if(response.status === 200 || response.status === 201){
             //Para poder pasar el test de protractor:comento:
-            //alert("Correct");
+            Materialize.toast("<h2>Correct<h2>",5000);
          }
          console.log("EconomicSituation added");
          refresh();
         }, function(response){
             if(response.status===409){
-                alert("wrong action");
+                Materialize.toast("wrong action");
             }
         });
 };
@@ -105,10 +105,10 @@ $scope.addEconomicSituation = function (){
                 refresh();
             }, function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    alert("Successful execution");
+                    Materialize.toast("Successful execution");
                 }
                 else if (response.status == 422) {
-                    alert("ATTENTION: the economic situation  is not well formed");
+                    Materialize.toast("ATTENTION: the economic situation  is not well formed");
                 }
             });
         };
@@ -122,10 +122,10 @@ $scope.addEconomicSituation = function (){
                 refresh();
                 },function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    alert("Successful execution");
+                    Materialize.toast("Successful execution");
                 }
                 else if (response.status == 404) {
-                    alert("There are not economicSituation");
+                    Materialize.toast("There are not economicSituation");
                 }
             });
         };
@@ -139,10 +139,10 @@ $scope.deleteEconomicSituation = function (economicSituation){
     refresh();
     }, function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    alert("Successful execution");
+                    Materialize.toast("Successful execution");
                 }
                 else if (response.status == 404) {
-                    alert("There are not economicSituation");
+                    Materialize.toast("There are not economicSituation");
                 }
 });
 };
@@ -187,7 +187,7 @@ $scope.deleteEconomicSituation = function (economicSituation){
          var numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 }, function(response) {
                     if (response.status === 200 || response.status === 201) {
-                        alert("Successful execution");
+                        Materialize.toast("Successful execution");
                     }
          
         

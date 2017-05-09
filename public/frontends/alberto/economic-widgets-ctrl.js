@@ -125,16 +125,18 @@ angular
      //dygraphs
     $(document).ready(function () {
      var myData2= [];
-     res.data.forEach(function (d){
+   
      myData2.push([Number($scope.year),Number($scope.gdp),Number($scope.debt)]);
-     });
+   
     var g = new Dygraph(document.getElementById("graph"),myData2,
     {
-     labels:["year","gdp","dbt"],
+      
+      labels:["year","gdp","dbt"],
       legend: 'always',
       title: "Comparative chart of gdp and debt in Spain",
       labelsDiv: "mathLegend",
       animatedZooms: true,
+  
     });
  
 });
