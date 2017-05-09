@@ -11,13 +11,13 @@ angular
 
         function confirmApikey() {
             if (!$scope.apikey) {
-                Materialize.toast("<h1>Enter a apikey<h1>",5000);
+                Materialize.toast("<h1>Enter an apikey<h1>",4000);
             }
             else if ($scope.apikey !== password) {
-                Materialize.toast("<h1>Wrong apikey!, enter a correct apikey<h1>",5000);
+                Materialize.toast("<h1>Wrong apikey!, enter a correct apikey<h1>",4000);
             }
             else if ($scope.apikey == password) {
-                Materialize.toast("<h1>Correct apikey!<h1>",5000);
+                Materialize.toast("<h1>Correct apikey!<h1>",4000);
             }
         }
 
@@ -86,7 +86,7 @@ $scope.addEconomicSituation = function (){
      .then(function (response){
          if(response.status === 200 || response.status === 201){
             //Para poder pasar el test de protractor:comento:
-            Materialize.toast("<h2>Correct<h2>",5000);
+            Materialize.toast("<h2>Correct operation<h2>",5000);
          }
          console.log("EconomicSituation added");
          refresh();
