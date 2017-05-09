@@ -12,13 +12,13 @@ angular
 
         function checkKey() {
             if (!$scope.apikey) {
-                alert("No apikey was specified");
+                Materialize.toast('No apikey was specified');
             }
             else if ($scope.apikey !== pass) {
-                alert("Wrong apikey!");
+                Materialize.toast('Wrong apikey!');
             }
             else if ($scope.apikey == pass) {
-                alert("Correct apikey!");
+                Materialize.toast('Correct apikey!');
             }
         }
         //Como implementar búsqueda y paginación aquí? Para busqueda añadir un tercer botón en la primera fila (dónde se escribe) que diga search?
@@ -26,7 +26,7 @@ angular
 
         //Load Initial Data
         $scope.lid = function() {
-            //checkKey();
+            checkKey();
             console.log("Loading Initial Data");
             $http
                 .get($scope.url + "/loadInitialData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -42,7 +42,7 @@ angular
 
         //Load WHOLE Data
         $scope.lwd = function() {
-            //checkKey();
+            checkKey();
             console.log("Loading Whole Data");
             $http
                 .get($scope.url + "/loadWholeData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -112,10 +112,11 @@ angular
 
         //POST: En esta función comento el tema de la apikey para poder pasar los tests de protractor
         $scope.addResult = function(r) { //Se define una función send dentro del modelo
-            $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
+            checkKey();
+            $http.post($scope.url + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
                     //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
-                    
+
                     //Materialize.toast('<font face="Agency FB"size="7">SUCCESSFUL ACTION!</font>',4000);
 
                     Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 4000);
@@ -128,13 +129,12 @@ angular
                 if (response.status === 409) {
                     alert("There is already a voting result for that province in the data base!");
                 }
-
             });
         };
 
         //PUT: aquí cambiar la URL para que sea sobre un recurso en concreto
         $scope.updateResult = function() {
-            //checkKey();
+            checkKey();
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
                     alert("Successful action. ");
@@ -152,7 +152,7 @@ angular
         //DELETE single resource: Se debe modificar la URL añadiendole la provincia antes de la apikey
         //No es necesario que le pase el parámetro result???
         $scope.deleteResult = function(result) {
-            //checkKey();
+            checkKey();
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + $scope.apikey).then(function(response) {
                 if (response.status === 200 || response.status === 201 || response.status === 204) {
@@ -169,7 +169,7 @@ angular
 
         //DELETE whole collection:
         $scope.deleteAll = function() {
-            //checkKey();
+            checkKey();
             console.log("Deleting the whole collection...");
             $http.delete($scope.url + "?apikey=" + $scope.apikey).then(function(response) {
                 if (response.status === 200 || response.status === 201 || response.status === 204) {

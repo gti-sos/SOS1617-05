@@ -7,7 +7,8 @@ describe('Add voting results', function() {
         element.all(by.repeater('result in results'))
             .then(function(initialelectionsVotingStats) {
                 browser.driver.sleep(10000);
-                console.log(initialelectionsVotingStats); 
+                console.log(initialelectionsVotingStats);
+                element(by.model('apikey')).sendKeys('cinco');
                 element(by.model('newResult.province')).sendKeys('Sevillaaaa');
                 element(by.model('newResult.year')).sendKeys('2015');
                 element(by.model('newResult.pp')).sendKeys('2');
