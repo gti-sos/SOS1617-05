@@ -56,7 +56,7 @@ angular
                         }
                     },
                     tooltip: {
-                        pointFormat: 'percent',
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point:.0f}%)<br/>',
                         shared: true
                     },
                     plotOptions: {
