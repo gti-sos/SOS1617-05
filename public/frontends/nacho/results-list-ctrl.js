@@ -115,7 +115,10 @@ angular
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
                     //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
-                    Materialize.toast('<i class="material-icons">done</i>Successful action. ', 4000);
+                    
+                    Materialize.toast('<font face="Agency FB"size="7">SUCCESSFUL ACTION!</font>',4000);
+
+                    Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 4000);
 
                     //alert("Successful action. ");
                 }
