@@ -37,7 +37,6 @@ angular
                 $scope.data = data;
                 //data.sort(sort_by('province', true, parseInt));
 
-                //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
                     $scope.province.push($scope.data[i].province);
                     $scope.year.push(Number($scope.data[i].year));
@@ -73,7 +72,7 @@ angular
                     },
                     tooltip: {
                         pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                        shared: true
+                        shared: false
                     },
                     plotOptions: {
                         column: {
