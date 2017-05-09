@@ -20,7 +20,8 @@
             <td><input type="password" class="form-ctrl" ng-model="apikey"></td>
             <td><input class="form-ctrl" ng-model="limit"></td>
             <td><input class="form-ctrl" ng-model="offset"></td>
-            <td><button class="btn btn-basic" ng-click="show()">SHOW</button></td>
+            <!-- EL BOTÓN show HA PERDIDO EL SENTIDO, LO COMENTO PARA QUE NO SE MUESTRE:
+            <td><button class="btn btn-basic" ng-click="show()">SHOW</button></td> -->
         </tr>
     </tbody>
 </table>
@@ -80,7 +81,8 @@
     -->
     <pre>The selected page no: {{currentPage}}</pre>
     
-    <button class="btn btn-info" ng-click="prevPage()">Prev</button> <!-- El problema está en el parámetro que le paso a rangeCreator: NUMERADOR 8000!!!-->
+    <button class="btn btn-info" ng-click="prevPage()">Prev</button>
+                <!-- El problema está en el parámetro que le paso a rangeCreator: NUMERADOR 8000!!!-->
                 <button ng-repeat="page in rangeCreator(results.length,limit)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
                 <!-- <button class="btn btn-info" ng-click="setPage(2)">2</button>
                 <button class="btn btn-info" ng-click="setPage(3)">3</button>
