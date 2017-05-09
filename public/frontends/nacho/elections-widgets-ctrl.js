@@ -17,25 +17,25 @@ angular
 
             var key = primer ?
                 function(x) {
-                    return primer(x[field])
+                    return primer(x[field]);
                 } :
                 function(x) {
-                    return x[field]
+                    return x[field];
                 };
 
             reverse = !reverse ? 1 : -1;
 
             return function(a, b) {
                 return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
-            }
-        }
+            };
+        };
         $http
             .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
             .then(function(res) {
 
                 data = res.data;
                 $scope.data = data;
-                data.sort(sort_by('province', true, parseInt));
+                //data.sort(sort_by('province', true, parseInt));
 
                 //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
