@@ -5,24 +5,46 @@ angular
         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
 
         $scope.apikey = "cinco";
-        $scope.categories = [];
-        $scope.gdp = [];
-        $scope.debt = [];
+        $scope.province = [];
+        $scope.year = [];
+        $scope.pp = [];
+        $scope.podemos = [];
+        $scope.psoe = [];
+        $scope.cs = [];
         $scope.data = {};
         var data = {};
+        var sort_by = function(field, reverse, primer) {
 
+            var key = primer ?
+                function(x) {
+                    return primer(x[field]);
+                } :
+                function(x) {
+                    return x[field];
+                };
+
+            reverse = !reverse ? 1 : -1;
+
+            return function(a, b) {
+                return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+            };
+        };
         $http
             .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
             .then(function(res) {
 
                 data = res.data;
                 $scope.data = data;
+                //data.sort(sort_by('province', true, parseInt));
 
                 //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.categories.push($scope.data[i].province + "-" + $scope.data[i].year);
-                    $scope.gdp.push(Number($scope.data[i].gdp));
-                    $scope.debt.push(Number($scope.data[i].dbt));
+                    $scope.province.push($scope.data[i].province);
+                    $scope.year.push(Number($scope.data[i].year));
+                    $scope.pp.push(Number($scope.data[i].pp));
+                    $scope.podemos.push(Number($scope.data[i].podemos));
+                    $scope.psoe.push(Number($scope.data[i].psoe));
+                    $scope.cs.push(Number($scope.data[i].cs));
 
                     console.log($scope.data[i].province);
                 }
@@ -40,7 +62,8 @@ angular
                         text: 'Stacked column chart'
                     },
                     xAxis: { //Estas serían las provincias (SÓLO ES OBLIGATORIO QUE SE MUESTREN TODAS EN UN ÚNICO WIDGET)
-                        categories: ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Granada', 'Cordoba', 'Almeria', 'Huelva', 'Cadiz', 'Jaen', 'Malaga']
+                        categories: $scope.province
+                            //['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Granada', 'Cordoba', 'Almeria', 'Huelva', 'Cadiz', 'Jaen', 'Malaga']
                     },
                     yAxis: {
                         min: 0,
@@ -54,7 +77,8 @@ angular
                     },
                     plotOptions: {
                         column: {
-                            stacking: 'percent'
+                            stacking: 'percent',
+
                         }
                     },
 
@@ -63,16 +87,16 @@ angular
                     //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
                     series: [{
                         name: 'pp',
-                        data: [17, 4, 7, 5, 3, 2, 4, 2, 3, 2, 4]
+                        data: $scope.pp
                     }, {
                         name: 'podemos',
-                        data: [6, 9, 5, 4, 1, 1, 0, 1, 2, 2, 2]
+                        data: $scope.podemos
                     }, {
                         name: 'psoe',
-                        data: [8, 5, 3, 3, 2, 2, 2, 2, 3, 2, 3]
+                        data: $scope.psoe
                     }, {
                         name: 'cs',
-                        data: [5, 4, 2, 0, 1, 1, 1, 0, 1, 0, 2]
+                        data: $scope.cs
                     }]
                 });
 
@@ -102,7 +126,7 @@ angular
                         //CONSULTAR: https://developers.google.com/chart/interactive/docs/gallery/geochart
                         displayMode: 'markers',
                         colorAxis: {
-                            colors: ['blue', 'red', 'purple']
+                            colors: ['blue', 'purple']
                         }
                     };
 
@@ -163,12 +187,16 @@ angular
                     title: 'DoughnutSeries'
                 });
 
+                //var sum = [1, 2, 3].reduce(add, 0);
+                function add(a, b) {
+                    return a + b;
+                }
                 var series1 = chart.addSeries(new EJSC.DoughnutSeries(
                     new EJSC.ArrayDataHandler([
-                        [151, "pp"], //pp
-                        [73, "podemos"], //podemos
-                        [82, "psoe"], //psoe
-                        [30, "cs"], //cs
+                        [$scope.pp.reduce(add, 0), "pp"], //pp
+                        [$scope.podemos.reduce(add, 0), "podemos"], //podemos
+                        [$scope.psoe.reduce(add, 0), "psoe"], //psoe
+                        [$scope.cs.reduce(add, 0), "cs"], //cs
                     ]), {
                         opacity: 30, //default: 50
                         doughnutOffset: .2, //default: .5
@@ -179,10 +207,10 @@ angular
                 ));
                 var series2 = chart.addSeries(new EJSC.DoughnutSeries(
                     new EJSC.ArrayDataHandler([
-                        [151, "pp"], //pp
-                        [73, "podemos"], //podemos
-                        [82, "psoe"], //psoe
-                        [30, "cs"], //cs
+                        [$scope.pp.reduce(add, 0), "pp"], //pp
+                        [$scope.podemos.reduce(add, 0), "podemos"], //podemos
+                        [$scope.psoe.reduce(add, 0), "psoe"], //psoe
+                        [$scope.cs.reduce(add, 0), "cs"], //cs
                     ]), {
                         opacity: 80, //default: 50
                         doughnutOffset: .7, //default: .5

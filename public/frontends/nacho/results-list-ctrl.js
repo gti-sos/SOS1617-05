@@ -40,12 +40,29 @@ angular
 
         };
 
-        //Load WHOLE Data
+        //Load WHOLE Data: this resource loads 52 resources, meaning it loads the whole data base
         $scope.lwd = function() {
             checkKey();
             console.log("Loading Whole Data");
             $http
                 .get($scope.url + "/loadWholeData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("Loading Whole Data");
+                    /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+            <        $scope.results = response.data;*/
+                    refresh();
+                    //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
+                });
+
+        };
+
+
+        //Load WHOLE Data: this version loads less resources
+        $scope.lwd2 = function() {
+            checkKey();
+            console.log("Loading Whole Data");
+            $http
+                .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/loadWholeData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Whole Data");
                     /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
@@ -119,15 +136,15 @@ angular
 
                     //Materialize.toast('<font face="Agency FB"size="7">SUCCESSFUL ACTION!</font>',4000);
 
-                    Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 3000);
+                    Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 1000);
 
-                    //alert("Successful action. ");
+                    //Materialize.toast('Successful action. ");
                 }
                 console.log("POST finished");
                 refresh();
             }, function(response) {
                 if (response.status === 409) {
-                    alert("There is already a voting result for that province in the data base!");
+                    Materialize.toast('There is already a voting result for that province in the data base!', 1000);
                 }
             });
         };
@@ -137,13 +154,13 @@ angular
             checkKey();
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    alert("Successful action. ");
+                    Materialize.toast('Successful action. ', 1000);
                 }
                 console.log("PUT finished");
                 refresh();
             }, function(response) {
                 if (response.status === 422) {
-                    alert("WARNING: The voting result is not well-formed");
+                    Materialize.toast('WARNING: The voting result is not well-formed', 1000);
                 }
 
             });
@@ -156,12 +173,12 @@ angular
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + $scope.apikey).then(function(response) {
                 if (response.status === 200 || response.status === 201 || response.status === 204) {
-                    alert("Successful action. ");
+                    Materialize.toast('Successful action. ', 1000);
                 }
                 refresh();
             }, function(response) {
                 if (response.status === 404) {
-                    alert("There are no resources to be deleted.");
+                    Materialize.toast('There are no resources to be deleted.', 1000);
                 }
 
             });
@@ -173,12 +190,12 @@ angular
             console.log("Deleting the whole collection...");
             $http.delete($scope.url + "?apikey=" + $scope.apikey).then(function(response) {
                 if (response.status === 200 || response.status === 201 || response.status === 204) {
-                    alert("Successful action. ");
+                    Materialize.toast('Successful action. ', 1000);
                 }
                 refresh();
             }, function(response) {
                 if (response.status === 404) {
-                    alert("There are no resources to be deleted.");
+                    Materialize.toast('There are no resources to be deleted.', 1000);
                 }
 
             });
@@ -227,7 +244,7 @@ angular
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     if (response.status === 200 || response.status === 201) {
-                        alert("Successful action. ");
+                        Materialize.toast('Successful action. ', 1000);
                     }
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
