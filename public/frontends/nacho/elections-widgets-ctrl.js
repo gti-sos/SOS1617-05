@@ -61,7 +61,10 @@ angular
                     },
                     plotOptions: {
                         column: {
-                            stacking: 'percent'
+                            stacking: 'percent',
+                            dataLabels: {
+                                enabled: true
+                            }
                         }
                     },
 
