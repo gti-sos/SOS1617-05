@@ -12,13 +12,13 @@ angular
 
         function checkKey() {
             if (!$scope.apikey) {
-                Materialize.toast('<h3>No apikey was specified</h3>', 1000);
+                Materialize.toast('<h3>No apikey was specified</h3>', 1200);
             }
             else if ($scope.apikey !== pass) {
-                Materialize.toast('<h3>Wrong apikey!</h3>', 1000);
+                Materialize.toast('<h3>Wrong apikey!</h3>', 1200);
             }
             else if ($scope.apikey == pass) {
-                Materialize.toast('<h3>Correct apikey!</h3>', 1000);
+                Materialize.toast('<h3>Correct apikey!</h3>', 1200);
             }
         }
         //Como implementar búsqueda y paginación aquí? Para busqueda añadir un tercer botón en la primera fila (dónde se escribe) que diga search?
@@ -136,7 +136,7 @@ angular
 
                     //Materialize.toast('<font face="Agency FB"size="7">SUCCESSFUL ACTION!</font>',4000);
 
-                    Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 1000);
+                    Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 1200);
 
                     //Materialize.toast('Successful action. ");
                 }
@@ -144,7 +144,7 @@ angular
                 refresh();
             }, function(response) {
                 if (response.status === 409) {
-                    Materialize.toast('There is already a voting result for that province in the data base!', 1000);
+                    Materialize.toast('There is already a voting result for that province in the data base!', 1200);
                 }
             });
         };
@@ -154,13 +154,13 @@ angular
             checkKey();
             $http.put($scope.url + "/" + $scope.newResult.province + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    Materialize.toast('Successful action. ', 1000);
+                    Materialize.toast('Successful action. ', 1200);
                 }
                 console.log("PUT finished");
                 refresh();
             }, function(response) {
                 if (response.status === 422) {
-                    Materialize.toast('WARNING: The voting result is not well-formed', 1000);
+                    Materialize.toast('WARNING: The voting result is not well-formed', 1200);
                 }
 
             });
@@ -173,12 +173,12 @@ angular
             console.log("Trying DELETE over single resource");
             $http.delete($scope.url + "/" + result.province + "?apikey=" + $scope.apikey).then(function(response) {
                 if (response.status === 200 || response.status === 201 || response.status === 204) {
-                    Materialize.toast('Successful action. ', 1000);
+                    Materialize.toast('Successful action. ', 1200);
                 }
                 refresh();
             }, function(response) {
                 if (response.status === 404) {
-                    Materialize.toast('There are no resources to be deleted.', 1000);
+                    Materialize.toast('There are no resources to be deleted.', 1200);
                 }
 
             });
@@ -190,12 +190,12 @@ angular
             console.log("Deleting the whole collection...");
             $http.delete($scope.url + "?apikey=" + $scope.apikey).then(function(response) {
                 if (response.status === 200 || response.status === 201 || response.status === 204) {
-                    Materialize.toast('Successful action. ', 1000);
+                    Materialize.toast('Successful action. ', 1200);
                 }
                 refresh();
             }, function(response) {
                 if (response.status === 404) {
-                    Materialize.toast('There are no resources to be deleted.', 1000);
+                    Materialize.toast('There are no resources to be deleted.', 1200);
                 }
 
             });
@@ -203,28 +203,38 @@ angular
 
         //BÚSQUEDA
         $scope.search = function() {
+            checkKey();
             var numberOfPages;
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params = "";
-
+            var ref = 0;
             //Diferencias entre usar == y === ?
             if ($scope.newResult.province !== undefined && $scope.newResult.province !== "") {
                 params = params + "&province=" + $scope.newResult.province;
+                ref = ref + 1;
             }
             if ($scope.newResult.year !== undefined && $scope.newResult.year !== "") {
                 params = params + "&year=" + $scope.newResult.year;
+                ref = ref + 1;
             }
             if ($scope.newResult.pp !== undefined && $scope.newResult.pp !== "") {
                 params = params + "&pp=" + $scope.newResult.pp;
+                ref = ref + 1;
             }
             if ($scope.newResult.podemos !== undefined && $scope.newResult.podemos !== "") {
                 params = params + "&podemos=" + $scope.newResult.podemos;
+                ref = ref + 1;
             }
             if ($scope.newResult.psoe !== undefined && $scope.newResult.psoe !== "") {
                 params = params + "&psoe=" + $scope.newResult.psoe;
+                ref = ref + 1;
             }
             if ($scope.newResult.cs !== undefined && $scope.newResult.cs !== "") {
                 params = params + "&cs=" + $scope.newResult.cs;
+                ref = ref + 1;
+            }
+            if (ref == 6) {
+                Materialize.toast('<h4>You must fill at least one field. </h4>', 1500);
             }
 
             var limit = "";
@@ -244,7 +254,7 @@ angular
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     if (response.status === 200 || response.status === 201) {
-                        Materialize.toast('Successful action. ', 1000);
+                        Materialize.toast('Successful action. ', 1200);
                     }
                     numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
