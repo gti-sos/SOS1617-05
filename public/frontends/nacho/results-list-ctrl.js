@@ -72,7 +72,7 @@ angular
             if ($scope.limit != undefined & $scope.limit != "") {
                 $scope.itemsPerPage = $scope.limit;
             }
-            $http  //En lugar de $scope.apikey paso en la url pass para que funcionen los tests de protractor
+            $http //En lugar de $scope.apikey paso en la url pass para que funcionen los tests de protractor
                 .get($scope.url + "?apikey=" + pass + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection (refresh)");
@@ -115,7 +115,9 @@ angular
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
                     //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
-                    alert("Successful action. ");
+                    Materialize.toast('<i class="material-icons">done</i>Successful action. ', 4000);
+
+                    //alert("Successful action. ");
                 }
                 console.log("POST finished");
                 refresh();
@@ -286,7 +288,7 @@ angular
 
             var pages = (Math.floor($scope.results.length / $scope.limit)) + 1;
             if (pageNo <= pages) {
-                console.log("PÁGINAS: ",$scope.results.length , $scope.limit,pages);
+                console.log("PÁGINAS: ", $scope.results.length, $scope.limit, pages);
                 $scope.currentPage = pageNo;
             }
         };
@@ -296,8 +298,8 @@ angular
             }
         };
         $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
-            if(ab==undefined){
-                ab=$scope.results.length;
+            if (ab == undefined) {
+                ab = $scope.results.length;
             }
             setItemsPerPage(ab);
             var pages = (Math.floor(ar / ab)) + 1;
