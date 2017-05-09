@@ -37,7 +37,6 @@ angular
                 $scope.data = data;
                 //data.sort(sort_by('province', true, parseInt));
 
-                //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
                     $scope.province.push($scope.data[i].province);
                     $scope.year.push(Number($scope.data[i].year));
