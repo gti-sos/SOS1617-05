@@ -217,36 +217,44 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 });
         };
         //Paginación
-      
-   refresh(); 
-
-        //PAGINATION
-
+        /*(COMENTADO PARA PROTRACTOR)
         $scope.viewby = 10;
         $scope.totalItems = function() {
             return $scope.data.length;
         };
         $scope.currentPage = 1;
-
-        /*function() {
-                    var res;
-                    if ($scope.limit == undefined) {
-                        res = $scope.data.length;
-                    }
-                    else {
-                        res = $scope.limit;
-                    }
-                    console.log("VALOR DE itemsPerPage: ",res);
-                    return res;
-                };*/
+        $scope.itemsPerPage = function() {
+            return $scope.limit;
+        };
         $scope.maxSize = 5; //Number of pager buttons to show
 
 
         $scope.setPage = function(pageNo) {
+            $scope.currentPage = pageNo;
+        };
 
-            var pages = (Math.floor($scope.results.length / $scope.limit)) + 1;
+        $scope.pageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        $scope.setItemsPerPage = function(num) {
+            $scope.itemsPerPage = num;
+            $scope.currentPage = 1; //reset to first paghe
+        };
+*/
+//NUEVO PARA QUE FUNCIONE BIEN:
+ $scope.viewby = 10;
+        $scope.totalItems = function() {
+            return $scope.data.length;
+        };
+        $scope.currentPage = 1;
+        $scope.maxSize = 5; 
+
+        $scope.setPage = function(pageNo) {
+
+            var pages = (Math.floor($scope.economicSituationStats.length / $scope.limit)) + 1;
             if (pageNo <= pages) {
-                console.log("PÁGINAS: ", $scope.results.length, $scope.limit, pages);
+                console.log("Páginas: ",$scope.economicSituationStats.length , $scope.limit,pages);
                 $scope.currentPage = pageNo;
             }
         };
@@ -255,9 +263,9 @@ $scope.deleteEconomicSituation = function (economicSituation){
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
-            if (ab == undefined) {
-                ab = $scope.results.length;
+        $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a page
+            if(ab==undefined){
+                ab=$scope.economicSituationStats.length;
             }
             setItemsPerPage(ab);
             var pages = (Math.floor(ar / ab)) + 1;
@@ -275,8 +283,8 @@ $scope.deleteEconomicSituation = function (economicSituation){
 
         function setItemsPerPage(num) {
             $scope.itemsPerPage = num;
-            //$scope.currentPage = 1; //reset to first page
         }
+
 
 
 

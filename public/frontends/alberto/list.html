@@ -88,7 +88,7 @@
              -->
        <!--modificado-->
            <button class="btn btn-info" ng-click="prevPage()">Prev</button>
-                <button ng-repeat="page in rangeCreator(results.length,limit)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
+                <button ng-repeat="page in rangeCreator(economicSituationStats.length,limit)" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
 
          </tbody>
