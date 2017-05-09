@@ -207,8 +207,9 @@ angular
             var numberOfPages;
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
             var params = "";
+            var error = false;
             if ($scope.newResult == undefined) {
-                Materialize.toast('<h4>You must fill at least one field. </h4>', 1500);
+                error = true;
             }
             else {
                 //Diferencias entre usar == y === ?
@@ -235,31 +236,34 @@ angular
                 }
             }
 
-            if ($scope.newResult == undefined || params == "") {
+            if (error || params == "") {
                 Materialize.toast('<h4>You must fill at least one field. </h4>', 1500);
             }
+            else {
+                var limit = "";
+                var offset = "";
+                if ($scope.limit != undefined & $scope.limit != "") {
+                    limit = "&limit=" + $scope.limit;
+                }
+                if ($scope.offset != undefined & $scope.offset != "") {
+                    offset = "&offset=" + $scope.offset;
+                }
 
-            var limit = "";
-            var offset = "";
-            if ($scope.limit != undefined & $scope.limit != "") {
-                limit = "&limit=" + $scope.limit;
-            }
-            if ($scope.offset != undefined & $scope.offset != "") {
-                offset = "&offset=" + $scope.offset;
+                console.log(params);
+                $http
+                    .get($scope.url + "?apikey=" + $scope.apikey + params + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                    .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                        console.log("GET collection");
+                        $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                        $scope.results = response.data;
+                        if (response.status === 200 || response.status === 201) {
+                            Materialize.toast('Successful action. ', 1200);
+                        }
+                        numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                    });
             }
 
-            console.log(params);
-            $http
-                .get($scope.url + "?apikey=" + $scope.apikey + params + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
-                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("GET collection");
-                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-                    $scope.results = response.data;
-                    if (response.status === 200 || response.status === 201) {
-                        Materialize.toast('Successful action. ', 1200);
-                    }
-                    numberOfPages = Math.ceil($scope.results.length / $scope.limit);
-                });
+
 
         };
 
