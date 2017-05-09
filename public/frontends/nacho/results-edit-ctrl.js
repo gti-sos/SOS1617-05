@@ -56,7 +56,7 @@ angular
                 Materialize.toast('Wrong apikey!',1000);
             }
             else if ($scope.apikey == pass) {
-                Materialize.toast('"Correct apikey!");
+                Materialize.toast('Correct apikey!');
             }
         }
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
