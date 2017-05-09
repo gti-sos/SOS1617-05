@@ -86,7 +86,7 @@ $scope.addEconomicSituation = function (){
      .then(function (response){
          if(response.status === 200 || response.status === 201){
             //Para poder pasar el test de protractor:comento:
-            Materialize.toast("<h2>Correct<h2>",5000);
+            Materialize.toast("<h2>Correct operation<h2>",5000);
          }
          console.log("EconomicSituation added");
          refresh();
