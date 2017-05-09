@@ -36,7 +36,7 @@ angular
                             type: 'spline'
                         },
                         title: {
-                            text: 'gdp and debt in Spain'
+                            text: 'gdp,debt and year in Spain'
                         },
                          xAxis: {
                                  categories: $scope.categories,
