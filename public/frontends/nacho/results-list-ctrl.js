@@ -115,7 +115,7 @@ angular
             $http.post($scope.url + "?apikey=" + pass, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
                     //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
-                    //alert("Successful action. ");
+                    alert("Successful action. ");
                 }
                 console.log("POST finished");
                 refresh();
