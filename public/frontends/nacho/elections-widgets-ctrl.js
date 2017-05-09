@@ -13,13 +13,29 @@ angular
         $scope.cs = [];
         $scope.data = {};
         var data = {};
+        var sort_by = function(field, reverse, primer) {
 
+            var key = primer ?
+                function(x) {
+                    return primer(x[field])
+                } :
+                function(x) {
+                    return x[field]
+                };
+
+            reverse = !reverse ? 1 : -1;
+
+            return function(a, b) {
+                return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+            }
+        }
         $http
             .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
             .then(function(res) {
 
                 data = res.data;
                 $scope.data = data;
+                data.sort(sort_by('province', true, parseInt));
 
                 //ESTO PARA QUÉ WIDGET ES?
                 for (var i = 0; i < res.data.length; i++) {
@@ -56,7 +72,7 @@ angular
                         }
                     },
                     tooltip: {
-                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.x}</b> ({point.percentage:.0f}%)<br/>',
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
                         shared: true
                     },
                     plotOptions: {
@@ -71,7 +87,7 @@ angular
                     //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
                     series: [{
                         name: 'pp',
-                        data: $scope.pp
+                        data: $scope.pp.
                     }, {
                         name: 'podemos',
                         data: $scope.podemos
