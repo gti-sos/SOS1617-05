@@ -207,10 +207,10 @@ angular
                 ));
                 var series2 = chart.addSeries(new EJSC.DoughnutSeries(
                     new EJSC.ArrayDataHandler([
-                        [151, "pp"], //pp
-                        [73, "podemos"], //podemos
-                        [82, "psoe"], //psoe
-                        [30, "cs"], //cs
+                        [$scope.pp.reduce(add, 0), "pp"], //pp
+                        [$scope.podemos.reduce(add, 0), "podemos"], //podemos
+                        [$scope.psoe.reduce(add, 0), "psoe"], //psoe
+                        [$scope.cs.reduce(add, 0), "cs"], //cs
                     ]), {
                         opacity: 80, //default: 50
                         doughnutOffset: .7, //default: .5
