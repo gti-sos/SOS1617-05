@@ -87,7 +87,7 @@ angular
                     //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
                     series: [{
                         name: 'pp',
-                        data: $scope.pp.
+                        data: $scope.pp
                     }, {
                         name: 'podemos',
                         data: $scope.podemos
