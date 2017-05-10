@@ -15,6 +15,15 @@
             <th>
                 <h3>Offset</h3>
             </th>
+            <th>
+                <h3>From</h3>
+            </th>
+            <th>
+                <h3>To</h3>
+            </th>
+            <th>
+                <h3>Party</h3>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -22,8 +31,11 @@
             <td><input type="password" class="form-ctrl" ng-model="apikey"></td>
             <td><input class="form-ctrl" ng-model="limit"></td>
             <td><input class="form-ctrl" ng-model="offset"></td>
-            <!-- EL BOTÓN show HA PERDIDO EL SENTIDO, LO COMENTO PARA QUE NO SE MUESTRE:
-            <td><button class="btn btn-basic" ng-click="show()">SHOW</button></td> -->
+            <td><input class="form-ctrl" ng-model="from"></td>
+            <td><input class="form-ctrl" ng-model="to"></td>
+            <td><input class="form-ctrl" ng-model="party"></td>
+            <!-- EL BOTÓN show HA PERDIDO EL SENTIDO, LO COMENTO PARA QUE NO SE MUESTRE:  -->
+            <td><button class="btn btn-basic" ng-click="show()">SHOW</button></td>
         </tr>
     </tbody>
 </table>

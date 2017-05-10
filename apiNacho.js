@@ -967,6 +967,98 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         }
     });
 
+    function getSeats(jsonData, party) {
+        if (party == "pp") {
+            return jsonData.pp;
+        }
+        if (party == "psoe") {
+            return jsonData.psoe;
+        }
+        if (party == "podemos") {
+            return jsonData.podemos;
+        }
+        if (party == "cs") {
+            return jsonData.cs;
+        }
+    }
+
+    //GET a collection: contains code for searches. This version allows to specify a range of seats (from-to) for a certain party.
+    app.get("/api/v2/elections-voting-stats/", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
+        var consulta = request.query;
+        if (consulta.province == undefined && consulta.year == undefined && consulta.pp == undefined && consulta.podemos == undefined && consulta.psoe == undefined && consulta.cs == undefined) { //Sólo tiene apikey   JSON.stringify(consulta) == "{}"
+            console.log("NO HAY PARÁMETROS");
+            db.find({}).toArray(function(err, results) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                }
+                else {
+                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    var res = results;
+                    //AQUÍ PAGINACIÓN
+                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                        res = [];
+                        var i;
+                        for (i = 0; i < results.length; i++) {
+
+                            if (getSeats(results[i], consulta.party) >= Number(consulta.from) && getSeats(results[i], consulta.party) <= Number(consulta.to)) {
+                                res.push(results[i]);
+                            }
+                        }
+                    }
+                    if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+
+                    }
+                    response.send(res);
+                }
+            });
+        }
+        else {
+            console.log("SÍ HAY PARÁMETROS");
+            var query = transforma(request.query);
+
+            db.find({}).toArray(function(err, results) {
+                var res = [];
+                var i;
+                for (i = 0; i < results.length; i++) {
+                    if ((consulta.province == undefined || results[i].province == consulta.province) &&
+                        (consulta.pp == undefined || results[i].pp == consulta.pp) &&
+                        (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
+                        (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
+                        (consulta.cs == undefined || results[i].cs == consulta.cs)) {
+                        res.push(results[i]);
+                    }
+                }
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                }
+                else {
+                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    var res2 = res;
+                    //AQUÍ PAGINACIÓN
+                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                        res2 = [];
+                        var i;
+                        for (i = 0; i < res.length; i++) {
+                            if (res[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
+                                res2.push(res[i]);
+                            }
+                        }
+                    }
+                    if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+
+                    }
+                    response.send(res2);
+                }
+            });
+        }
+    });
 
     //GET a single resource
     app.get(BASE_API_PATH + "/elections-voting-stats/:province", function(request, response) {
