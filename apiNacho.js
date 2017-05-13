@@ -22,9 +22,9 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //This one is for checking the number of resources on the server:
     app.get("/api/v2/elections-voting-stats/length", function(request, response) {
-        if (!checkKey(request, response)) {
+        /*if (!checkKey(request, response)) {
             return;
-        }
+        }*/
         db.find({}).toArray(function(err, results) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
