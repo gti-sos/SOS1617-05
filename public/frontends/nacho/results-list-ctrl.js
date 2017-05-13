@@ -265,10 +265,10 @@ angular
 
         //PAGINATION
         function pagination() {
-            $scope.currentPage = 1;
+            $scope.currentPage = 8;
             $scope.setPage = function(pageNo) {
                 if (pageNo == undefined) {
-                    pageNo = 6;
+                    pageNo = 1;
                 }
                 //PARA QUE LA PAGINACIÓN SEA COMO PIDIÓ ANTONIO CADA VEZ QUE SE PULSE ESTE BOTÓN SE DEBE HACER UN NUEVO GET AL SERVIDOR (usando offset)!!!
 
