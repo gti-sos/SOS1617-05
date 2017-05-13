@@ -1,11 +1,10 @@
-//CONSULTAR: https://docs.angularjs.org/api/ng/service/$http
-
+/*global Materialize*/
+/*global angular*/
 
 angular
     .module("ManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
-    .controller("ResultsListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->
-        console.log(" List Controller initialized");
-        //Sería interesante concatenar la apikey a la URL en cada método por si hubiera que agregarle algo a la URL, no???
+    .controller("ResultsListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend 
+        console.log("List Controller initialized");
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
 
         var pass = "cinco";
@@ -21,8 +20,6 @@ angular
                 Materialize.toast('<h3>Correct apikey!</h3>', 1200);
             }
         }
-        //Como implementar búsqueda y paginación aquí? Para busqueda añadir un tercer botón en la primera fila (dónde se escribe) que diga search?
-        //En ese caso no sería obligatorio introducir todos los campos...los introducidos se añadirían a la URL como: ?xxx=yyy&zzz=vvv
 
         //Load Initial Data
         $scope.lid = function() {
@@ -32,12 +29,20 @@ angular
                 .get($scope.url + "/loadInitialData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Initial Data");
-                    /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-            <        $scope.results = response.data;*/
                     refresh();
-                    //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
                 });
+        };
 
+        //this one is needed for pagination: returns the amount of resources on the server
+        $scope.numberOfResources = function() {
+            checkKey();
+            console.log("Checking the number of resources...");
+            $http
+                .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("Loading Whole Data");
+                    refresh();
+                });
         };
 
         //Load WHOLE Data: this resource loads 52 resources, meaning it loads the whole data base
@@ -48,10 +53,7 @@ angular
                 .get($scope.url + "/loadWholeData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Whole Data");
-                    /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-            <        $scope.results = response.data;*/
                     refresh();
-                    //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
                 });
 
         };
@@ -65,10 +67,7 @@ angular
                 .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/loadWholeData?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Loading Whole Data");
-                    /*$scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-            <        $scope.results = response.data;*/
                     refresh();
-                    //Añadir aquí también llamada a la función refresh porque el get que se hace aquí es a la URL de loadInitialData, la cual no devuelve JSON de los objetos añadidos
                 });
 
         };
@@ -107,24 +106,25 @@ angular
         //b.1.iii
         $scope.show = function() {
             checkKey();
-            var limit = "";
-            var offset = "";
+            /*var limit = "";
+            //var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
                 $scope.itemsPerPage = $scope.limit;
-            }
-            if ($scope.offset != undefined & $scope.offset != "") {
+            }*/
+            pagination();
+            /*if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
-            }
+            }*/
 
-            $http
-                .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+            /*$http
+                .get($scope.url + "?apikey=" + $scope.apikey + limit) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection");
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
 
-                });
+                });*/
         };
 
         //POST: En esta función comento el tema de la apikey para poder pasar los tests de protractor
@@ -132,13 +132,7 @@ angular
             checkKey();
             $http.post($scope.url + "?apikey=" + $scope.apikey, $scope.newResult).then(function(response) {
                 if (response.status === 200 || response.status === 201) {
-                    //COMENTAR ESTA LINEA PARA PODER PASAR TEST DE PROTRACTOR
-
-                    //Materialize.toast('<font face="Agency FB"size="7">SUCCESSFUL ACTION!</font>',4000);
-
                     Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 1200);
-
-                    //Materialize.toast('Successful action. ");
                 }
                 console.log("POST finished");
                 refresh();
@@ -262,100 +256,75 @@ angular
                         numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                     });
             }
-
-
-
         };
 
 
 
-        /*angular.module('plunker', ['ui.bootstrap']);
-        var PaginationDemoCtrl = function($scope) {
-            $scope.viewby = 10;
-            $scope.totalItems = function() {
-                return $scope.data.length;
-            };
-            $scope.currentPage = 4;
-            $scope.itemsPerPage = function() {
-                return $scope.limit;
-            };
-            $scope.maxSize = 5; //Number of pager buttons to show
 
-            $scope.setPage = function(pageNo) {
-                $scope.currentPage = pageNo;
-            };
 
-            $scope.pageChanged = function() {
-                console.log('Page changed to: ' + $scope.currentPage);
-            };
-
-            $scope.setItemsPerPage = function(num) {
-                $scope.itemsPerPage = num;
-                $scope.currentPage = 1; //reset to first paghe
-            }
-        }; */
-
-        //b.1.iii -> Según lo que se dice en esta tarea, esta llamada por defecto no haría falta
-        refresh(); //Esto aquí o fuera? Si ya está en todos los demás...para qué ponerlo aquí??? Para el get inicial en el que no se llama a ninguna otra función???
 
         //PAGINATION
+        function pagination() {
+            $scope.currentPage = 1;
+            $scope.setPage = function(pageNo) {
+                if (pageNo == undefined) {
+                    pageNo = 1;
+                }
+                //PARA QUE LA PAGINACIÓN SEA COMO PIDIÓ ANTONIO CADA VEZ QUE SE PULSE ESTE BOTÓN SE DEBE HACER UN NUEVO GET AL SERVIDOR (usando offset)!!!
 
-        $scope.viewby = 10;
-        $scope.totalItems = function() {
-            return $scope.data.length;
-        };
-        $scope.currentPage = 1;
+                var limit = "";
+                var offset;
+                if ($scope.limit != undefined & $scope.limit != "") {
+                    limit = "&limit=" + $scope.limit;
+                    offset = (pageNo - 1) * $scope.limit;
+                }
 
-        /*function() {
-                    var res;
-                    if ($scope.limit == undefined) {
-                        res = $scope.data.length;
-                    }
-                    else {
-                        res = $scope.limit;
-                    }
-                    console.log("VALOR DE itemsPerPage: ",res);
-                    return res;
-                };*/
-        $scope.maxSize = 5; //Number of pager buttons to show
+                $http
+                    .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                    .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                        console.log("GET collection (pagination)");
+                        $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                        $scope.results = response.data;
+                        /*if (response.status === 200 || response.status === 201) {
+                            Materialize.toast('Successful action. ', 1200);
+                        }*/
+                        //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                    });
+
+                var pages = (Math.floor($scope.numberOfResources / $scope.limit)) + 1;
+                if (pageNo <= pages) {
+                    console.log("PÁGINAS: ", $scope.numberOfResources, $scope.limit, pages);
+                    $scope.currentPage = pageNo;
+                }
+            };
+            $scope.prevPage = function() {
+                if ($scope.currentPage > 1) {
+                    $scope.currentPage = $scope.currentPage - 1;
+                }
+            };
+            $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
+                if (ab == undefined) {
+                    ab = $scope.results.length;
+                }
+                setItemsPerPage(ab);
+                var pages = (Math.floor(ar / ab)) + 1;
+                console.log(ar, ab);
+                var res = [];
+                var i;
+                for (i = 1; i <= pages; i++) {
+                    res.push(i);
+                }
+                return res;
+            };
 
 
-        $scope.setPage = function(pageNo) {
-
-            var pages = (Math.floor($scope.results.length / $scope.limit)) + 1;
-            if (pageNo <= pages) {
-                console.log("PÁGINAS: ", $scope.results.length, $scope.limit, pages);
-                $scope.currentPage = pageNo;
+            function setItemsPerPage(num) {
+                $scope.itemsPerPage = num;
+                //$scope.currentPage = 1; //reset to first page
             }
-        };
-        $scope.prevPage = function() {
-            if ($scope.currentPage > 1) {
-                $scope.currentPage = $scope.currentPage - 1;
-            }
-        };
-        $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
-            if (ab == undefined) {
-                ab = $scope.results.length;
-            }
-            setItemsPerPage(ab);
-            var pages = (Math.floor(ar / ab)) + 1;
-            console.log(ar, ab);
-            var res = [];
-            var i;
-            for (i = 1; i <= pages; i++) {
-                res.push(i);
-            }
-            return res;
-        };
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPage);
-        };
 
-        function setItemsPerPage(num) {
-            $scope.itemsPerPage = num;
-            //$scope.currentPage = 1; //reset to first page
         }
 
-
+        refresh();
 
     }]);

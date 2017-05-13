@@ -20,6 +20,23 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     });
 
+    //This one is for checking the number of resources on the server:
+    app.get("/api/v2/elections-voting-stats/length", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
+        db.find({}).toArray(function(err, results) {
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500);
+            }
+            else {
+                console.log("INFO: Sending  results length: " + JSON.stringify(results, 2, null));
+                response.send(results.length);
+            }
+        });
+    });
+
 
     //This function loads the whole data base (if the api contains no resources)
     app.get(BASE_API_PATH + "/elections-voting-stats/loadWholeData", function(request, response) {
