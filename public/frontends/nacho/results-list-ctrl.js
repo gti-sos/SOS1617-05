@@ -112,7 +112,6 @@ angular
                 limit = "&limit=" + $scope.limit;
                 $scope.itemsPerPage = $scope.limit;
             }*/
-            pagination();
             /*if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }*/
@@ -264,67 +263,67 @@ angular
 
 
         //PAGINATION
-        function pagination() {
-            $scope.currentPage = 1;
-            $scope.setPage = function(pageNo) {
-                if (pageNo == undefined) {
-                    pageNo = 1;
-                }
-                //PARA QUE LA PAGINACIÓN SEA COMO PIDIÓ ANTONIO CADA VEZ QUE SE PULSE ESTE BOTÓN SE DEBE HACER UN NUEVO GET AL SERVIDOR (usando offset)!!!
 
-                var limit = "";
-                var offset;
-                if ($scope.limit != undefined & $scope.limit != "") {
-                    limit = "&limit=" + $scope.limit;
-                    offset = (pageNo - 1) * $scope.limit;
-                }
-                console.log("ESTÁ EN FUNCIÓN PAGINATION");
-                $http
-                    .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
-                    .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                        console.log("GET collection (pagination)");
-                        $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-                        $scope.results = response.data;
-                        console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results);
-                        /*if (response.status === 200 || response.status === 201) {
-                            Materialize.toast('Successful action. ', 1200);
-                        }*/
-                        //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
-                    });
-
-                var pages = (Math.floor($scope.numberOfResources / $scope.limit)) + 1;
-                if (pageNo <= pages) {
-                    console.log("PÁGINAS: ", $scope.numberOfResources, $scope.limit, pages);
-                    $scope.currentPage = pageNo;
-                }
-            };
-            $scope.prevPage = function() {
-                if ($scope.currentPage > 1) {
-                    $scope.currentPage = $scope.currentPage - 1;
-                }
-            };
-            $scope.pages = function(numberOfResources) { //rangeCreator(results.length,limit)
-                if ($scope.limit == undefined) {
-                    $scope.limit = numberOfResources;
-                }
-                setItemsPerPage($scope.limit);
-                //Puesto que quita la parte decimal, se le debe sumar 1 a pages
-                var pages = (Math.floor(numberOfResources / $scope.limit)) + 1;
-                console.log(numberOfResources, $scope.limit);
-                var res = [];
-                var i;
-                for (i = 1; i <= pages; i++) {
-                    res.push(i);
-                }
-                return res;
-            };
-
-
-            function setItemsPerPage(num) {
-                $scope.itemsPerPage = num;
-                //$scope.currentPage = 1; //reset to first page
+        $scope.currentPage = 1;
+        $scope.setPage = function(pageNo) {
+            if (pageNo == undefined) {
+                pageNo = 1;
             }
+            //PARA QUE LA PAGINACIÓN SEA COMO PIDIÓ ANTONIO CADA VEZ QUE SE PULSE ESTE BOTÓN SE DEBE HACER UN NUEVO GET AL SERVIDOR (usando offset)!!!
+
+            var limit = "";
+            var offset;
+            if ($scope.limit != undefined & $scope.limit != "") {
+                limit = "&limit=" + $scope.limit;
+                offset = (pageNo - 1) * $scope.limit;
+            }
+            console.log("ESTÁ EN FUNCIÓN PAGINATION");
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("GET collection (pagination)");
+                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                    $scope.results = response.data;
+                    console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results);
+                    /*if (response.status === 200 || response.status === 201) {
+                        Materialize.toast('Successful action. ', 1200);
+                    }*/
+                    //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                });
+
+            var pages = (Math.floor($scope.numberOfResources / $scope.limit)) + 1;
+            if (pageNo <= pages) {
+                console.log("PÁGINAS: ", $scope.numberOfResources, $scope.limit, pages);
+                $scope.currentPage = pageNo;
+            }
+        };
+        $scope.prevPage = function() {
+            if ($scope.currentPage > 1) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        };
+        $scope.pages = function(numberOfResources) { //rangeCreator(results.length,limit)
+            if ($scope.limit == undefined) {
+                $scope.limit = numberOfResources;
+            }
+            setItemsPerPage($scope.limit);
+            //Puesto que quita la parte decimal, se le debe sumar 1 a pages
+            var pages = (Math.floor(numberOfResources / $scope.limit)) + 1;
+            console.log(numberOfResources, $scope.limit);
+            var res = [];
+            var i;
+            for (i = 1; i <= pages; i++) {
+                res.push(i);
+            }
+            return res;
+        };
+
+
+        function setItemsPerPage(num) {
+            $scope.itemsPerPage = num;
+            //$scope.currentPage = 1; //reset to first page
         }
+
 
         //refresh();
 
