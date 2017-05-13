@@ -285,7 +285,7 @@ angular
                         console.log("GET collection (pagination)");
                         $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                         $scope.results = response.data;
-                        console.log("Array obtenido en pagination() con offset ", offset, ": ", $scope.results);
+                        console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results);
                         /*if (response.status === 200 || response.status === 201) {
                             Materialize.toast('Successful action. ', 1200);
                         }*/
