@@ -82,13 +82,12 @@ angular
             var offset = "";
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
+                $scope.itemsPerPage = $scope.limit;
             }
             if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }
-            if ($scope.limit != undefined & $scope.limit != "") {
-                $scope.itemsPerPage = $scope.limit;
-            }
+
             $http //En lugar de $scope.apikey paso en la url pass para que funcionen los tests de protractor
                 .get($scope.url + "?apikey=" + pass + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
@@ -269,7 +268,7 @@ angular
             $scope.currentPage = 1;
             $scope.setPage = function(pageNo) {
                 if (pageNo == undefined) {
-                    pageNo = 1;
+                    pageNo = 6;
                 }
                 //PARA QUE LA PAGINACIÓN SEA COMO PIDIÓ ANTONIO CADA VEZ QUE SE PULSE ESTE BOTÓN SE DEBE HACER UN NUEVO GET AL SERVIDOR (usando offset)!!!
 
