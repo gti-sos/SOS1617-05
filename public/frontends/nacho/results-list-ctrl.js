@@ -319,7 +319,7 @@ angular
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        $scope.pages = function() { //rangeCreator(results.length,limit)
+        $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             if ($scope.limit == undefined) {
                 $scope.limit = $scope.numberOfResources;
             }
