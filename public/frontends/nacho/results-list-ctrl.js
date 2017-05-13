@@ -119,7 +119,7 @@ angular
             var offset;
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
-                offset = (pageNo - 1) * $scope.limit;
+                offset = ($scope.currentPage - 1) * $scope.limit;
             }
             $http
                 .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
