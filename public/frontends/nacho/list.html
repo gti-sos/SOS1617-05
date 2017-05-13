@@ -62,22 +62,14 @@
             <td><input class="form-ctrl" ng-model="newResult.psoe"></td>
             <td><input class="form-ctrl" ng-model="newResult.cs"></td>
             <td>
-                <!--<li id="seccion1" onmouseover="ver()" onmouseout="ocultar()">
-                            <a href="#">Actions</a>
-                            <div id="actions"> -->
                 <button class="btn btn-primary" ng-click="addResult()">Add</button>
-                <!-- <button class="btn btn-warning" ng-click="updateResult()">Update</button> -->
                 <button class="btn btn-danger" ng-click="deleteAll()">Delete All</button>
                 <button class="btn btn-info" ng-click="search()">Search</button>
                 <button class="btn btn-success" ng-click="lid()">LID</button>
                 <button class="btn btn-success" ng-click="lwd()">LWD</button>
-                <!--</div>
-                        </li> -->
             </td>
         </tr>
 
-        <!--<tr ng-repeat="result in results"> -->
-        <!-- EL PROBLEMA ESTÁ EN itemsPerPage, QUE POR DEFECTO VALE 0    results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))  -->
         <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
             <td><a href="#!/elections-voting-stats/{{result.province}}">{{result.province}}</a></td>
             <td>{{result.year}}</td>
@@ -87,22 +79,12 @@
             <td>{{result.cs}}</td>
             <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
             </tr>
-    <!--
-             View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option value="10" selected="selected">10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</option></select> records at a time.
-    -->
-    <!--
-    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
-    -->
-    <pre>The selected page no: {{currentPage}}</pre>
-    
-    <button class="btn btn-info" ng-click="prevPage()">Prev</button>
-                <!-- El problema está en el parámetro que le paso a rangeCreator: NUMERADOR 8000!!!-->
+   
+   
+                   <!-- PAGINATION -->
+                <pre>The selected page no: {{currentPage}}</pre>
+                <button class="btn btn-info" ng-click="prevPage()">Prev</button>
                 <button ng-repeat="page in pages" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
-                <!-- <button class="btn btn-info" ng-click="setPage(2)">2</button>
-                <button class="btn btn-info" ng-click="setPage(3)">3</button>
-                <button class="btn btn-info" ng-click="setPage(4)">4</button>
-                <button class="btn btn-info" ng-click="setPage(5)">5</button> 
-                <button class="btn btn-info" ng-click="setPage(6)">6</button> -->
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
 
 
