@@ -302,13 +302,14 @@ angular
                     $scope.currentPage = $scope.currentPage - 1;
                 }
             };
-            $scope.rangeCreator = function(ar, ab) { //Puesto que quita la parte decimal, se le debe sumar 1 a pages, no?
-                if (ab == undefined) {
-                    ab = $scope.results.length;
+            $scope.pages = function(numberOfResources) { //rangeCreator(results.length,limit)
+                if ($scope.limit == undefined) {
+                    $scope.limit = numberOfResources;
                 }
-                setItemsPerPage(ab);
-                var pages = (Math.floor(ar / ab)) + 1;
-                console.log(ar, ab);
+                setItemsPerPage($scope.limit);
+                //Puesto que quita la parte decimal, se le debe sumar 1 a pages
+                var pages = (Math.floor(numberOfResources / $scope.limit)) + 1;
+                console.log(numberOfResources, $scope.limit);
                 var res = [];
                 var i;
                 for (i = 1; i <= pages; i++) {
@@ -322,7 +323,6 @@ angular
                 $scope.itemsPerPage = num;
                 //$scope.currentPage = 1; //reset to first page
             }
-
         }
 
         refresh();
