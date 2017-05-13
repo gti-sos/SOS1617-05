@@ -69,8 +69,9 @@
                 <button class="btn btn-success" ng-click="lwd()">LWD</button>
             </td>
         </tr>
-
-        <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+        <!-- Dado que en cada get se cargan datos para mostrar en una única página, ya no hace falta el uso de .slice, results contiene TODOS los resultados que se deben mostrar en 1 pag.
+        <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"> -->
+        <tr ng-repeat="result in results">
             <td><a href="#!/elections-voting-stats/{{result.province}}">{{result.province}}</a></td>
             <td>{{result.year}}</td>
             <td>{{result.pp}}</td>
