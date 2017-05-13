@@ -319,19 +319,20 @@ angular
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        $scope.pages = function(numberOfResources) { //rangeCreator(results.length,limit)
+        $scope.pages = function() { //rangeCreator(results.length,limit)
             if ($scope.limit == undefined) {
-                $scope.limit = numberOfResources;
+                $scope.limit = $scope.numberOfResources;
             }
             setItemsPerPage($scope.limit);
             //Puesto que quita la parte decimal, se le debe sumar 1 a pages
-            var pages = (Math.floor(numberOfResources / $scope.limit)) + 1;
-            console.log(numberOfResources, $scope.limit);
+            var pages = (Math.floor($scope.numberOfResources / $scope.limit)) + 1;
+            console.log($scope.numberOfResources, $scope.limit);
             var res = [];
             var i;
             for (i = 1; i <= pages; i++) {
                 res.push(i);
             }
+            console.log("ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res);
             return res;
         };
 
