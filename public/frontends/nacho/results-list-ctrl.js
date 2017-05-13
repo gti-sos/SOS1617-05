@@ -34,17 +34,19 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
-        $scope.numberOfResources = function() {
+        function size() {
+            var numberOfResources;
             checkKey();
             console.log("Checking the number of resources...");
             $http
                 .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Sending the number of resources stored");
-                    $scope.numberOfResources = response.data;
+                    numberOfResources = response.data;
                     console.log("Número de recursos en el servidor: ", $scope.numberOfResources);
                 });
-        };
+                return numberOfResources;
+        }
 
         //Load WHOLE Data: this resource loads 52 resources, meaning it loads the whole data base
         $scope.lwd = function() {
@@ -321,7 +323,7 @@ angular
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             if ($scope.limit == undefined) {
-                $scope.limit = $scope.numberOfResources;
+                $scope.limit = size();
             }
             setItemsPerPage($scope.limit);
             //Puesto que quita la parte decimal, se le debe sumar 1 a pages
