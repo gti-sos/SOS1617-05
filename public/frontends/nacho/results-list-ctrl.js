@@ -115,7 +115,24 @@ angular
             /*if ($scope.offset != undefined & $scope.offset != "") {
                 offset = "&offset=" + $scope.offset;
             }*/
-
+            var limit = "";
+            var offset;
+            if ($scope.limit != undefined & $scope.limit != "") {
+                limit = "&limit=" + $scope.limit;
+                offset = (pageNo - 1) * $scope.limit;
+            }
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
+                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                    $scope.results = response.data;
+                    console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
+                    /*if (response.status === 200 || response.status === 201) {
+                        Materialize.toast('Successful action. ', 1200);
+                    }*/
+                    //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
+                });
             /*$http
                 .get($scope.url + "?apikey=" + $scope.apikey + limit) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
