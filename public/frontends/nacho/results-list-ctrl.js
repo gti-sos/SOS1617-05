@@ -279,7 +279,7 @@ angular
             }
             console.log("ESTÁ EN FUNCIÓN PAGINATION");
             $http
-                .get($scope.url + "?apikey=" + $scope.apikey + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .get($scope.url + "?apikey=" + $scope.apikey + limit + "?offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + offset);
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
