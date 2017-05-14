@@ -35,7 +35,7 @@ angular
 
         //this one is needed for pagination: returns the amount of resources on the server
         function numberOfResources() {
-            //checkKey();
+            checkKey();
             console.log("Checking the number of resources...");
             $http
                 .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -319,7 +319,7 @@ angular
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        $scope.pagesRange = function() { //rangeCreator(results.length,limit)
+        function pagesRange() { //rangeCreator(results.length,limit)
             if ($scope.limit == undefined) {
                 $scope.limit = numberOfResources();
             }
@@ -333,9 +333,9 @@ angular
                 res.push(i);
             }
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
-            return res;
-        };
-
+            $scope.pagesVector = res ;
+        }
+        pagesRange();
 
         function setItemsPerPage(num) {
             $scope.itemsPerPage = num;
