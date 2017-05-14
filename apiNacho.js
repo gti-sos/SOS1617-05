@@ -33,7 +33,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
             else {
                 console.log("INFO: Sending  results length: " + JSON.stringify(results, 2, null));
                 var tam = results.length;
-                response.sendStatus(tam);
+                response.send(tam);
             }
         });
     });
