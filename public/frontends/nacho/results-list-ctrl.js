@@ -34,7 +34,7 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
-        function numberOfResources() {
+        function nnumberOfResources() {
             checkKey();
             console.log("Checking the number of resources...");
             $http
