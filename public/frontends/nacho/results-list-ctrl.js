@@ -335,7 +335,7 @@ angular
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
             $scope.pagesVector = res ;
         }
-        pagesRange();
+        //pagesRange();
 
         function setItemsPerPage(num) {
             $scope.itemsPerPage = num;
