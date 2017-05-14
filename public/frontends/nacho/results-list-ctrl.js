@@ -335,6 +335,7 @@ angular
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
             return res;
         };
+        
 
 
         function setItemsPerPage(num) {
