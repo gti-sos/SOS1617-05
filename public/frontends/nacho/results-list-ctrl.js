@@ -283,6 +283,7 @@ angular
 
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
+            console.log("SE VA A CAMBIAR A LA PÁGINA: ",pageNo);
             if (pageNo == undefined) {
                 pageNo = 1;
             }
@@ -332,7 +333,7 @@ angular
             for (i = 1; i <= pages; i++) {
                 res.push(i);
             }
-            console.log("ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res);
+            console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
             return res;
         };
 
