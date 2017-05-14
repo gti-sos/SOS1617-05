@@ -34,17 +34,17 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
-        $scope.numberOfResources = function() {
+        function numberOfResources() {
             checkKey();
             console.log("Checking the number of resources...");
             $http
                 .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("Sending the number of resources stored");
-                    $scope.numberOfResources = response.data;
-                    console.log("Número de recursos en el servidor: ", $scope.numberOfResources);
+                    console.log("Number of resources stored: ", response.data);
+                    return response.data;
+
                 });
-        };
+        }
 
         //Load WHOLE Data: this resource loads 52 resources, meaning it loads the whole data base
         $scope.lwd = function() {
@@ -283,7 +283,7 @@ angular
 
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
-            console.log("ESTÁ EN FUNCIÓN setPage(",pageNo,")");
+            console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
             }
@@ -298,7 +298,7 @@ angular
             $http
                 .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
+                    //console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
@@ -308,9 +308,9 @@ angular
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
 
-            var pages = (Math.floor($scope.numberOfResources / $scope.limit)) + 1;
+            var pages = (Math.floor(numberOfResources() / $scope.limit)) + 1;
             if (pageNo <= pages) {
-                console.log("PÁGINAS: ", $scope.numberOfResources, $scope.limit, pages);
+                console.log("PÁGINAS: ", numberOfResources(), $scope.limit, pages);
                 $scope.currentPage = pageNo;
             }
         };
@@ -321,12 +321,12 @@ angular
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             if ($scope.limit == undefined) {
-                $scope.limit = $scope.numberOfResources;
+                $scope.limit = numberOfResources();
             }
             setItemsPerPage($scope.limit);
             //Puesto que quita la parte decimal, se le debe sumar 1 a pages
-            var pages = (Math.floor($scope.numberOfResources / $scope.limit)) + 1;
-            console.log($scope.numberOfResources, $scope.limit);
+            var pages = (Math.floor(numberOfResources() / $scope.limit)) + 1;
+            console.log(numberOfResources(), $scope.limit);
             var res = [];
             var i;
             for (i = 1; i <= pages; i++) {
