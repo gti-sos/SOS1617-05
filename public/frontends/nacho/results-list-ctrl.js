@@ -336,6 +336,7 @@ angular
             return res;
         };
         
+        
 
 
         function setItemsPerPage(num) {
