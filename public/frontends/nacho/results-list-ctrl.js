@@ -124,7 +124,7 @@ angular
             $http
                 .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
+                    //console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
@@ -333,7 +333,7 @@ angular
                 res.push(i);
             }
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
-            $scope.pagesRange = res;
+            return res;
         };
 
 
