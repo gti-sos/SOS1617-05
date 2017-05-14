@@ -40,8 +40,8 @@ angular
             $http
                 .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    console.log("Number of resources stored: ", response.data);
-                    return response.data;
+                    console.log("Number of resources stored: ", response);
+                    return response;
 
                 });
         }
