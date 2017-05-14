@@ -283,7 +283,7 @@ angular
 
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
-            console.log("SE VA A CAMBIAR A LA PÁGINA: ",pageNo);
+            console.log("ESTÁ EN FUNCIÓN setPage(",pageNo,")");
             if (pageNo == undefined) {
                 pageNo = 1;
             }
@@ -295,7 +295,6 @@ angular
                 limit = "&limit=" + $scope.limit;
                 offset = (pageNo - 1) * $scope.limit;
             }
-            console.log("ESTÁ EN FUNCIÓN setPage(pageNo)");
             $http
                 .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
