@@ -35,7 +35,7 @@ angular
 
         //this one is needed for pagination: returns the amount of resources on the server
         function numberOfResources() {
-            checkKey();
+            //checkKey();
             console.log("Checking the number of resources...");
             $http
                 .get("https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
