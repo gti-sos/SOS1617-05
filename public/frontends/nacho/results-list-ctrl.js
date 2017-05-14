@@ -307,8 +307,8 @@ angular
                     }*/
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
-
-            var pages = (Math.floor(numberOfResources() / $scope.limit)) + 1;
+            var numRec = numberOfResources(); 
+            var pages = (Math.floor(numRec / $scope.limit)) + 1;
             if (pageNo <= pages) {
                 console.log("PÁGINAS: ", numberOfResources(), $scope.limit, pages);
                 $scope.currentPage = pageNo;
