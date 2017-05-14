@@ -21,7 +21,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     });
 
     //This one is for checking the number of resources on the server:
-    app.get("/api/v2/elections-voting-stats/length", function(request, response) {
+    app.get(BASE_API_PATH + "/elections-voting-stats/length", function(request, response) {
         /*if (!checkKey(request, response)) {
             return;
         }*/
@@ -32,7 +32,8 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
             }
             else {
                 console.log("INFO: Sending  results length: " + JSON.stringify(results, 2, null));
-                response.send(results.length);
+                var tam = results.length;
+                response.send(tam);
             }
         });
     });
