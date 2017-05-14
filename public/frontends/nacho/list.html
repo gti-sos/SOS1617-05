@@ -33,8 +33,7 @@
             <!--<td><input class="form-ctrl" ng-model="offset"></td>-->
             <!--<td><input class="form-ctrl" ng-model="from"></td>
             <td><input class="form-ctrl" ng-model="to"></td>
-            <td><input class="form-ctrl" ng-model="party"></td>
-             EL BOTÓN show HA PERDIDO EL SENTIDO, LO COMENTO PARA QUE NO SE MUESTRE:  -->
+            <td><input class="form-ctrl" ng-model="party"></td> -->
             <td><button class="btn btn-basic" ng-click="show()">SHOW</button></td>
         </tr>
     </tbody>
@@ -79,13 +78,13 @@
             <td>{{result.psoe}}</td>
             <td>{{result.cs}}</td>
             <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
-            </tr>
+        </tr>
    
    
                    <!-- PAGINATION -->
                 <pre>The selected page no: {{currentPage}}</pre>
                 <button class="btn btn-info" ng-click="prevPage()">Prev</button>
-                <button ng-repeat="page in pagesRange()" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
+                <button ng-repeat="page in pagesRange" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
 
 
