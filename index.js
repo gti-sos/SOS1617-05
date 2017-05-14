@@ -6,6 +6,9 @@ var apiNacho = require('./apiNacho.js');
 var apiAlberto = require('./apiAlberto.js');
 var apiAntonio = require('./apiAntonio.js');
 
+//modulo de las cabeceras
+var cors = require("cors");
+
 var port = (process.env.PORT || 10000); 
 var BASE_API_PATH = "/api/v1"; 
 var app = express();
@@ -35,7 +38,9 @@ app.use("/api/v1/frontendAntonio", express.static(path.join(__dirname, "public/f
 app.use("/api/v1/tests", express.static(path.join(__dirname, "public/tests.html")));
 
 app.use(bodyParser.json()); //use default json enconding/decoding
-app.use(helmet()); //improve security       
+app.use(helmet()); //improve security  
+app.use(cors());//CORS-->cabeceras
+
 
 
 apiNacho.register(app,port,BASE_API_PATH, checkKey);  
