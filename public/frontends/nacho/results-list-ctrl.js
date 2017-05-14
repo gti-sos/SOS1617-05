@@ -319,7 +319,7 @@ angular
                 $scope.currentPage = $scope.currentPage - 1;
             }
         };
-        function pagesRange() { //rangeCreator(results.length,limit)
+        $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             if ($scope.limit == undefined) {
                 $scope.limit = numberOfResources();
             }
@@ -333,9 +333,9 @@ angular
                 res.push(i);
             }
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
-            $scope.pagesVector = res ;
-        }
-        //pagesRange();
+            return res;
+        };
+
 
         function setItemsPerPage(num) {
             $scope.itemsPerPage = num;
