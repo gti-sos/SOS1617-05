@@ -2,7 +2,8 @@ angular
     .module("ManagerApp")
     .controller("SmiCtrl", ["$http", "$scope", function($http, $scope) {
 
-        // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
+        // https://www.highcharts.com/docs/chart-and-series-types/chart-types
+        //Cant use types:
 
         //This controller works with SMI (José) data using CORS HEADERS
 
