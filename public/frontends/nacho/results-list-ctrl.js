@@ -310,11 +310,10 @@ angular
                     }*/
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
-            
-            while (numberOfResources() == undefined) {
-                console.log("Waiting for numberOfResources to commit its work...");
-            }
             var numRec = numberOfResources();
+            if (numRec == undefined){
+                console.log("FALLO!!!!!!!");
+            }
             var pages = (Math.floor(numRec / $scope.limit)) + 1;
             console.log("PÁGINAS: ", numRec, $scope.limit, pages);
             if (pageNo <= pages) {
