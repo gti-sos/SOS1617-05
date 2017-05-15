@@ -22,7 +22,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     //This one is for checking the number of resources on the server:
     //elections-voting-stats/length?apikey=cinco
-    app.get(BASE_API_PATH + "/elections-voting-stats/length", function(request, response) {
+    app.get(BASE_API_PATH + "/elections-voting-stats-length", function(request, response) {
         /*if (!checkKey(request, response)) {
             return;
         }*/
