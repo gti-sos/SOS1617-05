@@ -31,12 +31,12 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
   callback = function(response){
      var str = ''; 
   
-//another chunk of data has been recieved, so append it to "str"
+//another chunk of data has been recieved, so append it to "str"-->guarda lo que va recibiendo
  response.on('data', function (chunk){
    str += chunk; 
  });   
  
-//the whole response has been recieved, so we just print it out here response.oncend', 
+//the whole response has been recieved, so we just print it out here response.oncend', -->cuando termina de recibir datos, enviamos lo del str.
 response.on('end',function (chunk){
     res.send(str);
     });
