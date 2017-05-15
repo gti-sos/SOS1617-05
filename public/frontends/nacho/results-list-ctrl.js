@@ -35,7 +35,7 @@ angular
 
         //this one is needed for pagination: returns the amount of resources on the server
         function numberOfResources() {
-            checkKey();
+            //checkKey();
             console.log("Checking the number of resources...");
             $http
                 .get($scope.url + "/length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -307,10 +307,10 @@ angular
                     }*/
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
-            var numRec = numberOfResources(); 
+            var numRec = numberOfResources();
             var pages = (Math.floor(numRec / $scope.limit)) + 1;
+            console.log("PÁGINAS: ", numberOfResources(), $scope.limit, pages);
             if (pageNo <= pages) {
-                console.log("PÁGINAS: ", numberOfResources(), $scope.limit, pages);
                 $scope.currentPage = pageNo;
             }
         };
@@ -335,8 +335,8 @@ angular
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
             return res;
         };
-        
-        
+
+
 
 
         function setItemsPerPage(num) {
