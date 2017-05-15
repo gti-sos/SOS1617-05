@@ -42,7 +42,6 @@ angular
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Number of resources stored: ", response.data);
                     return response.data;
-
                 });
         }
 
