@@ -44,7 +44,7 @@ angular
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
                 });
-            console.log(tam);
+            console.log("----salida de numberOfResources ----- ",tam);
             return tam;
         }
 
