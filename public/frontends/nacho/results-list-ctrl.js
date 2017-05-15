@@ -35,7 +35,8 @@ angular
 
         //this one is needed for pagination: returns the amount of resources on the server
         function numberOfResources() {
-            var tam=22;
+            //Cuando se ejecuta, no se espera al return de esta función...
+            var tam;
             //checkKey();
             console.log("Checking the number of resources (", $scope.url + "-length?apikey=" + $scope.apikey, " )");
             $http
@@ -43,7 +44,6 @@ angular
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
-                }).then(function(response) {
                     return tam;
                 });
         }
@@ -311,7 +311,7 @@ angular
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
             //var numRec = numberOfResources();
-            if (numberOfResources() == undefined){
+            if (numberOfResources() == undefined) {
                 console.log("FALLO!!!!!!!");
             }
             var pages = (Math.floor(numberOfResources() / $scope.limit)) + 1;

@@ -1,9 +1,12 @@
 angular
     .module("ManagerApp")
-    .controller("ElectionsWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
+    .controller("SmiCtrl", ["$http", "$scope", function($http, $scope) {
 
         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
 
+        //This controller works with SMI (José) data using CORS HEADERS
+
+        //Elections data
         $scope.apikey = "cinco";
         $scope.province = [];
         $scope.year = [];
@@ -13,6 +16,9 @@ angular
         $scope.cs = [];
         $scope.data = {};
         var data = {};
+        
+        //SMI data
+        
         var sort_by = function(field, reverse, primer) {
 
             var key = primer ?
@@ -35,12 +41,7 @@ angular
             .get("https://sos1617-02.herokuapp.com/api/v1/smi-stats?apikey=rXD8D2b1vP")
             .then(function(res) {});
 
-        //Add code here to import EDUCATION data (proxy):
-        $http
-            .get("/proxy?apikey=" + $scope.apikey)
-            .then(function(res) {});
-
-
+    
         $http
             .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
             .then(function(res) {

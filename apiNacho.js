@@ -20,6 +20,30 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     });
 
+    //This code is stored in the server (always), so that when someone access to /education, this section of code will work as a tunel to the url indicated below:
+    app.get("/education", (req, res) => {
+        var http = require('http');
+        var options = {
+            //Endpoint provided by education here        
+            //http://sos1617-06.herokuapp.com/api/v1/education?apikey=secret
+            host: 'sos1617-06.herokuapp.com',
+            path: '/api/v1/education?apikey=secret'
+        };
+        callback = function(response) {
+            var str = '';
+            //another chunk of data has been recieved, so append it to 'str' 
+            response.on('data', function(chunk) {
+                str += chunk;
+            });
+            //the whole response has been recieved, so we just print it out here 
+            response.on('end', function() {
+                res.send(str);
+            });
+        }
+        http.request(options, callback).end();
+    });
+
+
     //This one is for checking the number of resources on the server:
     //elections-voting-stats/length?apikey=cinco
     app.get(BASE_API_PATH + "/elections-voting-stats-length", function(request, response) {
@@ -35,7 +59,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                 console.log("INFO: Sending results length: " + JSON.stringify(results, 2, null));
                 //Si lo envío como número lo toma como código de estado (erroneo pues es 52) y se para la app
                 var tam = results.length;
-                response.send(["length",tam]);
+                response.send(["length", tam]);
             }
         });
     });

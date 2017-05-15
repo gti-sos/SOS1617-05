@@ -19,6 +19,12 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/elections-results/widgets", { //Cambio el nombre de la base de datos por conflictos con la versión edit
             templateUrl: "frontends/nacho/widgets.html",
             controller: "ElectionsWidgetsCtrl"
+        }).when("/elections-results/widgets/smiCors", { /* SMI CHART (CORS) */
+            templateUrl: "frontends/nacho/cors-smi.html",
+            controller: "SmiCtrl"
+        }).when("/elections-results/widgets/educationProxy", { /* EDUCATION CHART (PROXY) */
+            templateUrl: "frontends/nacho/proxy-edu.html",
+            controller: "EducationCtrl"
         }) //ALBERTO
         .when("/economic-situation-stats", {
             templateUrl: "frontends/alberto/list.html",
