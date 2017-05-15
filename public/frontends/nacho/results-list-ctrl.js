@@ -35,14 +35,16 @@ angular
 
         //this one is needed for pagination: returns the amount of resources on the server
         function numberOfResources() {
+            var tam;
             //checkKey();
             console.log("Checking the number of resources (", $scope.url + "-length?apikey=" + $scope.apikey, " )");
             $http
                 .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Number of resources stored: ", response.data);
-                    return response.data;
+                    tam = response.data;
                 });
+            return parseInt(tam);
         }
 
 
