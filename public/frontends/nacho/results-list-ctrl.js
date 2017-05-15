@@ -35,7 +35,7 @@ angular
 
         //this one is needed for pagination: returns the amount of resources on the server
         function numberOfResources() {
-            var tam;
+            var tam=22;
             //checkKey();
             console.log("Checking the number of resources (", $scope.url + "-length?apikey=" + $scope.apikey, " )");
             $http
