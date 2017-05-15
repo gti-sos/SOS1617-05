@@ -44,6 +44,7 @@ angular
                     console.log("Number of resources stored: ", response.data);
                     tam = parseInt(response.data,10);
                 });
+                console.log(tam);
             return tam;
         }
 
