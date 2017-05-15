@@ -19,13 +19,15 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
 
     });
     //PROXY-->G01-Level of youth unemployment-->https://sos1617-01.herokuapp.com/api/v2/youthunemploymentstats?apikey=sos161701
-    app.get("/proxy", (req, res) => { 
+    app.get("/economic-situation-stats/proxy", (req, res) => { 
     var http = require('http'); 
     var options = {
     host: "sos1617-01.herokuapp.com", 
     path: '/api/v2/youthunemploymentstats?apikey=sos161701' 
         
     }; 
+    
+    
   callback = function(response){
      var str = ''; 
   
