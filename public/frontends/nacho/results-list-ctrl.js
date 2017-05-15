@@ -42,9 +42,9 @@ angular
                 .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Number of resources stored: ", response.data);
-                    tam = response.data;
+                    tam = parseInt(response.data,10);
                 });
-            return parseInt(tam);
+            return tam;
         }
 
 
