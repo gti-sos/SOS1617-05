@@ -34,8 +34,9 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
+        var tam;
         function numberOfResources() {
-            var tam;
+            
             //checkKey();
             console.log("Checking the number of resources (", $scope.url + "-length?apikey=" + $scope.apikey, " )");
             $http
@@ -311,11 +312,11 @@ angular
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
             var numRec = numberOfResources();
-            if (numRec == undefined){
+            while (tam == undefined){
                 console.log("FALLO!!!!!!!");
             }
-            var pages = (Math.floor(numRec / $scope.limit)) + 1;
-            console.log("PÁGINAS: ", numRec, $scope.limit, pages);
+            var pages = (Math.floor(tam / $scope.limit)) + 1;
+            console.log("PÁGINAS: ", tam, $scope.limit, pages);
             if (pageNo <= pages) {
                 $scope.currentPage = pageNo;
             }
