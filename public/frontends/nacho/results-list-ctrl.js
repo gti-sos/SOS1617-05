@@ -44,6 +44,7 @@ angular
                     return response.data;
                 });
         }
+        
 
         //Load WHOLE Data: this resource loads 52 resources, meaning it loads the whole data base
         $scope.lwd = function() {
