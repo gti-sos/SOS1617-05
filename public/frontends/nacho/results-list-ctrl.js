@@ -43,7 +43,6 @@ angular
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
-
                 }).then(function(response) {
                     return tam;
                 });
@@ -312,6 +311,9 @@ angular
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
             var numRec = numberOfResources();
+            while (numRec == undefined) {
+                console.log("Waiting for numberOfResources to commit its work...");
+            }
             var pages = (Math.floor(numRec / $scope.limit)) + 1;
             console.log("PÁGINAS: ", numRec, $scope.limit, pages);
             if (pageNo <= pages) {
