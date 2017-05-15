@@ -42,9 +42,9 @@ angular
                 .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     console.log("Number of resources stored: ", response.data);
-                    tam = parseInt(response.data,10);
+                    tam = response.data[1];
                 });
-                console.log(tam);
+            console.log(tam);
             return tam;
         }
 
@@ -312,7 +312,7 @@ angular
                 });
             var numRec = numberOfResources();
             var pages = (Math.floor(numRec / $scope.limit)) + 1;
-            console.log("PÁGINAS: ", numberOfResources(), $scope.limit, pages);
+            console.log("PÁGINAS: ", numRec, $scope.limit, pages);
             if (pageNo <= pages) {
                 $scope.currentPage = pageNo;
             }

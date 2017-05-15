@@ -34,8 +34,8 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
             else {
                 console.log("INFO: Sending results length: " + JSON.stringify(results, 2, null));
                 //Si lo envío como número lo toma como código de estado (erroneo pues es 52) y se para la app
-                var tam = results.length.toString();
-                response.send(tam);
+                var tam = results.length;
+                response.send(["length",tam]);
             }
         });
     });
