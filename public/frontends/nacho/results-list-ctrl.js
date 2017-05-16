@@ -316,7 +316,7 @@ angular
                     console.log("Number of resources stored: ", tam);
                     var pages = (Math.floor(tam / $scope.limit)) + 1;
                     console.log("PÁGINAS: ", tam, $scope.limit, pages);
-                    if (pageNo <= pages) {
+                    if (pageNo < pages) {
                         $scope.currentPage = pageNo;
                     }
                 });
