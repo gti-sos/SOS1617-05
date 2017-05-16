@@ -324,6 +324,7 @@ angular
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
                 $scope.currentPage = $scope.currentPage - 1;
+                this.setPage($scope.currentPage);
             }
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
