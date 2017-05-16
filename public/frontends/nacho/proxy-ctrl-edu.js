@@ -98,7 +98,7 @@ angular
                                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> <br/>'
                             },
                             series: [{
-                                name: 'Parties',
+                                name: 'Elections and Education',
                                 colorByPoint: true,
                                 data: [{
                                     color: 'blue',
@@ -149,6 +149,7 @@ angular
                                     id: 'Podemos',
                                     data: $scope.podemos
                                 }, {
+                                    colorByPoint:'gray',
                                     color: 'gray',
                                     name: 'Primary education (p/c)',
                                     id: 'Primary education (p/c)',
