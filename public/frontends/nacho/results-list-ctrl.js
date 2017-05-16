@@ -200,6 +200,7 @@ angular
 
         //BÚSQUEDA
         $scope.search = function() {
+            //NECESITO UN MÉTODO QUE DADOS UNOS PARÁMETROS (provincia, año, pp...) ME DIGA CUANTOS RECURSOS LOS CUMPLEN PARA PODER APLICAR PAGINACIÓN A LAS BÚSQUEDAS!!
             checkKey();
             var numberOfPages;
             //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
@@ -288,7 +289,13 @@ angular
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
-                    var pages = (Math.floor(tam / $scope.limit)) + 1;
+                    var pages;
+                    if (tam % $scope.limit == 0) {
+                        pages = (Math.floor(tam / $scope.limit));
+                    }
+                    else {
+                        pages = (Math.floor(tam / $scope.limit)) + 1;
+                    }
                     console.log("PÁGINAS: ", tam, $scope.limit, pages);
                     if (pageNo <= pages) {
                         $scope.currentPage = pageNo;
@@ -321,7 +328,13 @@ angular
                     }
                     //setItemsPerPage($scope.limit);
                     //Puesto que quita la parte decimal, se le debe sumar 1 a pages
-                    var pages = (Math.floor(tam / $scope.limit)) + 1;
+                    var pages;
+                    if (tam % $scope.limit == 0) {
+                        pages = (Math.floor(tam / $scope.limit));
+                    }
+                    else {
+                        pages = (Math.floor(tam / $scope.limit)) + 1;
+                    }
                     console.log(tam, $scope.limit);
                     var res = [];
                     var i;

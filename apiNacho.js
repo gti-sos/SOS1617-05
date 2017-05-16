@@ -64,6 +64,35 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         });
     });
 
+    app.get(BASE_API_PATH + "/elections-voting-stats-lengthSearch", function(request, response) {
+        /*if (!checkKey(request, response)) {
+            return;
+        }*/
+        db.find({}).toArray(function(err, results) {
+            var consulta = request.query;
+            var res = [];
+            var i;
+            for (i = 0; i < results.length; i++) {
+                if ((consulta.province == undefined || results[i].province == consulta.province) &&
+                    (consulta.pp == undefined || results[i].pp == consulta.pp) &&
+                    (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
+                    (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
+                    (consulta.cs == undefined || results[i].cs == consulta.cs)) {
+                    res.push(results[i]);
+                }
+            }
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500);
+            }
+            else {
+                console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                response.send(["length", res.length]);
+            }
+        });
+    });
+
+
 
     //This function loads the whole data base (if the api contains no resources)
     app.get(BASE_API_PATH + "/elections-voting-stats/loadWholeData", function(request, response) {
