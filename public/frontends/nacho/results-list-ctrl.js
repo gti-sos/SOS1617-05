@@ -288,10 +288,6 @@ angular
 
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
-            numberOfResources();
-            //while (tam == undefined) {
-              //  console.log("Esperando inicialización de tam...");
-            //}
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -313,15 +309,17 @@ angular
                     //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
-            //var numRec = numberOfResources();
-            if (tam == undefined) {
-                console.log("FALLO!!!!!!!");
-            }
-            var pages = (Math.floor(tam / $scope.limit)) + 1;
-            console.log("PÁGINAS: ", tam, $scope.limit, pages);
-            if (pageNo <= pages) {
-                $scope.currentPage = pageNo;
-            }
+            $http
+                .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    tam = response.data[1];
+                    console.log("Number of resources stored: ", tam);
+                    var pages = (Math.floor(tam / $scope.limit)) + 1;
+                    console.log("PÁGINAS: ", tam, $scope.limit, pages);
+                    if (pageNo <= pages) {
+                        $scope.currentPage = pageNo;
+                    }
+                });
         };
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
@@ -331,7 +329,7 @@ angular
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             numberOfResources();
             //while (tam == undefined) {
-              //  console.log("Esperando inicialización de tam...");
+            //  console.log("Esperando inicialización de tam...");
             //}
             if ($scope.limit == undefined) {
                 $scope.limit = tam;
