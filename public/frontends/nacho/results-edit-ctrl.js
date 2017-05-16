@@ -41,7 +41,9 @@ angular
 
 
     }]); */
-
+    
+/*global angular*/
+/*global Materialize*/
 angular
     .module("ManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("ResultsEditCtrl", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend -->

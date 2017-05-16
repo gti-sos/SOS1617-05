@@ -1,6 +1,7 @@
 /*global Materialize*/
 /*global angular*/
 
+//CUALQUIER FUNCIÓN QUE MUESTRE RECURSOS DEBE CONSULTAR EL LIMIT. SI OCUPAN MÁS DE UNA PÁGINA ENTRA EN JUEGO TAMBIÉN EL OFFSET
 angular
     .module("ManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("ResultsListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend 

@@ -21,7 +21,7 @@ angular
         var data = {};
 
         //Education data
-        $scope.edu= [];
+        $scope.edu = [];
         $scope.dataEdu = {};
         var dataEdu = {};
 
@@ -59,116 +59,86 @@ angular
 
                         console.log("Controller intialized");
 
-                        Highcharts.chart('container', {
+
+
+                        //var sum = [1, 2, 3].reduce(add, 0);
+                        function add(a, b) {
+                            return a + b;
+                        }
+                        // Create the chart
+                        Highcharts.chart('containerEDU', {
                             chart: {
-                                zoomType: 'xy'
+                                type: 'pie'
                             },
                             title: {
                                 text: "Spain's 2016 elections results combined with education stats"
                             },
-                            xAxis: [{
-                                categories: $scope.province
-                            }],
-                            yAxis: [{ // Primary yAxis
-                                labels: {
-                                    format: '{value} °C',
-                                    style: {
-                                        color: Highcharts.getOptions().colors[1]
-                                    }
-                                },
-                                title: {
-                                    text: 'Temperature',
-                                    style: {
-                                        color: Highcharts.getOptions().colors[1]
-                                    }
-                                }
-                            }, { // Secondary yAxis
-                                title: {
-                                    text: 'Rainfall',
-                                    style: {
-                                        color: Highcharts.getOptions().colors[0]
-                                    }
-                                },
-                                labels: {
-                                    format: '{value} mm',
-                                    style: {
-                                        color: Highcharts.getOptions().colors[0]
-                                    }
-                                },
-                                opposite: true
-                            }],
-
-                            tooltip: {
-                                shared: true
-                            },
-
-                            series: [{
-                                name: 'PP seats',
-                                type: 'column',
-                                yAxis: 1,
-                                data: $scope.pp,
-                                tooltip: {
-                                    pointFormat: '<span style="font-weight: bold; color: {series.color}">{series.name}</span>: <b>{point.y:.1f} mm</b> '
-                                }
-                            }, {
-                                name: 'Temperature',
-                                type: 'spline',
-                                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-                                tooltip: {
-                                    pointFormat: '<span style="font-weight: bold; color: {series.color}">{series.name}</span>: <b>{point.y:.1f}°C</b> '
-                                }
-                            }]
-                        });
-
-                        //Highcharts
-                        Highcharts.chart('container', {
-                            chart: {
-                                type: 'column'
-                            },
-                            title: {
-                                text: 'Stacked column chart'
-                            },
-                            xAxis: { //Estas serían las provincias (SÓLO ES OBLIGATORIO QUE SE MUESTREN TODAS EN UN ÚNICO WIDGET)
-                                categories: $scope.province
-                                    //['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Granada', 'Cordoba', 'Almeria', 'Huelva', 'Cadiz', 'Jaen', 'Malaga']
-                            },
-                            yAxis: {
-                                min: 0,
-                                title: {
-                                    text: "Spain's 2016 general elections voting results"
-                                }
-                            },
-                            tooltip: {
-                                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                                shared: false
+                            subtitle: {
+                                text: 'Click the slices to see more info.'
                             },
                             plotOptions: {
-                                column: {
-                                    stacking: 'percent',
+                                series: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '{point.name}: {point.y:.1f}%'
+                                    }
                                 }
                             },
 
-                            //Estas serían para cada una de las provincias los valores que toma cada name, que son los partidos
+                            tooltip: {
+                                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                            },
                             series: [{
-                                name: 'pp',
-                                data: $scope.pp
-                            }, {
-                                name: 'podemos',
-                                data: $scope.podemos
-                            }, {
-                                name: 'psoe',
-                                data: $scope.psoe
-                            }, {
-                                name: 'cs',
-                                data: $scope.cs
-                            }]
+                                name: 'Parties',
+                                colorByPoint: true,
+                                data: [{
+                                    color: 'blue',
+                                    name: 'PP',
+                                    y: $scope.pp.reduce(add, 0),
+                                    drilldown: 'PP'
+                                }, {
+                                    name: 'PSOE',
+                                    y: $scope.psoe.reduce(add, 0),
+                                    drilldown: 'PSOE'
+                                }, {
+                                    name: "C's",
+                                    y: $scope.cs.reduce(add, 0),
+                                    drilldown: "C's"
+                                }, {
+                                    name: 'Podemos',
+                                    y: $scope.podemos.reduce(add, 0),
+                                    drilldown: 'Podemos'
+                                }, {
+                                    name: 'Primary education (p/c)',
+                                    y: $scope.edu.reduce(add, 0),
+                                    drilldown: 'Primary education (p/c)'
+                                }]
+                            }],
+                            drilldown: {
+                                series: [{
+                                    name: 'PP',
+                                    id: 'PP',
+                                    data: $scope.pp
+                                }, {
+                                    name: 'PSOE',
+                                    id: 'PSOE',
+                                    data: $scope.podemos
+                                }, {
+                                    name: "C's",
+                                    id: "C's",
+                                    data: $scope.cs
+                                }, {
+                                    name: 'Podemos',
+                                    id: 'Podemos',
+                                    data: $scope.podemos
+                                }, {
+                                    name: 'Primary education (p/c)',
+                                    id: 'Primary education (p/c)',
+                                    data: $scope.edu
+                                }]
+                            }
                         });
-
-
                     });
             });
-
-
-
-
     }]);
