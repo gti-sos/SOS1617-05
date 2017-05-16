@@ -49,10 +49,10 @@ angular
                         for (var i = 0; i < res.data.length; i++) {
                             $scope.province.push($scope.data[i].province);
                             $scope.year.push(Number($scope.data[i].year));
-                            $scope.pp.push(Number($scope.data[i].pp));
-                            $scope.podemos.push(Number($scope.data[i].podemos));
-                            $scope.psoe.push(Number($scope.data[i].psoe));
-                            $scope.cs.push(Number($scope.data[i].cs));
+                            $scope.pp.push([$scope.data[i].province, Number($scope.data[i].pp)]);
+                            $scope.podemos.push([$scope.data[i].province, Number($scope.data[i].podemos)]);
+                            $scope.psoe.push([$scope.data[i].province, Number($scope.data[i].psoe)]);
+                            $scope.cs.push([$scope.data[i].province, Number($scope.data[i].cs)]);
 
                             console.log($scope.data[i].province);
                         }
@@ -63,7 +63,7 @@ angular
 
                         //var sum = [1, 2, 3].reduce(add, 0);
                         function add(a, b) {
-                            return a + b;
+                            return a[1] + b[1];
                         }
                         // Create the chart
                         Highcharts.chart('containerEDU', {
@@ -98,18 +98,22 @@ angular
                                     y: $scope.pp.reduce(add, 0),
                                     drilldown: 'PP'
                                 }, {
+                                    color: 'red',
                                     name: 'PSOE',
                                     y: $scope.psoe.reduce(add, 0),
                                     drilldown: 'PSOE'
                                 }, {
+                                    color: 'orange',
                                     name: "C's",
                                     y: $scope.cs.reduce(add, 0),
                                     drilldown: "C's"
                                 }, {
+                                    color: 'purple',
                                     name: 'Podemos',
                                     y: $scope.podemos.reduce(add, 0),
                                     drilldown: 'Podemos'
                                 }, {
+                                    color: 'gray',
                                     name: 'Primary education (p/c)',
                                     y: $scope.edu.reduce(add, 0),
                                     drilldown: 'Primary education (p/c)'
