@@ -27,7 +27,7 @@ angular
 
         //Add code here to import EDUCATION data (proxy):
         $http
-            .get("/proxy?apikey=" + $scope.apikey)
+            .get("/education?apikey=" + $scope.apikey)
             .then(function(res) {
 
                 dataEdu = res.data;
