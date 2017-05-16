@@ -34,7 +34,7 @@ angular
                 $scope.dataEdu = dataEdu;
 
                 for (var i = 0; i < $scope.dataEdu.length; i++) {
-                    $scope.edu.push($scope.dataEdu[i]["education-primary-per-capita"]);
+                    $scope.edu.push([$scope.dataEdu[i].country.toString(), $scope.dataEdu[i]["education-primary-per-capita"]]);
                 }
 
 
@@ -63,7 +63,7 @@ angular
 
                         //var sum = [1, 2, 3].reduce(add, 0);
                         function add(a, b) {
-                            return a[1] + b[1];
+                            return a + b;
                         }
                         // Create the chart
                         Highcharts.chart('containerEDU', {
