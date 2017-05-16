@@ -81,7 +81,7 @@ angular
                         console.log("Controller intialized");
 
                         //Highcharts
-                        Highcharts.chart('container', {
+                        Highcharts.chart('containerSMI', {
                             title: {
                                 text: "Spain's 2016 elections results and Minimum Interprofessional Salary"
                             },
