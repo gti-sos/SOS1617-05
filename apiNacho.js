@@ -20,6 +20,30 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
 
     });
 
+    //This code is stored in the server (always), so that when someone access to /education, this section of code will work as a tunel to the url indicated below:
+    app.get("/education", (req, res) => {
+        var http = require('http');
+        var options = {
+            //Endpoint provided by education here        
+            //http://sos1617-06.herokuapp.com/api/v1/education?apikey=secret
+            host: 'sos1617-06.herokuapp.com',
+            path: '/api/v1/education?apikey=secret'
+        };
+        callback = function(response) {
+            var str = '';
+            //another chunk of data has been recieved, so append it to 'str' 
+            response.on('data', function(chunk) {
+                str += chunk;
+            });
+            //the whole response has been recieved, so we just print it out here 
+            response.on('end', function() {
+                res.send(str);
+            });
+        }
+        http.request(options, callback).end();
+    });
+
+
     //This one is for checking the number of resources on the server:
     //elections-voting-stats/length?apikey=cinco
     app.get(BASE_API_PATH + "/elections-voting-stats-length", function(request, response) {
@@ -35,10 +59,39 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                 console.log("INFO: Sending results length: " + JSON.stringify(results, 2, null));
                 //Si lo envío como número lo toma como código de estado (erroneo pues es 52) y se para la app
                 var tam = results.length;
-                response.send(["length",tam]);
+                response.send(["length", tam]);
             }
         });
     });
+
+    app.get(BASE_API_PATH + "/elections-voting-stats-lengthSearch", function(request, response) {
+        /*if (!checkKey(request, response)) {
+            return;
+        }*/
+        db.find({}).toArray(function(err, results) {
+            var consulta = request.query;
+            var res = [];
+            var i;
+            for (i = 0; i < results.length; i++) {
+                if ((consulta.province == undefined || results[i].province == consulta.province) &&
+                    (consulta.pp == undefined || results[i].pp == consulta.pp) &&
+                    (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
+                    (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
+                    (consulta.cs == undefined || results[i].cs == consulta.cs)) {
+                    res.push(results[i]);
+                }
+            }
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500);
+            }
+            else {
+                console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                response.send(["length", res.length]);
+            }
+        });
+    });
+
 
 
     //This function loads the whole data base (if the api contains no resources)

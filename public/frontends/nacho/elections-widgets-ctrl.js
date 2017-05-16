@@ -1,3 +1,7 @@
+/*global angular*/
+/*global Highcharts*/
+/*global EJSC*/
+
 angular
     .module("ManagerApp")
     .controller("ElectionsWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
@@ -13,6 +17,7 @@ angular
         $scope.cs = [];
         $scope.data = {};
         var data = {};
+
         var sort_by = function(field, reverse, primer) {
 
             var key = primer ?
@@ -29,6 +34,8 @@ angular
                 return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
             };
         };
+
+
         $http
             .get("/api/v1/elections-voting-stats?apikey=" + $scope.apikey)
             .then(function(res) {
@@ -139,48 +146,6 @@ angular
                 //representará la parte de x que ha ganado cada uno de los cuatro partidos, y así se tendrían todos los recursos con todos los datos en uso.)
                 //debería poner aquí algo de EJSchart o ya con que esté en la carpeta aquella vale?
 
-                /*var chart = new EJSC.Chart("myChart");
-                chart.addSeries(new EJSC.AreaSeries(
-                    new EJSC.ArrayDataHandler([
-                        [1, 1],
-                        [2, 2],
-                        [3, 3],
-                        [4, 2],
-                        [5, 3]
-                    ]))); */
-                /*
-                                var chart8a = new EJSC.Chart("myChart", {});
-
-                                var series1 = chart8a.addSeries(new EJSC.PieSeries(
-                                    new EJSC.ArrayDataHandler([
-
-                                        /*[151, "pp"], //pp
-                                        [73, "podemos"], //podemos
-                                        [82, "psoe"], //psoe
-                                        [30, "cs"], //cs 
-
-                                        [1, "pp"], //pp
-                                        [2, "podemos"], //podemos
-                                        [3, "psoe"], //psoe
-                                        [40, "cs"], //cs
-                                    ]), {
-                                        onAfterDataAvailable: function(chart, series) {
-                                            chart.selectPoint(series.__points[0], true);
-                                        }
-                                    }
-                                ));
-
-                                series1.onPieceNeedsColor = function(point, series, chart) {
-                                    var colors = [
-                                        null,
-                                        'rgb(0,0,255)', //pp
-                                        'rgb(102,0,102)', //podemos
-                                        'rgb(255,0,0)', //psoe
-                                        'rgb(255,128,0)', //cs
-                                    ];
-                                    return colors[point.x];
-                                }; */
-
                 var chart = new EJSC.Chart("myChart", {
                     show_legend: false,
                     title: 'DoughnutSeries'
@@ -223,24 +188,6 @@ angular
                     }
                 ));
                 //Si intento cambiarle el color como a la versión PIE no se muestra el grafo
-                /*series1.onPieceNeedsColor = function(point, series, chart) {
-                    var colors = [
-                        null,
-                        'rgb(0,0,255)', //pp
-                        'rgb(102,0,102)', //podemos
-                        'rgb(255,0,0)', //psoe
-                        'rgb(255,128,0)', //cs
-                    ];
-                    return colors[point.x];
-                };
-                series2.onPieceNeedsColor = function(point, series, chart) {
-                    var colors = [
-                        'rgb(0,0,255)', //pp
-                        'rgb(102,0,102)', //podemos
-                        'rgb(255,0,0)', //psoe
-                        'rgb(255,128,0)', //cs
-                    ];
-                    return colors[point.x];
-                };*/
+
             });
     }]);
