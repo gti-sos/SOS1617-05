@@ -49,10 +49,10 @@ angular
                         for (var i = 0; i < res.data.length; i++) {
                             $scope.province.push($scope.data[i].province);
                             $scope.year.push(Number($scope.data[i].year));
-                            $scope.pp.push([$scope.data[i].province, Number($scope.data[i].pp)]);
-                            $scope.podemos.push([$scope.data[i].province, Number($scope.data[i].podemos)]);
-                            $scope.psoe.push([$scope.data[i].province, Number($scope.data[i].psoe)]);
-                            $scope.cs.push([$scope.data[i].province, Number($scope.data[i].cs)]);
+                            $scope.pp.push([$scope.data[i].province.toString(), Number($scope.data[i].pp)]);
+                            $scope.podemos.push([$scope.data[i].province.toString(), Number($scope.data[i].podemos)]);
+                            $scope.psoe.push([$scope.data[i].province.toString(), Number($scope.data[i].psoe)]);
+                            $scope.cs.push([$scope.data[i].province.toString(), Number($scope.data[i].cs)]);
 
                             console.log($scope.data[i].province);
                         }
