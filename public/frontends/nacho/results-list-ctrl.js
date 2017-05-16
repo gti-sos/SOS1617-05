@@ -328,24 +328,26 @@ angular
             }
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
-            numberOfResources();
-            //while (tam == undefined) {
-            //  console.log("Esperando inicialización de tam...");
-            //}
-            if ($scope.limit == undefined) {
-                $scope.limit = tam;
-            }
-            setItemsPerPage($scope.limit);
-            //Puesto que quita la parte decimal, se le debe sumar 1 a pages
-            var pages = (Math.floor(tam / $scope.limit)) + 1;
-            console.log(tam, $scope.limit);
-            var res = [];
-            var i;
-            for (i = 1; i <= pages; i++) {
-                res.push(i);
-            }
-            console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
-            return res;
+            $http
+                .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
+                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    tam = response.data[1];
+                    console.log("Number of resources stored: ", tam);
+                    if ($scope.limit == undefined) {
+                        $scope.limit = tam;
+                    }
+                    //setItemsPerPage($scope.limit);
+                    //Puesto que quita la parte decimal, se le debe sumar 1 a pages
+                    var pages = (Math.floor(tam / $scope.limit)) + 1;
+                    console.log(tam, $scope.limit);
+                    var res = [];
+                    var i;
+                    for (i = 1; i <= pages; i++) {
+                        res.push(i);
+                    }
+                    console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
+                    return res;
+                });
         };
 
         function setItemsPerPage(num) {
