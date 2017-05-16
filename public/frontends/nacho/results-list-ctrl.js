@@ -35,9 +35,10 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
+        var tam;
+
         function numberOfResources() {
             //Cuando se ejecuta, no se espera al return de esta función...
-            var tam;
             //checkKey();
             console.log("Checking the number of resources (", $scope.url + "-length?apikey=" + $scope.apikey, " )");
             $http
@@ -45,7 +46,6 @@ angular
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
-                    return tam;
                 });
         }
 
@@ -287,6 +287,8 @@ angular
 
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
+            numberOfResources();
+            while (tam == undefined) {}
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -312,11 +314,11 @@ angular
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
             //var numRec = numberOfResources();
-            if (numberOfResources() == undefined) {
+            if (tam() == undefined) {
                 console.log("FALLO!!!!!!!");
             }
-            var pages = (Math.floor(numberOfResources() / $scope.limit)) + 1;
-            console.log("PÁGINAS: ", numberOfResources(), $scope.limit, pages);
+            var pages = (Math.floor(tam / $scope.limit)) + 1;
+            console.log("PÁGINAS: ", tam, $scope.limit, pages);
             if (pageNo <= pages) {
                 $scope.currentPage = pageNo;
             }
@@ -327,13 +329,15 @@ angular
             }
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
+            numberOfResources();
+            while (tam == undefined) {}
             if ($scope.limit == undefined) {
-                $scope.limit = numberOfResources();
+                $scope.limit = tam;
             }
             setItemsPerPage($scope.limit);
             //Puesto que quita la parte decimal, se le debe sumar 1 a pages
-            var pages = (Math.floor(numberOfResources() / $scope.limit)) + 1;
-            console.log(numberOfResources(), $scope.limit);
+            var pages = (Math.floor(tam / $scope.limit)) + 1;
+            console.log(tam, $scope.limit);
             var res = [];
             var i;
             for (i = 1; i <= pages; i++) {
@@ -342,9 +346,6 @@ angular
             console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
             return res;
         };
-
-
-
 
         function setItemsPerPage(num) {
             $scope.itemsPerPage = num;
