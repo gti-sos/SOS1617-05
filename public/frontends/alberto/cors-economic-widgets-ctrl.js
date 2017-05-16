@@ -32,9 +32,9 @@ angular
                     $scope.population.push(Number($scope.data[i]["population"]));
                     $scope.riskpoverty.push(Number($scope.data[i]["riskpoverty"]));
                     $scope.inveducation.push(Number($scope.data[i]["inveducation"]));
-              
+                              console.log($scope.data[i]);
+
                   }
-                console.log($scope.data[i]);
             
       
 
@@ -54,8 +54,9 @@ angular
                     $scope.categories.push($scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
+                                        console.log($scope.data[i]);
+
                 }
-                    console.log($scope.data[i]);
             
                 //HighCharts
                 Highcharts.chart('container', {
