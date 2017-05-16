@@ -289,9 +289,9 @@ angular
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
             numberOfResources();
-            while (tam == undefined) {
-                console.log("Esperando inicialización de tam...");
-            }
+            //while (tam == undefined) {
+              //  console.log("Esperando inicialización de tam...");
+            //}
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -311,9 +311,6 @@ angular
                     $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                     $scope.results = response.data;
                     //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
-                    /*if (response.status === 200 || response.status === 201) {
-                        Materialize.toast('Successful action. ', 1200);
-                    }*/
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
             //var numRec = numberOfResources();
