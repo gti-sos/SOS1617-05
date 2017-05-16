@@ -116,6 +116,13 @@ response.on('end',function (chunk){
                     huesca.year =  "2009";
                     huesca.gdp= "836.26";
                     huesca.debt = "895.36"; 
+                    
+                    var salamanca = new Object();
+                    huesca.province = "Salamanca";
+                    huesca.year =  "2014";
+                    huesca.gdp= "452.36";
+                    huesca.debt = "542.36"; 
+                    
 
                  db2.insert(granada);
                  db2.insert(madrid);
@@ -126,6 +133,7 @@ response.on('end',function (chunk){
                  db2.insert(segovia);
                  db2.insert(navarra);
                  db2.insert(huesca);
+                 db2.insert(salamanca);
                  
                 response.sendStatus(201); // created
                 
