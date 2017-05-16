@@ -67,7 +67,7 @@ angular
                         //var sum = [1, 2, 3].reduce(add, 0);
                         function sum(vector) {
                             var res = 0;
-                            for (var i = 0; i< vector.length;i++){
+                            for (var i = 0; i < vector.length; i++) {
                                 res = res + vector[i][1];
                             }
                             return res;
@@ -78,7 +78,8 @@ angular
                                 type: 'pie'
                             },
                             title: {
-                                //text: "Spain's 2016 elections results combined with education stats"
+                                text: ""
+                                    //text: "Spain's 2016 elections results combined with education stats"
                             },
                             subtitle: {
                                 text: 'Click the slices to see more info.'
@@ -128,22 +129,27 @@ angular
                             }],
                             drilldown: {
                                 series: [{
+                                    color: 'blue',
                                     name: 'PP',
                                     id: 'PP',
                                     data: $scope.pp
                                 }, {
+                                    color: 'red',
                                     name: 'PSOE',
                                     id: 'PSOE',
                                     data: $scope.podemos
                                 }, {
+                                    color: 'orange',
                                     name: "C's",
                                     id: "C's",
                                     data: $scope.cs
                                 }, {
+                                    color: 'purple',
                                     name: 'Podemos',
                                     id: 'Podemos',
                                     data: $scope.podemos
                                 }, {
+                                    color: 'gray',
                                     name: 'Primary education (p/c)',
                                     id: 'Primary education (p/c)',
                                     data: $scope.edu
