@@ -333,9 +333,9 @@ angular
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             numberOfResources();
-            while (tam == undefined) {
-                console.log("Esperando inicialización de tam...");
-            }
+            //while (tam == undefined) {
+              //  console.log("Esperando inicialización de tam...");
+            //}
             if ($scope.limit == undefined) {
                 $scope.limit = tam;
             }
