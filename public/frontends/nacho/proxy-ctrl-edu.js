@@ -80,14 +80,14 @@ angular
                                 series: {
                                     dataLabels: {
                                         enabled: true,
-                                        format: '{point.name}: {point.y:.1f}%'
+                                        format: '{point.name}: {point.y:.1f}'
                                     }
                                 }
                             },
 
                             tooltip: {
                                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> <br/>'
                             },
                             series: [{
                                 name: 'Parties',
@@ -115,7 +115,7 @@ angular
                                 }, {
                                     color: 'gray',
                                     name: 'Primary education (p/c)',
-                                    y: $scope.edu.reduce(add, 0),
+                                    y: $scope.edu,
                                     drilldown: 'Primary education (p/c)'
                                 }]
                             }],
