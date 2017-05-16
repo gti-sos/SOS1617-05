@@ -1,3 +1,6 @@
+/*global Highcharts*/
+/*global angular*/
+
 angular
     .module("ManagerApp")
     .controller("EducationCtrl", ["$http", "$scope", function($http, $scope) {
@@ -62,8 +65,12 @@ angular
 
 
                         //var sum = [1, 2, 3].reduce(add, 0);
-                        function add(a, b) {
-                            return a[1] + b[1];
+                        function sum(vector) {
+                            var res = 0;
+                            for (var i = 0; i< vector.length;i++){
+                                res = res + vector[i];
+                            }
+                            return res;
                         }
                         // Create the chart
                         Highcharts.chart('containerEDU', {
@@ -71,7 +78,7 @@ angular
                                 type: 'pie'
                             },
                             title: {
-                                text: "Spain's 2016 elections results combined with education stats"
+                                //text: "Spain's 2016 elections results combined with education stats"
                             },
                             subtitle: {
                                 text: 'Click the slices to see more info.'
@@ -95,27 +102,27 @@ angular
                                 data: [{
                                     color: 'blue',
                                     name: 'PP',
-                                    y: $scope.pp.reduce(add, 0),
+                                    y: sum($scope.pp),
                                     drilldown: 'PP'
                                 }, {
                                     color: 'red',
                                     name: 'PSOE',
-                                    y: $scope.psoe.reduce(add, 0),
+                                    y: sum($scope.psoe),
                                     drilldown: 'PSOE'
                                 }, {
                                     color: 'orange',
                                     name: "C's",
-                                    y: $scope.cs.reduce(add, 0),
+                                    y: sum($scope.cs),
                                     drilldown: "C's"
                                 }, {
                                     color: 'purple',
                                     name: 'Podemos',
-                                    y: $scope.podemos.reduce(add, 0),
+                                    y: sum($scope.podemos),
                                     drilldown: 'Podemos'
                                 }, {
                                     color: 'gray',
                                     name: 'Primary education (p/c)',
-                                    y: $scope.edu,
+                                    y: sum($scope.edu),
                                     drilldown: 'Primary education (p/c)'
                                 }]
                             }],
