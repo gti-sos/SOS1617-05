@@ -1,3 +1,4 @@
+
 /*global angular*/
 /*global Highcharts*/
 angular
@@ -10,31 +11,32 @@ angular
         $scope.gdp = [];
         $scope.debt = [];
         $scope.year = [];
+
         
-     //API IVAN Grupo 03 con cors
+        //API Ivan Grupo 03 con Cors
+       
          $scope.riskpoverty = [];
          $scope.inveducation = [];
          $scope.population = [];
-     //https://sos1617-03.herokuapp.com/api/v2/investmentseducation/?apikey=apisupersecreta
         
-       $http
+
+   $http
             .get("https://sos1617-03.herokuapp.com/api/v2/investmentseducation/?apikey=apisupersecreta")
             .then(function(res) {
                 console.log(res.data);
                 data = res.data;
                 $scope.data = data;
-
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.year.push($scope.data[i]["year"]);
+                    $scope.year.push(Number($scope.data[i]["year"]));
                     $scope.categories.push($scope.data[i].year);
-                    $scope.population.push($scope.data[i]["population"]);
-                    $scope.riskpoverty.push($scope.data[i]["riskpoverty"]);
+                    $scope.population.push(Number($scope.data[i]["population"]));
+                    $scope.riskpoverty.push(Number($scope.data[i]["riskpoverty"]));
                     $scope.inveducation.push(Number($scope.data[i]["inveducation"]));
-
+              
                   }
-                console.log($scope.data);
-                
-           
+                console.log($scope.data[i]);
+            
+      
 
         console.log("Controller intialized");
         
@@ -48,13 +50,14 @@ angular
                 $scope.data = data;
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.year.push($scope.data[i]["year"]);
+                    $scope.year.push(Number($scope.data[i]["year"]));
                     $scope.categories.push($scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
                 }
-                    console.log($scope.data);
-       
+                    console.log($scope.data[i]);
+            
+                //HighCharts
                 Highcharts.chart('container', {
                     chart: {
                         type: 'bar'
@@ -73,34 +76,34 @@ angular
                     yAxis: {
                         min: 0,
                         title: {
-                            text: 'Euros',
+                            text: 'Euros ',
                             align: 'high'
                         },
                         labels: {
                             overflow: 'justify'
                         }
                     },
-                    tooltip: {
-                        valueSuffix: 'millions'
-                    },
                     plotOptions: {
-                        bar: {
+                        column: {
+                            
                             dataLabels: {
                                 enabled: true
                             },
 
                         }
                     },
+           
                     legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        x: -40,
-                        y: 80,
+                        
+                       //layout: 'vertical',
+                        align: 'high',
+                        horizontalAlign: 'top',
+                        x: 0,
+                        y: 25,
                         floating: true,
                         borderWidth: 1,
                         backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                        shadow: true
+                        shadow: false
                     },
                     series: [{
                         name: 'gdp ',
@@ -122,8 +125,9 @@ angular
                     }]
                 });
                
+            
+
             });
-   
-            }); 
+            });
    
     }]);
