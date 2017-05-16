@@ -1,4 +1,5 @@
 //[]--->carga modulos en este caso cargaremos angular-root-->ngRoute
+/*global angular*/
 angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
 
     //Cuando un usuario acceda al recurso "/" carge la vista list.html

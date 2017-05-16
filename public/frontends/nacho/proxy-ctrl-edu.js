@@ -82,7 +82,7 @@ angular
                                     //text: "Spain's 2016 elections results combined with education stats"
                             },
                             subtitle: {
-                                text: 'Click the slices to see more info.'
+                                text: 'Click on the slices to see more info.'
                             },
                             plotOptions: {
                                 series: {
