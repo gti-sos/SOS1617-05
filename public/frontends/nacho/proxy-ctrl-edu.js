@@ -68,7 +68,7 @@ angular
                         function sum(vector) {
                             var res = 0;
                             for (var i = 0; i< vector.length;i++){
-                                res = res + vector[i];
+                                res = res + vector[i][1];
                             }
                             return res;
                         }
