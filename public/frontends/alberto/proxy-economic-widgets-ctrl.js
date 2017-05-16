@@ -29,10 +29,10 @@ angular
                     $scope.categories.push($scope.data[i].year);
                 $scope.male_unemployment_ratio.push(Number($scope.data[i]["male_unemployment_ratio"]));
                 $scope.female_unemployment_ratio.push(Number($scope.data[i]["female_unemployment_ratio"]));
+                console.log($scope.data[i]);
 
                   }
-                console.log($scope.data[i]);
-            
+
       
 
         console.log("Controller intialized");
@@ -51,6 +51,8 @@ angular
                     $scope.categories.push($scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
+                                        console.log($scope.data[i]);
+
                 }
                     console.log($scope.data[i]);
             
