@@ -93,7 +93,9 @@ angular
 
                         }
                     },
-           
+                    tooltip: {
+                        valueSuffix: 'millions'
+                    },
                     legend: {
                         
                        //layout: 'vertical',
