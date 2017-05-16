@@ -5,6 +5,7 @@
 angular
     .module("ManagerApp") //No lleva [] porque no se está creando la App, si no que se está solicitando
     .controller("ResultsListCtrl", ["$scope", "$http", function($scope, $http) { //$scope es un módulo con el que accedemos al modelo, $http es un módulo que permite hacer peticiones a la API, es decir, conecta con el backend 
+        var tam;
         console.log("List Controller initialized");
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
 
@@ -35,7 +36,7 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
-        var tam;
+
 
         function numberOfResources() {
             //Cuando se ejecuta, no se espera al return de esta función...
@@ -288,7 +289,9 @@ angular
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
             numberOfResources();
-            while (tam == undefined) {}
+            while (tam == undefined) {
+                console.log("Esperando inicialización de tam...");
+            }
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -330,7 +333,9 @@ angular
         };
         $scope.pagesRange = function() { //rangeCreator(results.length,limit)
             numberOfResources();
-            while (tam == undefined) {}
+            while (tam == undefined) {
+                console.log("Esperando inicialización de tam...");
+            }
             if ($scope.limit == undefined) {
                 $scope.limit = tam;
             }
