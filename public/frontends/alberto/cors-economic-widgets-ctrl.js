@@ -85,10 +85,10 @@ angular
                         }
                     },
                     plotOptions: {
-                        column: {
+                        bar: {
                             
                             dataLabels: {
-                                enabled: true
+                                enabled: false
                             },
 
                         }
