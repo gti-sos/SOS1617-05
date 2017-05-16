@@ -118,10 +118,10 @@ response.on('end',function (chunk){
                     huesca.debt = "895.36"; 
                     
                     var salamanca = new Object();
-                    huesca.province = "Salamanca";
-                    huesca.year =  "2014";
-                    huesca.gdp= "452.36";
-                    huesca.debt = "542.36"; 
+                    salamanca.province = "Salamanca";
+                    salamanca.year =  "2014";
+                    salamanca.gdp= "452.36";
+                    salamanca.debt = "542.36"; 
                     
 
                  db2.insert(granada);
