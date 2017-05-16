@@ -63,7 +63,7 @@ angular
 
                         //var sum = [1, 2, 3].reduce(add, 0);
                         function add(a, b) {
-                            return a + b;
+                            return a[1] + b[1];
                         }
                         // Create the chart
                         Highcharts.chart('containerEDU', {
