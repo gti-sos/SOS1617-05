@@ -13,6 +13,7 @@ angular
         $scope.cs = [];
         $scope.data = {};
         var data = {};
+        
         var sort_by = function(field, reverse, primer) {
 
             var key = primer ?
@@ -29,16 +30,6 @@ angular
                 return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
             };
         };
-
-        //Add code here to import SMI data (CORS):
-        $http
-            .get("https://sos1617-02.herokuapp.com/api/v1/smi-stats?apikey=rXD8D2b1vP")
-            .then(function(res) {});
-
-        //Add code here to import EDUCATION data (proxy):
-        $http
-            .get("/proxy?apikey=" + $scope.apikey)
-            .then(function(res) {});
 
 
         $http

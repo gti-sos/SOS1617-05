@@ -3,8 +3,9 @@ angular
     .controller("EducationCtrl", ["$http", "$scope", function($http, $scope) {
 
         // https://www.highcharts.com/docs/chart-and-series-types/chart-types
-        //Cant use types:
-
+        
+        //Cant use types: column, usedForSMI, column
+        //https://www.highcharts.com/docs/chart-and-series-types/error-bar-series
         //This controller works with EDUCATION (Marcus) data using proxy
 
 
@@ -18,27 +19,9 @@ angular
         $scope.cs = [];
         $scope.data = {};
         var data = {};
-        
+
         //Education data
-        
-        var sort_by = function(field, reverse, primer) {
 
-            var key = primer ?
-                function(x) {
-                    return primer(x[field]);
-                } :
-                function(x) {
-                    return x[field];
-                };
-
-            reverse = !reverse ? 1 : -1;
-
-            return function(a, b) {
-                return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
-            };
-        };
-
-       
         //Add code here to import EDUCATION data (proxy):
         $http
             .get("/proxy?apikey=" + $scope.apikey)
