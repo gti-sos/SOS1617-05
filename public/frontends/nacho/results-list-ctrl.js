@@ -314,7 +314,7 @@ angular
                     //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                 });
             //var numRec = numberOfResources();
-            if (tam() == undefined) {
+            if (tam == undefined) {
                 console.log("FALLO!!!!!!!");
             }
             var pages = (Math.floor(tam / $scope.limit)) + 1;
