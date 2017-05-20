@@ -133,7 +133,7 @@ angular
                     Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 1200);
                 }
                 console.log("POST finished");
-                //La siguiente sentencia hace de refresh pero permanece en la misma página y realiza paginación: CUANDO SE AÑADE UN RECURSO DÓNDE APARECE?? AL FINAL???
+                //La siguiente sentencia hace de refresh pero permanece en la misma página y realiza paginación: CUANDO SE AÑADE UN RECURSO DÓNDE APARECE?? AL FINAL??? Sí, al final
                 $scope.setPage($scope.currentPage);
             }, function(response) {
                 if (response.status === 409) {
