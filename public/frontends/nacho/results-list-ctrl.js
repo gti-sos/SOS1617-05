@@ -311,7 +311,7 @@ angular
                     }
                 });
                 //Llamo a la función que crea el rango
-                $scope.pagesRange;
+                rango();
         };
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
@@ -319,7 +319,7 @@ angular
                 this.setPage($scope.currentPage);
             }
         };
-        $scope.pagesRange = function() { //rangeCreator(results.length,limit)
+        function rango() { //rangeCreator(results.length,limit)
             $http
                 .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
                 .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
@@ -344,7 +344,7 @@ angular
                         res.push(i);
                     }
                     console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
-                    return res;
+                    $scope.pagesRange = res;
                 });
         };
 
