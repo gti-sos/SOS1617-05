@@ -36,11 +36,7 @@ angular
         };
 
         //this one is needed for pagination: returns the amount of resources on the server
-
-
         function numberOfResources() {
-            //Cuando se ejecuta, no se espera al return de esta función...
-            //checkKey();
             console.log("Checking the number of resources (", $scope.url + "-length?apikey=" + $scope.apikey, " )");
             $http
                 .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
@@ -94,18 +90,16 @@ angular
             }
 
             $http //En lugar de $scope.apikey paso en la url pass para que funcionen los tests de protractor
-                .get($scope.url + "?apikey=" + pass + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
-                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                .get($scope.url + "?apikey=" + pass + limit + offset)
+                .then(function(response) {
                     console.log("GET collection (refresh)");
-                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                    $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.results = response.data;
                     console.log($scope.results);
                     if ($scope.limit == undefined | $scope.limit == "") {
                         $scope.itemsPerPage = $scope.results.length;
                     }
-
                 });
-
         }
 
         //b.1.iii
@@ -118,10 +112,9 @@ angular
                 offset = ($scope.currentPage - 1) * $scope.limit;
             }
             $http
-                .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
-                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                    //console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
-                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset)
+                .then(function(response) {
+                    $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.results = response.data;
                     console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
                     if (response.status === 200 || response.status === 201) {
@@ -179,7 +172,6 @@ angular
                 if (response.status === 404) {
                     Materialize.toast('There are no resources to be deleted.', 1200);
                 }
-
             });
         };
 
@@ -202,10 +194,10 @@ angular
 
         //BÚSQUEDA
         $scope.search = function() {
-            //NECESITO UN MÉTODO QUE DADOS UNOS PARÁMETROS (provincia, año, pp...) ME DIGA CUANTOS RECURSOS LOS CUMPLEN PARA PODER APLICAR PAGINACIÓN A LAS BÚSQUEDAS!!
+            //NECESITO UN MÉTODO QUE DADOS UNOS PARÁMETROS (provincia, año, pp...) ME DIGA CUANTOS RECURSOS LOS CUMPLEN PARA PODER APLICAR PAGINACIÓN CON BOTONES A LAS BÚSQUEDAS!!
             checkKey();
             var numberOfPages;
-            //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso!!
+            //los parámetros especificados (no tienen por qué ser los 6) se acoplan a la URL y se hace un get. Se deben mostrar los que cumplan eso:
             var params = "";
             var error = false;
             if ($scope.newResult == undefined) {
@@ -235,7 +227,6 @@ angular
                     Materialize.toast('<h4>You must fill at least one field. </h4>', 1500);
                 }
             }
-
             if (error || params == "") {
                 Materialize.toast('<h4>You must fill at least one field. </h4>', 1500);
             }
@@ -251,10 +242,10 @@ angular
 
                 console.log(params);
                 $http
-                    .get($scope.url + "?apikey=" + $scope.apikey + params + limit + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
-                    .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                    .get($scope.url + "?apikey=" + $scope.apikey + params + limit + offset)
+                    .then(function(response) {
                         console.log("GET collection");
-                        $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
+                        $scope.data = JSON.stringify(response.data, null, 2);
                         $scope.results = response.data;
                         if (response.status === 200 || response.status === 201) {
                             Materialize.toast('Successful action. ', 1200);
@@ -264,31 +255,22 @@ angular
             }
         };
 
-
-
-
-
-
         //PAGINATION
-
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
             }
-            //PARA QUE LA PAGINACIÓN SEA COMO PIDIÓ ANTONIO CADA VEZ QUE SE PULSE ESTE BOTÓN SE DEBE HACER UN NUEVO GET AL SERVIDOR (usando offset)!!!
-
             var limit = "";
             var offset;
             if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
                 offset = (pageNo - 1) * $scope.limit;
             }
-
             $http
-                .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
-                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                .get($scope.url + "-length?apikey=" + $scope.apikey)
+                .then(function(response) {
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
                     var pages;
@@ -302,19 +284,18 @@ angular
                     if (pageNo <= pages) {
                         $scope.currentPage = pageNo;
                         $http
-                            .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset) //Aquí se realizan los 4 método de API: get, post, put, delete
-                            .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
-                                //console.log("GET collection (pagination) a url: ", $scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset);
+                            .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset)
+                            .then(function(response) {
                                 $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                                 $scope.results = response.data;
                                 //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
-                                //numberOfPages = Math.ceil($scope.results.length / $scope.limit);
                             });
                     }
                 });
             //Llamo a la función que crea el rango
             rango();
         };
+        
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
                 $scope.currentPage = $scope.currentPage - 1;
@@ -322,17 +303,15 @@ angular
             }
         };
 
-        function rango() { //rangeCreator(results.length,limit)
+        function rango() { 
             $http
-                .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
-                .then(function(response) { // Cuando termine de recibir los datos (then) ejecuta el callback
+                .get($scope.url + "-length?apikey=" + $scope.apikey) 
+                .then(function(response) { 
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
                     if ($scope.limit == undefined) {
                         $scope.limit = tam;
                     }
-                    //setItemsPerPage($scope.limit);
-                    //Puesto que quita la parte decimal, se le debe sumar 1 a pages
                     var pages;
                     if (tam % $scope.limit == 0) {
                         pages = (Math.floor(tam / $scope.limit));
@@ -349,14 +328,12 @@ angular
                     console.log("--------------ENTRÓ A FUNCIÓN DE CREACIÓN DE RANGO: ", res, "-----------");
                     $scope.pagesRange = res;
                 });
-        };
-
-        function setItemsPerPage(num) {
-            $scope.itemsPerPage = num;
-            //$scope.currentPage = 1; //reset to first page
         }
 
-
+        /*function setItemsPerPage(num) {
+            $scope.itemsPerPage = num;
+            //$scope.currentPage = 1; //reset to first page
+        }*/
         //refresh();
 
     }]);
