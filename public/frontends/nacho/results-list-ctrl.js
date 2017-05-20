@@ -133,7 +133,8 @@ angular
                     Materialize.toast('<h1 >SUCCESSFUL ACTION! </h1> ', 1200);
                 }
                 console.log("POST finished");
-                refresh();
+                //La siguiente sentencia hace de refresh pero permanece en la misma página y realiza paginación: CUANDO SE AÑADE UN RECURSO DÓNDE APARECE?? AL FINAL???
+                $scope.setPage($scope.currentPage);
             }, function(response) {
                 if (response.status === 409) {
                     Materialize.toast('There is already a voting result for that province in the data base!', 1200);
@@ -167,7 +168,8 @@ angular
                 if (response.status === 200 || response.status === 201 || response.status === 204) {
                     Materialize.toast('Successful action. ', 1200);
                 }
-                refresh();
+                //La siguiente sentencia hace de refresh pero permanece en la misma página y realiza paginación:
+                $scope.setPage($scope.currentPage);
             }, function(response) {
                 if (response.status === 404) {
                     Materialize.toast('There are no resources to be deleted.', 1200);
@@ -295,7 +297,7 @@ angular
             //Llamo a la función que crea el rango
             rango();
         };
-        
+
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
                 $scope.currentPage = $scope.currentPage - 1;
@@ -303,10 +305,10 @@ angular
             }
         };
 
-        function rango() { 
+        function rango() {
             $http
-                .get($scope.url + "-length?apikey=" + $scope.apikey) 
-                .then(function(response) { 
+                .get($scope.url + "-length?apikey=" + $scope.apikey)
+                .then(function(response) {
                     tam = response.data[1];
                     console.log("Number of resources stored: ", tam);
                     if ($scope.limit == undefined) {
