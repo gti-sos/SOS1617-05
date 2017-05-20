@@ -127,6 +127,8 @@ angular
                     if (response.status === 200 || response.status === 201) {
                         Materialize.toast('Successful action. ', 1200);
                     }
+                    //Llamo a la función que crea el rango
+                    rango();
                 });
         };
 
@@ -310,8 +312,8 @@ angular
                             });
                     }
                 });
-                //Llamo a la función que crea el rango
-                rango();
+            //Llamo a la función que crea el rango
+            rango();
         };
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
@@ -319,6 +321,7 @@ angular
                 this.setPage($scope.currentPage);
             }
         };
+
         function rango() { //rangeCreator(results.length,limit)
             $http
                 .get($scope.url + "-length?apikey=" + $scope.apikey) //Aquí se realizan los 4 método de API: get, post, put, delete
