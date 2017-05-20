@@ -310,6 +310,8 @@ angular
                             });
                     }
                 });
+                //Llamo a la función que crea el rango
+                $scope.pagesRange;
         };
         $scope.prevPage = function() {
             if ($scope.currentPage > 1) {
