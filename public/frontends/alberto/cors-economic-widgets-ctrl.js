@@ -32,6 +32,7 @@ angular
                     $scope.population.push(Number($scope.data[i]["population"]));
                     $scope.riskpoverty.push(Number($scope.data[i]["riskpoverty"]));
                     $scope.inveducation.push(Number($scope.data[i]["inveducation"]));
+                 
                               console.log($scope.data[i]);
 
                   }
@@ -54,6 +55,7 @@ angular
                     $scope.categories.push($scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
+                  
                                         console.log($scope.data[i]);
 
                 }
@@ -61,7 +63,7 @@ angular
                 //HighCharts
                 Highcharts.chart('container', {
                     chart: {
-                        type: 'bar'
+                        type: 'area'
                     },
                     title: {
                         text: 'gdp,debt and year of provinces in Spain,population,riskpoverty and inveducation'
@@ -85,7 +87,7 @@ angular
                         }
                     },
                     plotOptions: {
-                        bar: {
+                        area: {
                             
                             dataLabels: {
                                 enabled: false
