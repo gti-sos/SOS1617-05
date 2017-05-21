@@ -77,9 +77,9 @@
             <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
         </tr>
     </tbody>
-       <!-- PAGINATION -->
-                <pre>Current page: {{currentPage}}</pre>
+</table>
+<!-- PAGINATION -->
+                <p>Current page: {{currentPage}}</p>
                 <button class="btn btn-info" ng-click="prevPage()">Prev</button>
                 <button ng-repeat="page in pagesRange" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
-</table>
