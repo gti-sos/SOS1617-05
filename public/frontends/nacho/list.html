@@ -34,7 +34,11 @@
             <!--<td><input class="form-ctrl" ng-model="from"></td>
             <td><input class="form-ctrl" ng-model="to"></td>
             <td><input class="form-ctrl" ng-model="party"></td> -->
-            <td><button class="btn btn-basic" ng-click="show()">SHOW</button></td>
+            <td><button class="btn btn-basic" ng-click="show()">SHOW</button>
+                <button class="btn btn-danger" ng-click="deleteAll()">Delete All</button>
+                <button class="btn btn-success" ng-click="lid()">LID</button>
+                <button class="btn btn-success" ng-click="lwd()">LWD</button>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -61,10 +65,9 @@
             <td><input class="form-ctrl" ng-model="newResult.cs"></td>
             <td>
                 <button class="btn btn-primary" ng-click="addResult()">Add</button>
-                <button class="btn btn-danger" ng-click="deleteAll()">Delete All</button>
+
                 <button class="btn btn-info" ng-click="search()">Search</button>
-                <button class="btn btn-success" ng-click="lid()">LID</button>
-                <button class="btn btn-success" ng-click="lwd()">LWD</button>
+
             </td>
         </tr>
         <tr ng-repeat="result in results">
