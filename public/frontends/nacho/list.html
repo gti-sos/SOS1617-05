@@ -79,7 +79,7 @@
     </tbody>
 </table>
 <!-- PAGINATION -->
-                <pre>Current page: {{currentPage}}
-                <button class="btn btn-info" ng-click="prevPage()">Prev</button>
-                <button ng-repeat="page in pagesRange" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
-                <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button> </pre>
+                <pre>Current page: {{currentPage}}</pre>
+                <button class="btn btn-basic" ng-click="prevPage()">Prev</button>
+                <button ng-repeat="page in pagesRange" class="btn btn-basic" ng-click="setPage(page)">{{page}}</button>
+                <button class="btn btn-basic" ng-click="setPage(currentPage+1)">Next</button>
