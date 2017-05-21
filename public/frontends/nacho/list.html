@@ -40,7 +40,6 @@
 </table>
 
 <!--Main Table -->
-
 <table class="table">
     <thead>
         <tr>
@@ -68,8 +67,6 @@
                 <button class="btn btn-success" ng-click="lwd()">LWD</button>
             </td>
         </tr>
-        <!-- Dado que en cada get se cargan datos para mostrar en una única página, ya no hace falta el uso de .slice, results contiene TODOS los resultados que se deben mostrar en 1 pag.
-        <tr ng-repeat="result in results.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"> -->
         <tr ng-repeat="result in results">
             <td><a href="#!/elections-voting-stats/{{result.province}}">{{result.province}}</a></td>
             <td>{{result.year}}</td>
@@ -79,14 +76,10 @@
             <td>{{result.cs}}</td>
             <td><button class="btn btn-danger" ng-click="deleteResult(result)">Delete</td>
         </tr>
-   
-   
-                   <!-- PAGINATION -->
+    </tbody>
+       <!-- PAGINATION -->
                 <pre>Current page: {{currentPage}}</pre>
                 <button class="btn btn-info" ng-click="prevPage()">Prev</button>
                 <button ng-repeat="page in pagesRange" class="btn btn-info" ng-click="setPage(page)">{{page}}</button>
                 <button class="btn btn-info" ng-click="setPage(currentPage+1)">Next</button>
-
-
-    </tbody>
 </table>
