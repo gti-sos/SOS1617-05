@@ -251,7 +251,7 @@ angular
                 $http
                     .get($scope.url + "?apikey=" + $scope.apikey + params + limit + offset)
                     .then(function(response) {
-                        console.log("GET collection");
+                        console.log("GET collection (search function) to URL: ", $scope.url + "?apikey=" + $scope.apikey + params + limit + offset);
                         $scope.data = JSON.stringify(response.data, null, 2);
                         $scope.results = response.data;
                         if (response.status === 200 || response.status === 201) {
