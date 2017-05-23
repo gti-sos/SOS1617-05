@@ -27,25 +27,25 @@ angular
         function stringParams() {
             console.log("ESTO ES LO QUE HAY: ", $scope.pp);
             var params = "";
-            if ($scope.province !== undefined && $scope.province !== "") {
-                params = params + "&province=" + $scope.province;
+            if ($scope.newResult.province !== undefined && $scope.newResult.province !== "") {
+                params = params + "&province=" + $scope.newResult.province;
             }
-            if ($scope.year !== undefined && $scope.year !== "") {
-                params = params + "&year=" + $scope.year;
+            if ($scope.newResult.year !== undefined && $scope.newResult.year !== "") {
+                params = params + "&year=" + $scope.newResult.year;
             }
-            if ($scope.pp !== undefined && $scope.pp !== "") {
-                params = params + "&pp=" + $scope.pp;
+            if ($scope.newResult.pp !== undefined && $scope.newResult.pp !== "") {
+                params = params + "&pp=" + $scope.newResult.pp;
             }
-            if ($scope.podemos !== undefined && $scope.podemos !== "") {
-                params = params + "&podemos=" + $scope.podemos;
+            if ($scope.newResult.podemos !== undefined && $scope.newResult.podemos !== "") {
+                params = params + "&podemos=" + $scope.newResult.podemos;
             }
-            if ($scope.psoe !== undefined && $scope.psoe !== "") {
-                params = params + "&psoe=" + $scope.psoe;
+            if ($scope.newResult.psoe !== undefined && $scope.newResult.psoe !== "") {
+                params = params + "&psoe=" + $scope.newResult.psoe;
             }
-            if ($scope.cs !== undefined && $scope.cs !== "") {
-                params = params + "&cs=" + $scope.cs;
+            if ($scope.newResult.cs !== undefined && $scope.newResult.cs !== "") {
+                params = params + "&cs=" + $scope.newResult.cs;
             }
-            console.log("---SALIDA DE FUNCIÓN stringParams(): ",params);
+            console.log("---SALIDA DE FUNCIÓN stringParams(): ", params);
             return params;
         }
 
@@ -293,7 +293,7 @@ angular
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
             var searchParams = stringParams();
-            console.log("PARÁMETROS PARA BÚSQUEDA: ",searchParams);
+            console.log("PARÁMETROS PARA BÚSQUEDA: ", searchParams);
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -322,7 +322,7 @@ angular
                         $http
                             .get($scope.urlV2 + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams)
                             .then(function(response) {
-                                console.log("BUSQUEDA CON URL: ",$scope.urlV2 + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams);
+                                console.log("BUSQUEDA CON URL: ", $scope.urlV2 + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams);
                                 $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                                 $scope.results = response.data;
                                 //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
