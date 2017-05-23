@@ -44,6 +44,7 @@ angular
             if ($scope.cs !== undefined && $scope.cs !== "") {
                 params = params + "&cs=" + $scope.cs;
             }
+            console.log("---SALIDA DE FUNCIÓN stringParams(): ",params);
             return params;
         }
 
