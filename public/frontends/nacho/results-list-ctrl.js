@@ -24,6 +24,29 @@ angular
             }
         }
 
+        function stringParams() {
+            var params = "";
+            if ($scope.province !== undefined && $scope.province !== "") {
+                params = params + "&province=" + $scope.province;
+            }
+            if ($scope.year !== undefined && $scope.year !== "") {
+                params = params + "&year=" + $scope.year;
+            }
+            if ($scope.pp !== undefined && $scope.pp !== "") {
+                params = params + "&pp=" + $scope.pp;
+            }
+            if ($scope.podemos !== undefined && $scope.podemos !== "") {
+                params = params + "&podemos=" + $scope.podemos;
+            }
+            if ($scope.psoe !== undefined && $scope.psoe !== "") {
+                params = params + "&psoe=" + $scope.psoe;
+            }
+            if ($scope.cs !== undefined && $scope.cs !== "") {
+                params = params + "&cs=" + $scope.cs;
+            }
+            return params;
+        }
+
         //Load Initial Data
         $scope.lid = function() {
             checkKey();
@@ -267,6 +290,7 @@ angular
         //PAGINATION
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
+            var searchParams = stringParams();
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -293,7 +317,7 @@ angular
                     if (pageNo <= pages) {
                         $scope.currentPage = pageNo;
                         $http
-                            .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset)
+                            .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams)
                             .then(function(response) {
                                 $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                                 $scope.results = response.data;
