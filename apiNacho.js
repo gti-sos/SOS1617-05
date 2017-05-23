@@ -1092,18 +1092,19 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     //AQUÍ PAGINACIÓN
                     if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
                         res2 = [];
-                        var i;
-                        for (i = 0; i < res.length; i++) {
-                            if (res[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
-                                res2.push(res[i]);
+                        var j;
+                        for (j = 0; i < res.length; i++) {
+                            if (res[j].year >= Number(consulta.from) && results[j].year <= Number(consulta.to)) {
+                                res2.push(res[j]);
                             }
                         }
                     }
-                    if (consulta.offset != undefined || consulta.limit != undefined) { //Si se han especificado en la URL se usan...
-                        if (consulta.offset != undefined || consulta.offset == "") {
+                    if (/*consulta.offset != undefined || */consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        /*if (consulta.offset != undefined || consulta.offset == "") {
                             consulta.offset = 0;
-                        }
-                        res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        }*/
+                        res2 = res2.slice(0, Number(consulta.limit));
+                        //res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
                     }
                     response.send(res2);
                 }
