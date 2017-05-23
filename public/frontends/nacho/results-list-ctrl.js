@@ -252,9 +252,10 @@ angular
                 $http
                     .get($scope.urlV2 + "?apikey=" + $scope.apikey + params + limit + offset)
                     .then(function(response) {
-                        console.log("GET collection (search function) to URL: ", $scope.url + "?apikey=" + $scope.apikey + params + limit + offset);
+                        console.log("GET collection (search function) to URL: ", $scope.urlV2 + "?apikey=" + $scope.apikey + params + limit + offset);
                         $scope.data = JSON.stringify(response.data, null, 2);
                         $scope.results = response.data;
+                        console.log("RESULTADOS QUE CUMPLEN LA BÚSQUEDA: ", response.data);
                         if (response.status === 200 || response.status === 201) {
                             Materialize.toast('Successful action. ', 1200);
                         }
