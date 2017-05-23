@@ -25,6 +25,7 @@ angular
         }
 
         function stringParams() {
+            console.log("ESTO ES LO QUE HAY: ", $scope.pp);
             var params = "";
             if ($scope.province !== undefined && $scope.province !== "") {
                 params = params + "&province=" + $scope.province;
