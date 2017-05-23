@@ -1099,12 +1099,12 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                             }
                         }
                     }
-                    if (/*consulta.offset != undefined || */consulta.limit != undefined) { //Si se han especificado en la URL se usan...
-                        /*if (consulta.offset != undefined || consulta.offset == "") {
+                    if (consulta.offset != undefined || consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        if (consulta.offset != undefined || consulta.offset == "") {
                             consulta.offset = 0;
-                        }*/
-                        res2 = res2.slice(0, Number(consulta.limit));
-                        //res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        }
+                        //res2 = res2.slice(0, Number(consulta.limit));
+                        res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
                     }
                     response.send(res2);
                 }
