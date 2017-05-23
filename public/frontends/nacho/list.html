@@ -13,9 +13,6 @@
                 <h3>Limit</h3>
             </th>
             <!--<th>
-                <h3>Offset</h3>
-            </th>
-            <th>
                 <h3>From</h3>
             </th>
             <th>
@@ -30,7 +27,6 @@
         <tr>
             <td><input type="password" class="form-ctrl" ng-model="apikey"></td>
             <td><input class="form-ctrl" ng-model="limit"></td>
-            <!--<td><input class="form-ctrl" ng-model="offset"></td>-->
             <!--<td><input class="form-ctrl" ng-model="from"></td>
             <td><input class="form-ctrl" ng-model="to"></td>
             <td><input class="form-ctrl" ng-model="party"></td> -->
@@ -65,9 +61,7 @@
             <td><input class="form-ctrl" ng-model="newResult.cs"></td>
             <td>
                 <button class="btn btn-primary" ng-click="addResult()">Add</button>
-
                 <button class="btn btn-info" ng-click="search()">Search</button>
-
             </td>
         </tr>
         <tr ng-repeat="result in results">

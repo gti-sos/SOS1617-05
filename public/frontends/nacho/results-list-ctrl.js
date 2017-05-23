@@ -107,7 +107,11 @@ angular
             checkKey();
             var limit = "";
             var offset;
-            if ($scope.limit != undefined & $scope.limit != "") {
+            if($scope.limit <= 0){
+                Materialize.toast('Limit has got to be greater than 0. ', 1200);
+            }
+            else{
+                if ($scope.limit != undefined & $scope.limit != "") {
                 limit = "&limit=" + $scope.limit;
                 offset = ($scope.currentPage - 1) * $scope.limit;
             }
@@ -123,6 +127,7 @@ angular
                     //Llamo a la función que crea el rango
                     rango();
                 });
+            }
         };
 
         //POST: En esta función comento el tema de la apikey para poder pasar los tests de protractor
