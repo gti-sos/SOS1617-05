@@ -8,6 +8,7 @@ angular
         var tam;
         console.log("List Controller initialized");
         $scope.url = "https://sos1617-05.herokuapp.com/api/v1/elections-voting-stats";
+        $scope.urlV2 = "https://sos1617-05.herokuapp.com/api/v2/elections-voting-stats";
 
         var pass = "cinco";
 
@@ -107,26 +108,26 @@ angular
             checkKey();
             var limit = "";
             var offset;
-            if($scope.limit <= 0){
+            if ($scope.limit <= 0) {
                 Materialize.toast('Limit has got to be greater than 0. ', 1200);
             }
-            else{
+            else {
                 if ($scope.limit != undefined & $scope.limit != "") {
-                limit = "&limit=" + $scope.limit;
-                offset = ($scope.currentPage - 1) * $scope.limit;
-            }
-            $http
-                .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset)
-                .then(function(response) {
-                    $scope.data = JSON.stringify(response.data, null, 2);
-                    $scope.results = response.data;
-                    console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
-                    if (response.status === 200 || response.status === 201) {
-                        Materialize.toast('Successful action. ', 1200);
-                    }
-                    //Llamo a la función que crea el rango
-                    rango();
-                });
+                    limit = "&limit=" + $scope.limit;
+                    offset = ($scope.currentPage - 1) * $scope.limit;
+                }
+                $http
+                    .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset)
+                    .then(function(response) {
+                        $scope.data = JSON.stringify(response.data, null, 2);
+                        $scope.results = response.data;
+                        console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
+                        if (response.status === 200 || response.status === 201) {
+                            Materialize.toast('Successful action. ', 1200);
+                        }
+                        //Llamo a la función que crea el rango
+                        rango();
+                    });
             }
         };
 
@@ -249,7 +250,7 @@ angular
 
                 console.log(params);
                 $http
-                    .get($scope.url + "?apikey=" + $scope.apikey + params + limit + offset)
+                    .get($scope.urlV2 + "?apikey=" + $scope.apikey + params + limit + offset)
                     .then(function(response) {
                         console.log("GET collection (search function) to URL: ", $scope.url + "?apikey=" + $scope.apikey + params + limit + offset);
                         $scope.data = JSON.stringify(response.data, null, 2);

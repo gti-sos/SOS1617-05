@@ -92,8 +92,6 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         });
     });
 
-
-
     //This function loads the whole data base (if the api contains no resources)
     app.get(BASE_API_PATH + "/elections-voting-stats/loadWholeData", function(request, response) {
         if (!checkKey(request, response)) {
@@ -878,8 +876,6 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         });
     });
 
-
-
     // loadInitialData:
     app.get(BASE_API_PATH + "/elections-voting-stats/loadInitialData", function(request, response) {
         if (!checkKey(request, response)) {
@@ -961,9 +957,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         return res;
     }
 
-
-
-    //GET a collection: contains code for searches
+    //GET a collection: contains code for searches V1
     app.get(BASE_API_PATH + "/elections-voting-stats", function(request, response) {
         if (!checkKey(request, response)) {
             return;
@@ -991,7 +985,6 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                     }
                     if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
                         res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
-
                     }
                     response.send(res);
                 }
@@ -1031,6 +1024,82 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
                         }
                     }
                     if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+
+                    }
+                    response.send(res2);
+                }
+            });
+        }
+    });
+
+    //GET a collection: contains code for searches V2
+    app.get("/api/v2/elections-voting-stats", function(request, response) {
+        if (!checkKey(request, response)) {
+            return;
+        }
+        var consulta = request.query;
+        if (consulta.province == undefined && consulta.year == undefined && consulta.pp == undefined && consulta.podemos == undefined && consulta.psoe == undefined && consulta.cs == undefined) { //Sólo tiene apikey   JSON.stringify(consulta) == "{}"
+            console.log("NO HAY PARÁMETROS");
+            db.find({}).toArray(function(err, results) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                }
+                else {
+                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    var res = results;
+                    //AQUÍ PAGINACIÓN
+                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                        res = [];
+                        var i;
+                        for (i = 0; i < results.length; i++) {
+                            if (results[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
+                                res.push(results[i]);
+                            }
+                        }
+                    }
+                    if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                        res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                    }
+                    response.send(res);
+                }
+            });
+        }
+        else {
+            console.log("SÍ HAY PARÁMETROS");
+            var query = transforma(request.query);
+
+            db.find({}).toArray(function(err, results) {
+                var res = [];
+                var i;
+                for (i = 0; i < results.length; i++) {
+                    if ((consulta.province == undefined || results[i].province == consulta.province) &&
+                        (consulta.pp == undefined || results[i].pp == consulta.pp) &&
+                        (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
+                        (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
+                        (consulta.cs == undefined || results[i].cs == consulta.cs)) {
+                        res.push(results[i]);
+                    }
+                }
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500);
+                }
+                else {
+                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                    var res2 = res;
+                    //AQUÍ PAGINACIÓN
+                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                        res2 = [];
+                        var i;
+                        for (i = 0; i < res.length; i++) {
+                            if (res[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
+                                res2.push(res[i]);
+                            }
+                        }
+                    }
+                    if (consulta.offset != undefined || consulta.limit != undefined) { //Si se han especificado en la URL se usan...
                         res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
 
                     }
