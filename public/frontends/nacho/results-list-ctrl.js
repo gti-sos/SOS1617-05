@@ -291,6 +291,7 @@ angular
         $scope.currentPage = 1;
         $scope.setPage = function(pageNo) {
             var searchParams = stringParams();
+            console.log("PARÁMETROS PARA BÚSQUEDA: ",searchParams);
             console.log("ESTÁ EN FUNCIÓN setPage(", pageNo, ")");
             if (pageNo == undefined) {
                 pageNo = 1;
@@ -317,8 +318,9 @@ angular
                     if (pageNo <= pages) {
                         $scope.currentPage = pageNo;
                         $http
-                            .get($scope.url + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams)
+                            .get($scope.urlV2 + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams)
                             .then(function(response) {
+                                console.log("BUSQUEDA CON URL: ",$scope.urlV2 + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams);
                                 $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                                 $scope.results = response.data;
                                 //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
