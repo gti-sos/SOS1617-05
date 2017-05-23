@@ -133,7 +133,7 @@ angular
             checkKey();
             var limit = "";
             var offset;
-            if ($scope.limit <= 0) {
+            if ($scope.limit <= 0 ) {
                 Materialize.toast('Limit has got to be greater than 0. ', 1200);
             }
             else {
@@ -325,6 +325,7 @@ angular
                                 console.log("BUSQUEDA CON URL: ", $scope.urlV2 + "?apikey=" + $scope.apikey + limit + "&offset=" + offset + searchParams);
                                 $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
                                 $scope.results = response.data;
+                                console.log("RESULTADOS QUE CUMPLEN LA BÚSQUEDA EN setPage(): ", response.data);
                                 //console.log("Array obtenido en pagination() con offset ", offset, " y limmit ", $scope.limit, ": ", $scope.results + " ...FIN ARRAY");
                             });
                     }
