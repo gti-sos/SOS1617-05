@@ -32,10 +32,10 @@ angular
                 $scope.dataElections = dataElections;
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.pp.push([$scope.dataElections[i].province, Number($scope.dataElections[i].pp)]);
-                    $scope.psoe.push([$scope.dataElections[i].province, Number($scope.dataElections[i].psoe)]);
-                    $scope.podemos.push([$scope.dataElections[i].province, Number($scope.dataElections[i].podemos)]);
-                    $scope.cs.push([$scope.dataElections[i].province, Number($scope.dataElections[i].cs)]);
+                    $scope.pp.push([$scope.dataElections[i].province.slice(0,2), Number($scope.dataElections[i].pp)]);
+                    $scope.psoe.push([$scope.dataElections[i].province.slice(0,2), Number($scope.dataElections[i].psoe)]);
+                    $scope.podemos.push([$scope.dataElections[i].province.slice(0,2), Number($scope.dataElections[i].podemos)]);
+                    $scope.cs.push([$scope.dataElections[i].province.slice(0,2), Number($scope.dataElections[i].cs)]);
 
                 }
                 console.log("ELECTIONS DATA: ", $scope.pp);
@@ -47,8 +47,8 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.gdp.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].gdp)/100]);
-                            $scope.debt.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].debt)/100]);
+                            $scope.gdp.push([$scope.dataEconomic[i].province.slice(0,2), Number($scope.dataEconomic[i].gdp)/100]);
+                            $scope.debt.push([$scope.dataEconomic[i].province.slice(0,2), Number($scope.dataEconomic[i].debt)/100]);
 
 
                         }
