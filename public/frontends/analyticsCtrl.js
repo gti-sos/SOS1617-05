@@ -47,8 +47,8 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.gdp.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].gdp)/100]);
-                            $scope.debt.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].debt)/100]);
+                            $scope.gdp.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].gdp)]);
+                            $scope.debt.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].debt)]);
 
 
                         }
@@ -94,7 +94,7 @@ angular
                         );
 
                         var scatterSeries5 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler(), {
+                            new EJSC.ArrayDataHandler($scope.gdp), {
                                 title: "GDP",
                                 useColorArray: true,
                                 color: "rgb(96,96,96)",
@@ -103,7 +103,7 @@ angular
                         );
 
                         var scatterSeries6 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler(), {
+                            new EJSC.ArrayDataHandler($scope.debt), {
                                 title: "DEBT",
                                 useColorArray: true,
                                 color: "rgb(255,255,0)",
