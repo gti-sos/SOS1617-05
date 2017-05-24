@@ -39,7 +39,7 @@ angular
                     $scope.psoe.push(Number($scope.dataElections[i].psoe));
                     $scope.cs.push(Number($scope.dataElections[i].cs));
 
-                    console.log($scope.data[i].province);
+                    console.log($scope.dataElections[i].province);
                 }
 
                 $http
@@ -49,12 +49,12 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.year.push($scope.data[i].year);
-                            $scope.provincesEconomic.push($scope.dataEconomic[i].province + "-" + $scope.data[i].year);
+                            $scope.year.push($scope.dataEconomic[i].year);
+                            $scope.provincesEconomic.push($scope.dataEconomic[i].province + "-" + $scope.dataEconomic[i].year);
                             $scope.gdp.push(Number($scope.dataEconomic[i]["gdp"]));
                             $scope.debt.push(Number($scope.dataEconomic[i]["debt"]));
 
-                            console.log($scope.data[i].province + " " + $scope.data[i].year);
+                            console.log($scope.dataEconomic[i].province + " " + $scope.dataEconomic[i].year);
                         }
 
                         var chart = new EJSC.Chart("containerBoth");
