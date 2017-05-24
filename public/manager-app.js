@@ -16,6 +16,9 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/governance", {
             templateUrl: "governance.html"
         })
+        .when("/integrations", {
+            templateUrl: "integrations.html"
+        })
         //NACHO
         .when("/elections-voting-stats", {
             templateUrl: "frontends/nacho/list.html",
