@@ -133,7 +133,7 @@ angular
             checkKey();
             var limit = "";
             var offset;
-            if ($scope.limit <= 0 ) {
+            if ($scope.limit <= 0) {
                 Materialize.toast('Limit has got to be greater than 0. ', 1200);
             }
             else {
@@ -227,6 +227,7 @@ angular
 
         //BÚSQUEDA
         $scope.search = function() {
+            //NO ES OBLIGATORIO QUE SE CUMPLA LA PAGINACIÓN SIEMPRE, CON QUE SE CUMPLA EN UN SITIO SERÁ VÁLIDO. (Es decir, NO es obligatorio que tras una búsqueda se cumpla el limit)
             //NECESITO UN MÉTODO QUE DADOS UNOS PARÁMETROS (provincia, año, pp...) ME DIGA CUANTOS RECURSOS LOS CUMPLEN PARA PODER APLICAR PAGINACIÓN CON BOTONES A LAS BÚSQUEDAS!!
             checkKey();
             var numberOfPages;

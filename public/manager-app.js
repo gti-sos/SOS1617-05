@@ -10,6 +10,9 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics", {
             templateUrl: "analytics.html"
         })
+        .when("/about", {
+            templateUrl: "videos.html"
+        })
         //NACHO
         .when("/elections-voting-stats", {
             templateUrl: "frontends/nacho/list.html",
@@ -36,10 +39,10 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/economic-situation/widgets", {
             templateUrl: "frontends/alberto/widgets.html",
             controller: "EconomicWidgetsCtrl"
-        }).when("/economic-situation/widgetsProxy",{
+        }).when("/economic-situation/widgetsProxy", {
             templateUrl: "frontends/alberto/proxy-widgets.html",
             controller: "ProxyEconomicWidgetsCtrl"
-        }).when("/economic-situation/widgetsCors",{
+        }).when("/economic-situation/widgetsCors", {
             templateUrl: "frontends/alberto/cors-widgets.html",
             controller: "CorsEconomicWidgetsCtrl"
         });
