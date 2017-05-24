@@ -58,7 +58,6 @@ angular
                         var chart = new EJSC.Chart("containerBoth", {
                             axis_bottom: {
                                 caption: 'Province',
-                                stagger_ticks: true 
                             },
                             axis_left: {
                                 caption: 'Seats or €',
