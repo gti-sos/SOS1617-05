@@ -32,10 +32,10 @@ angular
                 $scope.dataElections = dataElections;
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.pp.push([$scope.dataElections[i].province.slice(0,3), Number($scope.dataElections[i].pp)]);
-                    $scope.psoe.push([$scope.dataElections[i].province.slice(0,3), Number($scope.dataElections[i].psoe)]);
-                    $scope.podemos.push([$scope.dataElections[i].province.slice(0,3), Number($scope.dataElections[i].podemos)]);
-                    $scope.cs.push([$scope.dataElections[i].province.slice(0,3), Number($scope.dataElections[i].cs)]);
+                    $scope.pp.push([$scope.dataElections[i].province.slice(0, 3), Number($scope.dataElections[i].pp)]);
+                    $scope.psoe.push([$scope.dataElections[i].province.slice(0, 3), Number($scope.dataElections[i].psoe)]);
+                    $scope.podemos.push([$scope.dataElections[i].province.slice(0, 3), Number($scope.dataElections[i].podemos)]);
+                    $scope.cs.push([$scope.dataElections[i].province.slice(0, 3), Number($scope.dataElections[i].cs)]);
 
                 }
                 console.log("ELECTIONS DATA: ", $scope.pp);
@@ -47,15 +47,23 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.gdp.push([$scope.dataEconomic[i].province.slice(0,3), Number($scope.dataEconomic[i].gdp)/100]);
-                            $scope.debt.push([$scope.dataEconomic[i].province.slice(0,3), Number($scope.dataEconomic[i].debt)/100]);
+                            $scope.gdp.push([$scope.dataEconomic[i].province.slice(0, 3), Number($scope.dataEconomic[i].gdp) / 100]);
+                            $scope.debt.push([$scope.dataEconomic[i].province.slice(0, 3), Number($scope.dataEconomic[i].debt) / 100]);
 
 
                         }
                         console.log("ECONOMIC DATA (gdp): ", $scope.gdp);
                         console.log("ECONOMIC DATA (debt): ", $scope.debt);
 
-                        var chart = new EJSC.Chart("containerBoth");
+                        var chart = new EJSC.Chart("containerBoth", {
+                            axis_bottom: {
+                                caption: 'Province',
+                            },
+                            axis_left: {
+                                caption: 'Seats and €',
+                                size: 18,
+                            }
+                        });
 
                         var scatterSeries1 = new EJSC.ScatterSeries(
                             new EJSC.ArrayDataHandler($scope.pp), {
