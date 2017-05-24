@@ -4,7 +4,6 @@ var helmet = require("helmet");
 var path = require('path');
 var apiNacho = require('./apiNacho.js');
 var apiAlberto = require('./apiAlberto.js');
-var apiAntonio = require('./apiAntonio.js');
 
 //modulo de las cabeceras
 var cors = require("cors");
@@ -33,7 +32,6 @@ app.use("/", express.static(path.join(__dirname, "public")));
 //Frontends request:
 app.use("/api/v1/frontendNacho", express.static(path.join(__dirname, "public/frontends/nacho")));
 app.use("/api/v1/frontendAlberto", express.static(path.join(__dirname, "public/frontends/alberto")));
-app.use("/api/v1/frontendAntonio", express.static(path.join(__dirname, "public/frontends/antonio")));
 
 app.use("/api/v1/tests", express.static(path.join(__dirname, "public/tests.html")));
 
@@ -45,4 +43,3 @@ app.use(cors());//CORS-->cabeceras
 
 apiNacho.register(app,port,BASE_API_PATH, checkKey);  
 apiAlberto.register(app,port,BASE_API_PATH,checkKey);  
-apiAntonio.register(app,port,BASE_API_PATH,checkKey); 
