@@ -47,8 +47,8 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.gdp.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].gdp)]);
-                            $scope.debt.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].debt)]);
+                            $scope.gdp.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].gdp)/100]);
+                            $scope.debt.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].debt)/100]);
 
 
                         }
