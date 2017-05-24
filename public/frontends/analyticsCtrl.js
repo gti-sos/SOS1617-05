@@ -58,10 +58,10 @@ angular
                         var chart = new EJSC.Chart("containerBoth", {
                             axis_bottom: {
                                 caption: 'Province',
+                                stagger_ticks: false 
                             },
                             axis_left: {
-                                caption: 'Seats and €',
-                                size: 18,
+                                caption: 'Seats or €',
                             }
                         });
 
@@ -131,23 +131,23 @@ angular
                         }));
 
                         chart.addSeries(new EJSC.TrendSeries(scatterSeries2, "linear", { //PSOE
-                            color: "rgb(132,129,91)"
+                            color: "rgb(255,0,0)"
                         }));
 
                         chart.addSeries(new EJSC.TrendSeries(scatterSeries3, "linear", { //PODEMOS
-                            color: "rgb(74,26,44)"
+                            color: "rgb(153,0,153)"
                         }));
 
                         chart.addSeries(new EJSC.TrendSeries(scatterSeries4, "linear", { //C'S
-                            color: "rgb(142,53,87)"
+                            color: "rgb(255,128,0)"
                         }));
 
                         chart.addSeries(new EJSC.TrendSeries(scatterSeries5, "linear", { //GDP
-                            color: "rgb(142,53,87)"
+                            color: "rgb(96,96,96)"
                         }));
 
                         chart.addSeries(new EJSC.TrendSeries(scatterSeries6, "linear", { //DEBT
-                            color: "rgb(142,53,87)"
+                            color: "rgb(255,255,0)"
                         }));
                     });
             });
