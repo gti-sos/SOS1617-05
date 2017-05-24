@@ -104,7 +104,7 @@ angular
                             new EJSC.ArrayDataHandler(), {
                                 title: "DEBT",
                                 useColorArray: true,
-                                color: "rgb(255,255,255)",
+                                color: "rgb(255,255,0)",
                                 pointStyle: "diamond"
                             }
                         );
