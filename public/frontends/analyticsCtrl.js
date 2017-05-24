@@ -56,6 +56,7 @@ angular
                         console.log("ECONOMIC DATA (debt): ", $scope.debt);
 
                         var chart = new EJSC.Chart("containerBoth", {
+                            title: 'SOS1617-05 Integration ©' ,
                             axis_bottom: {
                                 caption: 'Province',
                             },
