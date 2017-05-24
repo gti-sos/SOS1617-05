@@ -7,8 +7,8 @@ angular
 
         $scope.apikey = "cinco";
 
-        $scope.provincesElections = [];
-        $scope.year = [];
+        //$scope.provincesElections = [];
+        //$scope.year = [];
         $scope.pp = [];
         $scope.podemos = [];
         $scope.psoe = [];
@@ -16,8 +16,8 @@ angular
         $scope.dataElections = {};
         var dataElections = {};
 
-        $scope.provincesEconomic = [];
-        $scope.year = [];
+        //$scope.provincesEconomic = [];
+        //$scope.year = [];
         $scope.gdp = [];
         $scope.debt = [];
         $scope.dataEconomic = {};
@@ -32,12 +32,10 @@ angular
                 $scope.dataElections = dataElections;
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.provincesElections.push($scope.dataElections[i].province);
-                    $scope.year.push(Number($scope.dataElections[i].year));
-                    $scope.pp.push(Number($scope.dataElections[i].pp));
-                    $scope.podemos.push(Number($scope.dataElections[i].podemos));
-                    $scope.psoe.push(Number($scope.dataElections[i].psoe));
-                    $scope.cs.push(Number($scope.dataElections[i].cs));
+                    $scope.pp.push([$scope.dataElections[i].province,Number($scope.dataElections[i].pp)]);
+                    $scope.psoe.push([$scope.dataElections[i].province,Number($scope.dataElections[i].psoe)]);
+                    $scope.podemos.push([$scope.dataElections[i].province,Number($scope.dataElections[i].podemos)]);
+                    $scope.cs.push([$scope.dataElections[i].province,Number($scope.dataElections[i].cs)]);
 
                     console.log($scope.dataElections[i].province);
                 }
@@ -49,28 +47,16 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.year.push($scope.dataEconomic[i].year);
-                            $scope.provincesEconomic.push($scope.dataEconomic[i].province + "-" + $scope.dataEconomic[i].year);
-                            $scope.gdp.push(Number($scope.dataEconomic[i]["gdp"]));
-                            $scope.debt.push(Number($scope.dataEconomic[i]["debt"]));
+                            $scope.gdp.push([$scope.dataEconomic[i].province,Number($scope.dataEconomic[i].gdp)]);
+                            $scope.debt.push([$scope.dataEconomic[i].province,Number($scope.dataEconomic[i].debt)]);
 
-                            console.log($scope.dataEconomic[i].province + " " + $scope.dataEconomic[i].year);
+                            console.log($scope.dataEconomic[i].province);
                         }
 
                         var chart = new EJSC.Chart("containerBoth");
                         
                         var scatterSeries1 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler([
-                                [.5, .7],
-                                [1, 4],
-                                [2, 5],
-                                [5, 6],
-                                [5.2, 2.33],
-                                [6, 8],
-                                [9, 5],
-                                [9.2, 4],
-                                [10, 7.2]
-                            ]), {
+                            new EJSC.ArrayDataHandler($scope.pp), {
                                 title: "PP",
                                 useColorArray: true,
                                 color: "rgb(30,144,255)",
@@ -79,17 +65,7 @@ angular
                         );
 
                         var scatterSeries2 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler([
-                                [.7, .5],
-                                [4, 1],
-                                [5, 2],
-                                [6, 5],
-                                [2.33, 5.2],
-                                [8, 6],
-                                [5, 9],
-                                [4, 9.2],
-                                [7.2, 10]
-                            ]), {
+                            new EJSC.ArrayDataHandler($scope.psoe), {
                                 title: "PSOE",
                                 useColorArray: true,
                                 color: "rgb(255,0,0)",
@@ -98,17 +74,7 @@ angular
                         );
 
                         var scatterSeries3 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler([
-                                [7.8, 4],
-                                [5.4, .4],
-                                [5.2, 5.6],
-                                [9, .6],
-                                [3.9, 2.33],
-                                [7, 2],
-                                [4.5, 8],
-                                [.2, 6.2],
-                                [7, .2]
-                            ]), {
+                            new EJSC.ArrayDataHandler($scope.podemos), {
                                 title: "PODEMOS",
                                 useColorArray: true,
                                 color: "rgb(153,0,153)",
@@ -117,17 +83,7 @@ angular
                         );
 
                         var scatterSeries4 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler([
-                                [4, 7.9],
-                                [1, 10],
-                                [5.6, 5],
-                                [.6, 8],
-                                [2.3, 3.3],
-                                [2, 2.6],
-                                [8, 4.5],
-                                [6.2, 6],
-                                [10, 9]
-                            ]), {
+                            new EJSC.ArrayDataHandler($scope.cs), {
                                 title: "C's",
                                 useColorArray: true,
                                 color: "rgb(255,128,0)",
@@ -136,17 +92,7 @@ angular
                         );
                         
                         var scatterSeries5 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler([
-                                [4, 7.9],
-                                [1, 10],
-                                [5.6, 5],
-                                [.6, 8],
-                                [2.3, 3.3],
-                                [2, 2.6],
-                                [8, 4.5],
-                                [6.2, 6],
-                                [10, 9]
-                            ]), {
+                            new EJSC.ArrayDataHandler(), {
                                 title: "GDP",
                                 useColorArray: true,
                                 color: "rgb(96,96,96)",
@@ -155,17 +101,7 @@ angular
                         );
                         
                         var scatterSeries6 = new EJSC.ScatterSeries(
-                            new EJSC.ArrayDataHandler([
-                                [4, 7.9],
-                                [1, 10],
-                                [5.6, 5],
-                                [.6, 8],
-                                [2.3, 3.3],
-                                [2, 2.6],
-                                [8, 4.5],
-                                [6.2, 6],
-                                [10, 9]
-                            ]), {
+                            new EJSC.ArrayDataHandler(), {
                                 title: "DEBT",
                                 useColorArray: true,
                                 color: "rgb(255,255,255)",
