@@ -8,7 +8,8 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "main.html"
         })
         .when("/analytics", {
-            templateUrl: "analytics.html"
+            templateUrl: "analytics.html",
+            controller: "AnalyticsCtrl"
         })
         .when("/about", {
             templateUrl: "videos.html"
