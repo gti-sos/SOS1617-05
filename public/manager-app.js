@@ -52,6 +52,9 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/economic-situation/widgetsCors", {
             templateUrl: "frontends/alberto/cors-widgets.html",
             controller: "CorsEconomicWidgetsCtrl"
+        }).when("/economic-situation/widgetsProxy2", {
+            templateUrl: "frontends/alberto/proxy2-widgets.html",
+            controller: "Proxy2EconomicWidgetsCtrl"
         });
     //Para crear el modulo.Lista de dependencias que quieres cargar,nombre de ng-app 
     console.log("App initialized and configured");
