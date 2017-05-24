@@ -16,7 +16,7 @@ angular
         $scope.dataElections = {};
         var dataElections = {};
 
-        $scope.provincesEcononomic = [];
+        $scope.provincesEconomic = [];
         $scope.year = [];
         $scope.gdp = [];
         $scope.debt = [];
