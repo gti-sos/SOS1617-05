@@ -1,6 +1,4 @@
 
-/*global angular*/
-/*global Highcharts*/
 angular
     .module("ManagerApp")
     .controller("Proxy2EconomicWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
