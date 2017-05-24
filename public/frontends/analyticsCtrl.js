@@ -32,13 +32,13 @@ angular
                 $scope.dataElections = dataElections;
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.pp.push([$scope.dataElections[i].province,Number($scope.dataElections[i].pp)]);
-                    $scope.psoe.push([$scope.dataElections[i].province,Number($scope.dataElections[i].psoe)]);
-                    $scope.podemos.push([$scope.dataElections[i].province,Number($scope.dataElections[i].podemos)]);
-                    $scope.cs.push([$scope.dataElections[i].province,Number($scope.dataElections[i].cs)]);
+                    $scope.pp.push([$scope.dataElections[i].province, Number($scope.dataElections[i].pp)]);
+                    $scope.psoe.push([$scope.dataElections[i].province, Number($scope.dataElections[i].psoe)]);
+                    $scope.podemos.push([$scope.dataElections[i].province, Number($scope.dataElections[i].podemos)]);
+                    $scope.cs.push([$scope.dataElections[i].province, Number($scope.dataElections[i].cs)]);
 
-                    console.log($scope.dataElections[i].province);
                 }
+                console.log("ELECTIONS DATA: ", $scope.pp);
 
                 $http
                     .get("/api/v1/economic-situation-stats?" + "apikey=" + $scope.apikey)
@@ -47,14 +47,16 @@ angular
                         $scope.dataEconomic = dataEconomic;
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.gdp.push([$scope.dataEconomic[i].province,Number($scope.dataEconomic[i].gdp)]);
-                            $scope.debt.push([$scope.dataEconomic[i].province,Number($scope.dataEconomic[i].debt)]);
+                            $scope.gdp.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].gdp)]);
+                            $scope.debt.push([$scope.dataEconomic[i].province, Number($scope.dataEconomic[i].debt)]);
 
-                            console.log($scope.dataEconomic[i].province);
+
                         }
+                        console.log("ECONOMIC DATA (gdp): ", $scope.gdp);
+                        console.log("ECONOMIC DATA (debt): ", $scope.debt);
 
                         var chart = new EJSC.Chart("containerBoth");
-                        
+
                         var scatterSeries1 = new EJSC.ScatterSeries(
                             new EJSC.ArrayDataHandler($scope.pp), {
                                 title: "PP",
@@ -90,7 +92,7 @@ angular
                                 pointStyle: "diamond"
                             }
                         );
-                        
+
                         var scatterSeries5 = new EJSC.ScatterSeries(
                             new EJSC.ArrayDataHandler(), {
                                 title: "GDP",
@@ -99,7 +101,7 @@ angular
                                 pointStyle: "diamond"
                             }
                         );
-                        
+
                         var scatterSeries6 = new EJSC.ScatterSeries(
                             new EJSC.ArrayDataHandler(), {
                                 title: "DEBT",
@@ -108,7 +110,7 @@ angular
                                 pointStyle: "diamond"
                             }
                         );
-                        
+
                         chart.addSeries(scatterSeries1);
                         chart.addSeries(scatterSeries2);
                         chart.addSeries(scatterSeries3);
@@ -124,19 +126,19 @@ angular
                             color: "rgb(132,129,91)"
                         }));
 
-                        chart.addSeries(new EJSC.TrendSeries(scatterSeries3, "linear", {//PODEMOS
+                        chart.addSeries(new EJSC.TrendSeries(scatterSeries3, "linear", { //PODEMOS
                             color: "rgb(74,26,44)"
                         }));
 
-                        chart.addSeries(new EJSC.TrendSeries(scatterSeries4, "linear", {//C'S
+                        chart.addSeries(new EJSC.TrendSeries(scatterSeries4, "linear", { //C'S
                             color: "rgb(142,53,87)"
                         }));
-                        
-                        chart.addSeries(new EJSC.TrendSeries(scatterSeries5, "linear", {//GDP
+
+                        chart.addSeries(new EJSC.TrendSeries(scatterSeries5, "linear", { //GDP
                             color: "rgb(142,53,87)"
                         }));
-                        
-                        chart.addSeries(new EJSC.TrendSeries(scatterSeries6, "linear", {//DEBT
+
+                        chart.addSeries(new EJSC.TrendSeries(scatterSeries6, "linear", { //DEBT
                             color: "rgb(142,53,87)"
                         }));
                     });
