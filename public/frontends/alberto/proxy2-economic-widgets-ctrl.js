@@ -72,7 +72,7 @@ angular
                     
 
 
-                    var g = new Dygraph(document.getElementById("graphProxy"), myData2, {
+                    var g = new Dygraph(document.getElementById("graph"), myData2, {
 
                         labels: ["year", "gdp", "dbt","averageSalary","minimumSalary","riskOfPoverty"],
                         legend: 'always',
