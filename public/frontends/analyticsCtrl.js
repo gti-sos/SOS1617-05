@@ -7,8 +7,6 @@ angular
 
         $scope.apikey = "cinco";
 
-        //$scope.provincesElections = [];
-        //$scope.year = [];
         $scope.pp = [];
         $scope.podemos = [];
         $scope.psoe = [];
@@ -16,8 +14,6 @@ angular
         $scope.dataElections = {};
         var dataElections = {};
 
-        //$scope.provincesEconomic = [];
-        //$scope.year = [];
         $scope.gdp = [];
         $scope.debt = [];
         $scope.dataEconomic = {};
@@ -49,14 +45,13 @@ angular
                         for (var i = 0; i < res.data.length; i++) {
                             $scope.gdp.push([$scope.dataEconomic[i].province.slice(0, 3), Number($scope.dataEconomic[i].gdp) / 100]);
                             $scope.debt.push([$scope.dataEconomic[i].province.slice(0, 3), Number($scope.dataEconomic[i].debt) / 100]);
-
-
                         }
+
                         console.log("ECONOMIC DATA (gdp): ", $scope.gdp);
                         console.log("ECONOMIC DATA (debt): ", $scope.debt);
 
                         var chart = new EJSC.Chart("containerBoth", {
-                            title: 'SOS1617-05 Integration ©' ,
+                            title: 'SOS1617-05 Integration ©',
                             axis_bottom: {
                                 caption: 'Province',
                             },
