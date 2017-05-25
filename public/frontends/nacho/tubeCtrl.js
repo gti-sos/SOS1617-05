@@ -294,7 +294,7 @@ angular
 
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.province.push(($scope.data[i].province.toString() + " (PP: " + Number($scope.data[i].pp)+" C's: " + Number($scope.data[i].cs)+")"));
+                            $scope.province.push(($scope.data[i].province.toString() + " (PP: " + Number($scope.data[i].pp)+" C's: " + Number($scope.data[i].cs)+" Podemos: " + Number($scope.data[i].podemos)+" PSOE: " + Number($scope.data[i].psoe)+" )"));
                             $scope.latitude.push(lat($scope.data[i].province));
                             $scope.longitude.push(lon($scope.data[i].province));
                             /*$scope.pp.push(Number($scope.data[i].pp));
