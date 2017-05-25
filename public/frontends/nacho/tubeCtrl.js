@@ -315,9 +315,6 @@ angular
                             lat: $scope.latitude,
                             marker: {
                                 size: 4,
-                                /*line: {
-                                    width: 1
-                                }*/
                             },
                             name: 'SOS1617-05 Integrations ©',
                         }];
