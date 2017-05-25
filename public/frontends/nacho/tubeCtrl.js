@@ -187,9 +187,11 @@ angular
         }];
 
         function lat(province) {
+            console.log("ENTRADA lat(): ",province);
             var res;
             for (var i = 0; i < provincesCoords.length; i++) {
                 if (provincesCoords[i].province == province) {
+                    console.log("SE VA A DEVOLVER: ",provincesCoords[i].latitud);
                     res = provincesCoords[i].latitud;
                 }
             }
