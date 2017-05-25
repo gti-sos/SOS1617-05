@@ -281,10 +281,10 @@ angular
                                 scope: 'europe',
                                 resolution: 50,
                                 lonaxis: {
-                                    'range': [-130, -55]
+                                    'range': [-130, 10]
                                 },
                                 lataxis: {
-                                    'range': [40, 70]
+                                    'range': [10, 100]
                                 },
                                 showrivers: true,
                                 rivercolor: '#fff',
