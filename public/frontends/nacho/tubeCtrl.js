@@ -9,7 +9,7 @@ angular
         //id: containerTube
         //Se puede hacer función auxiliar que devuelva longitud/latitud de determinado punto en un mapa.
 
-        //Elections data
+        //Elections data: NO MOSTRAR TODOS...CUALES?? (VER GEOCHART)
         $scope.apikey = "cinco";
         $scope.province = [];
         $scope.year = [];
@@ -69,15 +69,9 @@ angular
                         var data = [{
                             type: 'scattergeo',
                             mode: 'markers+text',
-                            text: [
-                                'Montreal', 'Toronto', 'Vancouver', 'Calgary', 'Edmonton',
-                                'Ottawa', 'Halifax', 'Victoria', 'Winnepeg', 'Regina'
-                            ],
-                            lon: [-73.57, -79.24, -123.06, -114.1, -113.28, -75.43, -63.57, -123.21, -97.13, -104.6],
-                            lat: [
-                                45.5, 43.4, 49.13, 51.1, 53.34, 45.24,
-                                44.64, 48.25, 49.89, 50.45
-                            ],
+                            text: $scope.name,
+                            lon: $scope.longitude,
+                            lat: $scope.latitude,
                             marker: {
                                 size: 7,
                                 color: [
