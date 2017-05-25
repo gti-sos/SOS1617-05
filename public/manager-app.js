@@ -39,6 +39,9 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/elections-results/widgets/zalando", { /* EDUCATION CHART (PROXY) */
             templateUrl: "frontends/nacho/zalandoChart.html",
             controller: "ZalandoCtrl"
+        }).when("/elections-results/widgets/tube", { /* EDUCATION CHART (PROXY) */
+            templateUrl: "frontends/nacho/tubeChart.html",
+            controller: "TubeCtrl"
         }) //ALBERTO
         .when("/economic-situation-stats", {
             templateUrl: "frontends/alberto/list.html",
