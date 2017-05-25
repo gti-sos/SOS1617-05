@@ -43,6 +43,32 @@ response.on('end',function (chunk){
 } ;
    http.request(options, callback).end(); 
 });
+
+//PROXY-->G07--->Salary--->http://sos1617-07.herokuapp.com/api/v1/salaries/?apikey=sos07
+    app.get("/economic-situation-stats/proxy2", (req, res) => { 
+    var http = require('http'); 
+    var options = {
+    host: "sos1617-07.herokuapp.com", 
+    path: '/api/v1/salaries/?apikey=sos07' 
+        
+    }; 
+    
+    
+  callback = function(response){
+     var str = ''; 
+  
+//another chunk of data has been recieved, so append it to "str"-->guarda lo que va recibiendo
+ response.on('data', function (chunk){
+   str += chunk; 
+ });   
+ 
+//the whole response has been recieved, so we just print it out here response.oncend', -->cuando termina de recibir datos, enviamos lo del str.
+response.on('end',function (chunk){
+    res.send(str);
+    });
+} ;
+   http.request(options, callback).end(); 
+});
     /*
     // Base GET
     app.get("/", function (request, response) {
