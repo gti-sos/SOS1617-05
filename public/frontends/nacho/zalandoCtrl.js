@@ -122,7 +122,7 @@ angular
                             }
                         };
 
-                        Plotly.newPlot('myDiv', data, layout);
+                        Plotly.newPlot('containerZalando', data, layout);
 
 
                     });
