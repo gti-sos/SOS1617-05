@@ -29,7 +29,7 @@ angular
 
         //Add code here to import zalando's data:
         $http
-            .get("http://marquisdegeek.com/api/tube/")
+            .get("https://marquisdegeek.com/api/tube/")
             .then(function(res) {
 
                 console.log("Getting Zalando data");
