@@ -187,12 +187,13 @@ angular
         }];
 
         function lat(province) {
-            console.log("ENTRADA lat(): ",province);
+            console.log("ENTRADA lat(): ", province);
             var res;
             for (var i = 0; i < provincesCoords.length; i++) {
                 if (provincesCoords[i].province == province) {
-                    console.log("SE VA A DEVOLVER: ",provincesCoords[i].latitud);
                     res = provincesCoords[i].latitud;
+                    console.log("SE VA A DEVOLVER: ", res);
+                    break;
                 }
             }
             return res;
@@ -203,6 +204,7 @@ angular
             for (var i = 0; i < provincesCoords.length; i++) {
                 if (provincesCoords[i].province == province) {
                     res = provincesCoords[i].longitud;
+                    break;
                 }
             }
             return res;
@@ -244,7 +246,7 @@ angular
                             $scope.podemos.push(Number($scope.data[i].podemos));
                             $scope.psoe.push(Number($scope.data[i].psoe));
                             $scope.cs.push(Number($scope.data[i].cs));
-                            console.log("PROVINCES POSITION: ",$scope.data[i].province,$scope.data[i].latitud,$scope.data[i].longitud );
+                            console.log("PROVINCES POSITION: ", $scope.data[i].province, $scope.data[i].latitud, $scope.data[i].longitud);
                         }
 
                         console.log("Controller intialized");
