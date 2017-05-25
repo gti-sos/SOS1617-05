@@ -186,7 +186,6 @@ angular
             'longitud': '-0.3768049'
         }];
 
-        var provinciasConflictivas = [];
 
         function lat(province) {
             var res;
@@ -197,7 +196,7 @@ angular
                 }
             }
             if (res == undefined) {
-                provinciasConflictivas.push(province);
+                console.log(province);
             }
             return res;
         }
@@ -209,9 +208,6 @@ angular
                     res = provincesCoords[i].longitud;
                     break;
                 }
-            }
-            if (res == undefined) {
-                provinciasConflictivas.push(province);
             }
             return res;
         }
@@ -252,10 +248,9 @@ angular
                             $scope.podemos.push(Number($scope.data[i].podemos));
                             $scope.psoe.push(Number($scope.data[i].psoe));
                             $scope.cs.push(Number($scope.data[i].cs));
-                            console.log("PROVINCES POSITION: ", $scope.data[i].province, lat($scope.data[i].province), lon($scope.data[i].province));
+                            //console.log("PROVINCES POSITION: ", $scope.data[i].province, lat($scope.data[i].province), lon($scope.data[i].province));
                         }
 
-                        console.log("--------------------PROVINCIAS CONFLICTIVAS: ", provinciasConflictivas);
                         console.log("Controller intialized");
 
 
