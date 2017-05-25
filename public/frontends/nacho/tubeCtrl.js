@@ -27,8 +27,61 @@ angular
         $scope.dataTube = {};
         var dataTube = {};
 
+
         //Aux. Functions:
         var provincesCoords = [{
+            'province': 'Álava',
+            'latitud': '42.33',
+            'longitud': '2.35'
+        }, {
+            'province': 'Alicante',
+            'latitud': '38.2',
+            'longitud': '0.29'
+        }, {
+            'province': 'Baleares',
+            'latitud': '39.35',
+            'longitud': '2.39'
+        }, {
+            'province': 'Castellón',
+            'latitud': '39.59',
+            'longitud': '0.02'
+        }, {
+            'province': 'A Coruña',
+            'latitud': '43.22',
+            'longitud': '8.23'
+        }, {
+            'province': 'Guipúzcoa',
+            'latitud': '43.19',
+            'longitud': '1.59'
+        }, {
+            'province': 'La Rioja',
+            'latitud': '42.52',
+            'longitud': '-2.94'
+        }, {
+            'province': 'Navarra',
+            'latitud': '42.49',
+            'longitud': '1.38'
+        }, {
+            'province': 'Asturias',
+            'latitud': '43.32',
+            'longitud': '5.42'
+        }, {
+            'province': 'Las Palmas',
+            'latitud': '28.06',
+            'longitud': '15.25'
+        }, {
+            'province': 'SC Tenerife',
+            'latitud': '28.28',
+            'longitud': '16.15'
+        }, {
+            'province': 'Cantabria',
+            'latitud': '43.49',
+            'longitud': '-3.61'
+        }, {
+            'province': 'Vizcaya',
+            'latitud': '43.15',
+            'longitud': '2.55'
+        }, {
             'province': 'Almería',
             'latitud': '36.84016',
             'longitud': '-2.467922'
