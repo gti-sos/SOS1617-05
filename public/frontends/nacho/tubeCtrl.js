@@ -124,7 +124,7 @@ angular
                             }
                         };
 
-                        Plotly.newPlot('containerZalando', data, layout);
+                        Plotly.newPlot('containerTube', data, layout);
 
 
                     });
