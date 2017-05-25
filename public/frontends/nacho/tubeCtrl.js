@@ -7,6 +7,7 @@ angular
 
         // ep: http://marquisdegeek.com/api/tube/
         //id: containerTube
+        //Se puede hacer función auxiliar que devuelva longitud/latitud de determinado punto en un mapa.
 
         //Elections data
         $scope.apikey = "cinco";
@@ -19,27 +20,27 @@ angular
         $scope.data = {};
         var data = {};
 
-        //Zalando's data
-        $scope.countryCode = [];
-        $scope.shopUrl = [];
-        $scope.dataZalando = {};
-        var dataZalando = {};
-
-
+        //London's tube data
+        $scope.name = [];
+        $scope.latitude = [];
+        $scope.longitude = [];
+        $scope.dataTube = {};
+        var dataTube = {};
 
         //Add code here to import zalando's data:
         $http
             .get("https://marquisdegeek.com/api/tube/")
             .then(function(res) {
 
-                console.log("Getting Zalando data");
-                dataZalando = res.data;
-                $scope.dataZalando = dataZalando;
+                console.log("Getting London's tube data");
+                dataTube = res.data;
+                $scope.dataTube = dataTube;
 
-                for (var i = 0; i < $scope.dataZalando.length; i++) {
-                    $scope.countryCode.push($scope.dataZalando[i].countryCode);
-                    $scope.shopUrl.push($scope.dataZalando[i].shopUrl);
-                    console.log($scope.dataZalando[i].countryCode);
+                for (var i = 0; i < $scope.dataTube.length; i++) {
+                    $scope.name.push($scope.dataTube[i].name);
+                    $scope.latitude.push($scope.dataTube[i].latitude);
+                    $scope.longitude.push($scope.dataTube[i].longitude);
+                    console.log($scope.dataTube[i].name);
                 }
 
 
@@ -130,8 +131,3 @@ angular
                     });
             });
     }]);
-
-
-
-
-
