@@ -105,7 +105,7 @@ angular
                                 size: 16
                             },
                             geo: {
-                                scope: 'europe',
+                                scope: 'north america',
                                 resolution: 50,
                                 lonaxis: {
                                     'range': [-130, -55]
