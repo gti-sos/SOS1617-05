@@ -192,10 +192,10 @@ angular
             for (var i = 0; i < provincesCoords.length; i++) {
                 if (provincesCoords[i].province == province) {
                     res = provincesCoords[i].latitud;
-                    console.log("SE VA A DEVOLVER: ", res);
                     break;
                 }
             }
+            console.log("SE VA A DEVOLVER: ", res);
             return res;
         }
 
@@ -246,7 +246,7 @@ angular
                             $scope.podemos.push(Number($scope.data[i].podemos));
                             $scope.psoe.push(Number($scope.data[i].psoe));
                             $scope.cs.push(Number($scope.data[i].cs));
-                            console.log("PROVINCES POSITION: ", $scope.data[i].province, $scope.data[i].latitud, $scope.data[i].longitud);
+                            console.log("PROVINCES POSITION: ", $scope.data[i].province, lat($scope.data[i].province), lon($scope.data[i].province));
                         }
 
                         console.log("Controller intialized");
