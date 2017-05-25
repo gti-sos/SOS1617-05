@@ -242,8 +242,7 @@ angular
                             $scope.podemos.push(Number($scope.data[i].podemos));
                             $scope.psoe.push(Number($scope.data[i].psoe));
                             $scope.cs.push(Number($scope.data[i].cs));
-
-                            console.log($scope.data[i].province);
+                            console.log("PROVINCES POSITION: ",$scope.data[i].province,$scope.data[i].latitud,$scope.data[i].longitud );
                         }
 
                         console.log("Controller intialized");
@@ -256,24 +255,16 @@ angular
                             lon: $scope.longitude,
                             lat: $scope.latitude,
                             marker: {
-                                size: 7,
-                                color: [
-                                    '#bebada', '#fdb462', '#fb8072', '#d9d9d9', '#bc80bd',
-                                    '#b3de69', '#8dd3c7', '#80b1d3', '#fccde5', '#ffffb3'
-                                ],
-                                line: {
+                                size: 4,
+                                /*line: {
                                     width: 1
-                                }
+                                }*/
                             },
                             name: 'SOS1617-05 Integrations ©',
-                            textposition: [
-                                'top right', 'top left', 'top center', 'bottom right', 'top right',
-                                'top left', 'bottom right', 'bottom left', 'top right', 'top right'
-                            ],
                         }];
 
                         var layout = {
-                            title: 'SOS1617-05 Integrations ©',
+                            title: '(Zoom out in case you can not see the map)',
                             font: {
                                 family: 'Droid Serif, serif',
                                 size: 6
