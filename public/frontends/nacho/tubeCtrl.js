@@ -251,7 +251,7 @@ angular
 
                         var data = [{
                             type: 'scattergeo',
-                            mode: 'markers+text',
+                            mode: 'markers',
                             text: $scope.name.concat($scope.province),
                             lon: $scope.longitude,
                             lat: $scope.latitude,
@@ -265,7 +265,7 @@ angular
                                     width: 1
                                 }
                             },
-                            name: 'Canadian cities',
+                            name: 'SOS1617-05 Integrations ©',
                             textposition: [
                                 'top right', 'top left', 'top center', 'bottom right', 'top right',
                                 'top left', 'bottom right', 'bottom left', 'top right', 'top right'
