@@ -46,9 +46,7 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
     //This code is stored in the server (always), so that when someone access to /education, this section of code will work as a tunel to the url indicated below:
     app.get("/usData", (req, res) => {
         var http = require('http');
-        var parser = document.createElement('a');
-        parser.href = "https://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod";
-
+        
         var options = {
             //Endpoint:        
             //https://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod
