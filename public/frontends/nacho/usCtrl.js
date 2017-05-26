@@ -44,7 +44,7 @@ angular
                 }
 
                 $http
-                    .get("/usData?apikey=" + $scope.apikey)
+                    .get("/usData?apikey=" + $scope.apikey) //AL ACCEDER A EST URL ME DICE: 301 Moved Permanently !!!!!!
                     .then(function(res) {
 
                         dataUs = res.data;
@@ -52,7 +52,7 @@ angular
 
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
                             //console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i][7]);
-                            console.log("HAY DATO EN BUCLE usData?: ",$scope.dataUs[i]);
+                            console.log("HAY DATO EN BUCLE usData?: ",$scope.dataUs[i]); //DEVUELVE HTML!!!!! COMPROBAR PROXY????
                             if ($scope.dataUs[i]["party"] == "DEM") {
                                 $scope.dpValue = $scope.dpValue + 1;
                             }
