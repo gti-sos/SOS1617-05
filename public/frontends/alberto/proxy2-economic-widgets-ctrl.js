@@ -61,7 +61,7 @@ angular
 
                     var myData2 = [];
                     res.data.forEach(function(d) {
-                        myData2.push([Number(d.year), Number(d.gdp), Number(d.averageSalary)]);
+                        myData2.push([Number(d.year), Number(d.gdp), Number(d.minimumSalary)]);
                         /*Number(d.debt),
                         Number(d.averageSalary),Number(d.minimumSalary),Number(d.riskOfPoverty)]);*/
                     });
@@ -70,7 +70,7 @@ angular
 
                     var g = new Dygraph(document.getElementById("graph"), myData2, {
                         //labels: ["year", "gdp", "dbt","averageSalary","minimumSalary","riskOfPoverty"],
-                         labels: ["year", "gdp","averageSalary"],
+                         labels: ["year", "gdp","minimumSalary"],
                         legend: 'always',
                         title: "Comparative chart of gdp, debt, averageSalary, minimumSalary and riskOfPoverty in Spain\n",
                         showRoller: true,
