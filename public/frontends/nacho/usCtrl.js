@@ -9,12 +9,10 @@ angular
 
         //Spain Elections data (My API)
         $scope.apikey = "cinco";
-        $scope.province = [];
-        $scope.year = [];
-        $scope.pp = [];
-        $scope.podemos = [];
-        $scope.psoe = [];
-        $scope.cs = [];
+        $scope.ppValue = [];
+        $scope.podemosValue = 0;
+        $scope.psoeValue = 0;
+        $scope.csValue = 0;
         $scope.data = {};
         var data = {};
 
@@ -24,7 +22,8 @@ angular
         //españoles de cada lado (izquierda psoe y podemos) y derecha (pp y C's). Una vez hecho esto, representarlo y COMPARAR los tamaños de cada movimiento
         //entre los 2 paises.
         //HAY 50 ESTADOS EN USA     
-
+        $scope.rpValue = 0
+        $scope.dpValue = 0;
         $scope.dataUs = {};
         var dataUs = {};
 
@@ -38,14 +37,10 @@ angular
                 //data.sort(sort_by('province', true, parseInt));
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.province.push($scope.data[i].province);
-                    $scope.year.push(Number($scope.data[i].year));
-                    $scope.pp.push(Number($scope.data[i].pp));
-                    $scope.podemos.push(Number($scope.data[i].podemos));
-                    $scope.psoe.push(Number($scope.data[i].psoe));
-                    $scope.cs.push(Number($scope.data[i].cs));
-
-                    console.log($scope.data[i].province);
+                    $scope.ppValue=$scope.ppValue+$scope.data[i].pp;
+                    $scope.psoeValue=$scope.psoeValue+$scope.data[i].psoe;
+                    $scope.podemosValue=$scope.podemosValue+$scope.data[i].podemos;
+                    $scope.csValue=$scope.csValue+$scope.data[i].cs;
                 }
 
                 $http
@@ -56,8 +51,12 @@ angular
                         $scope.dataUs = dataUs;
 
                         for (var i = 0; i < res.data.length; i++) {
-
-                            console.log();
+                            if ($scope.dataUs[i].party== "DEM"){
+                                $scope.dpValue=$scope.dpValue+1;
+                            }
+                            else if ($scope.dataUs[i].party== "REP"){
+                                $scope.rpValue=$scope.rpValue+1;
+                            }
                         }
 
                         console.log("Controller intialized");
@@ -95,27 +94,27 @@ angular
                                 }, {
                                     name: 'Partido Popular',
                                     parent: 'A',
-                                    value: 5
+                                    value: $scope.ppValue
                                 }, {
                                     name: 'PSOE',
                                     parent: 'B',
-                                    value: 5
+                                    value: $scope.psoeValue
                                 }, {
                                     name: 'Podemos',
                                     parent: 'B',
-                                    value: 3
+                                    value: $scope.podemosValue
                                 }, {
                                     name: 'C',
                                     parent: 'A',
-                                    value: 4
+                                    value: $scope.csValue
                                 }, {
                                     name: 'Republican Party', //Derecha
                                     parent: 'A',
-                                    value: 4
+                                    value: $scope.rpValue
                                 }, {
                                     name: 'Democratic Party', //Izquierda
                                     parent: 'B',
-                                    value: 10
+                                    value: $scope.dpValue
                                 }]
                             }],
                             title: {
