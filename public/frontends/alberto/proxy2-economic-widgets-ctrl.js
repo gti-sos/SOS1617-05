@@ -62,8 +62,8 @@ angular
 
                     var myData2 = [];
                     res.data.forEach(function(d) {
-                        myData2.push([Number(d.year), Number(d.gdp), Number(d.debt)]),
-                        myData2.push([Number(d.averageSalary),Number(d.minimumSalary),Number(d.riskOfPoverty)]);
+                        myData2.push([Number(d.year),Number(d.averageSalary),Number(d.minimumSalary),
+                        Number(d.riskOfPoverty), Number(d.gdp), Number(d.debt)]);
                     });
                     
 
