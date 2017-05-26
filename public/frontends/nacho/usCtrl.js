@@ -9,7 +9,7 @@ angular
 
         //Spain Elections data (My API)
         $scope.apikey = "cinco";
-        $scope.ppValue = [];
+        $scope.ppValue = 0;
         $scope.podemosValue = 0;
         $scope.psoeValue = 0;
         $scope.csValue = 0;
@@ -51,11 +51,11 @@ angular
                         $scope.dataUs = dataUs;
 
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
-                            console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i].party);
-                            if ($scope.dataUs[i].party == "DEM") {
+                            console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i]['party']);
+                            if ($scope.dataUs[i]['party'] == "DEM") {
                                 $scope.dpValue = $scope.dpValue + 1;
                             }
-                            else if ($scope.dataUs[i].party == "REP") {
+                            else if ($scope.dataUs[i]['party'] == "REP") {
                                 $scope.rpValue = $scope.rpValue + 1;
                             }
                         }
