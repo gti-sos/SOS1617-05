@@ -1,10 +1,9 @@
 /*global angular*/
 /*global Highcharts*/
-/*global EJSC*/
 
 angular
     .module("ManagerApp")
-    .controller("ElectionsWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
+    .controller("UsCtrl", ["$http", "$scope", function($http, $scope) {
 
         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
 
