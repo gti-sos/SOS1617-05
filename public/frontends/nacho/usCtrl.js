@@ -37,10 +37,10 @@ angular
                 //data.sort(sort_by('province', true, parseInt));
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.ppValue=$scope.ppValue+$scope.data[i].pp;
-                    $scope.psoeValue=$scope.psoeValue+$scope.data[i].psoe;
-                    $scope.podemosValue=$scope.podemosValue+$scope.data[i].podemos;
-                    $scope.csValue=$scope.csValue+$scope.data[i].cs;
+                    $scope.ppValue = $scope.ppValue + $scope.data[i].pp;
+                    $scope.psoeValue = $scope.psoeValue + $scope.data[i].psoe;
+                    $scope.podemosValue = $scope.podemosValue + $scope.data[i].podemos;
+                    $scope.csValue = $scope.csValue + $scope.data[i].cs;
                 }
 
                 $http
@@ -50,16 +50,23 @@ angular
                         dataUs = res.data;
                         $scope.dataUs = dataUs;
 
-                        for (var i = 0; i < res.data.length; i++) {
-                            if ($scope.dataUs[i].party== "DEM"){
-                                $scope.dpValue=$scope.dpValue+1;
+                        for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
+                            if ($scope.dataUs[i].party == "DEM") {
+                                $scope.dpValue = $scope.dpValue + 1;
                             }
-                            else if ($scope.dataUs[i].party== "REP"){
-                                $scope.rpValue=$scope.rpValue+1;
+                            else if ($scope.dataUs[i].party == "REP") {
+                                $scope.rpValue = $scope.rpValue + 1;
                             }
                         }
 
-                        console.log("Controller intialized");
+                        //Quizas no los representa porque son número muy grandes...PROBAR CON PORCENTAJES!!!
+                        console.log("Controller intialized. Values... ");
+                        console.log("PP: ", $scope.ppValue);
+                        console.log("PSOE: ", $scope.psoeValue);
+                        console.log("C's: ", $scope.csValue);
+                        console.log("PODEMOS: ", $scope.podemosValue);
+                        console.log("DEM: ", $scope.dpValue);
+                        console.log("REP: ", $scope.rpValue);
 
                         //Posibles librerías: morris.js , chartist.js , 
                         //También se podría usar una cosa como: http://plottablejs.org/examples/mondrian/ así viendo la diferencia entre las areas se apreciaría de anera muy gráfica la diferencia en volumen que hay entre unas elecciones aquí y unas alli.
