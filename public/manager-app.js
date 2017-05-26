@@ -36,6 +36,15 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/elections-results/widgets/educationProxy", { /* EDUCATION CHART (PROXY) */
             templateUrl: "frontends/nacho/proxy-edu.html",
             controller: "EducationCtrl"
+        }).when("/elections-results/widgets/zalando", { /* EDUCATION CHART (PROXY) */
+            templateUrl: "frontends/nacho/zalandoChart.html",
+            controller: "ZalandoCtrl"
+        }).when("/elections-results/widgets/tube", { /* EDUCATION CHART (PROXY) */
+            templateUrl: "frontends/nacho/tubeChart.html",
+            controller: "TubeCtrl"
+        }).when("/elections-results/widgets/usElections", { /* EDUCATION CHART (PROXY) */
+            templateUrl: "frontends/nacho/usElections.html",
+            controller: "UsCtrl"
         }) //ALBERTO
         .when("/economic-situation-stats", {
             templateUrl: "frontends/alberto/list.html",
