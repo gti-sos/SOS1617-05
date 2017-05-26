@@ -27,10 +27,9 @@ angular
                 $scope.data = data;
                 for (var i = 0; i < res.data.length; i++) {
                     $scope.year.push(Number($scope.data[i]["year"]));
-                    $scope.categories.push($scope.data[i].year);
-                $scope.averageSalary.push(Number($scope.data[i]["averageSalary"])/100);
-                $scope.minimumSalary.push(Number($scope.data[i]["minimumSalary"])/10);
-                $scope.riskOfPoverty.push(Number($scope.data[i]["riskOfPoverty"])/10);
+                $scope.averageSalary.push(Number($scope.data[i]["averageSalary"]));
+                $scope.minimumSalary.push(Number($scope.data[i]["minimumSalary"]));
+                $scope.riskOfPoverty.push(Number($scope.data[i]["riskOfPoverty"]));
                 console.log($scope.data[i]);
 
                   }
@@ -50,7 +49,6 @@ angular
 
                 for (var i = 0; i < res.data.length; i++) {
                     $scope.year.push(Number($scope.data[i]["year"]));
-                    $scope.categories.push($scope.data[i].year);
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
                                         console.log($scope.data[i]);
@@ -58,7 +56,7 @@ angular
                 }
                     console.log($scope.data[i]);
             
-                //HighCharts
+            //Dygraphs
                  $(document).ready(function() {
                     
 
