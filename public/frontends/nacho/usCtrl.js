@@ -49,7 +49,7 @@ angular
                 }
 
                 $http
-                    .get("http://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod")
+                    .get("/usData?apikey=" + $scope.apikey)
                     .then(function(res) {
 
                         dataUs = res.data;

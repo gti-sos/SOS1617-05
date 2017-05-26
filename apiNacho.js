@@ -43,6 +43,29 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         http.request(options, callback).end();
     });
 
+    //This code is stored in the server (always), so that when someone access to /education, this section of code will work as a tunel to the url indicated below:
+    app.get("/usData", (req, res) => {
+        var http = require('http');
+        var options = {
+            //Endpoint:        
+            //https://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod
+            host: 'zlzlap7j50.execute-api.us-east-1.amazonaws.com',
+            path: '/prod'
+        };
+        callback = function(response) {
+            var str = '';
+            //another chunk of data has been recieved, so append it to 'str' 
+            response.on('data', function(chunk) {
+                str += chunk;
+            });
+            //the whole response has been recieved, so we just print it out here 
+            response.on('end', function() {
+                res.send(str);
+            });
+        }
+        http.request(options, callback).end();
+    });
+
 
     //This one is for checking the number of resources on the server:
     //elections-voting-stats/length?apikey=cinco
