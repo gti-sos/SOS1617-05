@@ -6,10 +6,9 @@ angular
     .controller("TubeCtrl", ["$http", "$scope", function($http, $scope) {
 
         // ep: http://marquisdegeek.com/api/tube/
-        //id: containerTube
         //Se puede hacer función auxiliar que devuelva longitud/latitud de determinado punto en un mapa.
 
-        //Elections data: NO MOSTRAR TODOS...CUALES?? (VER GEOCHART)
+        //Elections data: 
         $scope.apikey = "cinco";
         $scope.province = [];
         $scope.year = [];
@@ -294,14 +293,9 @@ angular
 
 
                         for (var i = 0; i < res.data.length; i++) {
-                            $scope.province.push(($scope.data[i].province.toString() + " (PP: " + Number($scope.data[i].pp)+"; C's: " + Number($scope.data[i].cs)+"; Podemos: " + Number($scope.data[i].podemos)+"; PSOE: " + Number($scope.data[i].psoe)+")"));
+                            $scope.province.push(($scope.data[i].province.toString() + " (PP: " + Number($scope.data[i].pp) + "; C's: " + Number($scope.data[i].cs) + "; Podemos: " + Number($scope.data[i].podemos) + "; PSOE: " + Number($scope.data[i].psoe) + ")"));
                             $scope.latitude.push(lat($scope.data[i].province));
                             $scope.longitude.push(lon($scope.data[i].province));
-                            /*$scope.pp.push(Number($scope.data[i].pp));
-                            $scope.podemos.push(Number($scope.data[i].podemos));
-                            $scope.psoe.push(Number($scope.data[i].psoe));
-                            $scope.cs.push(Number($scope.data[i].cs));*/
-                            //console.log("PROVINCES POSITION: ", $scope.data[i].province, lat($scope.data[i].province), lon($scope.data[i].province));
                         }
 
                         console.log("Controller intialized");
