@@ -49,7 +49,7 @@ angular
                 }
 
                 $http
-                    .get("https://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod")
+                    .get("http://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod")
                     .then(function(res) {
 
                         dataUs = res.data;
