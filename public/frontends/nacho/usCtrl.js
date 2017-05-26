@@ -51,9 +51,9 @@ angular
                         $scope.dataUs = dataUs;
 
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
-                            console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i][7]);
-                            
-                            if ($scope.dataUs[i]['party'] == "DEM") {
+                            //console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i][7]);
+                            console.log("HAY DATO EN BUCLE usData?: ",$scope.dataUs[i]);
+                            if ($scope.dataUs[i]["party"] == "DEM") {
                                 $scope.dpValue = $scope.dpValue + 1;
                             }
                             else if ($scope.dataUs[i]['party'] == "REP") {
