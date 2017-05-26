@@ -22,7 +22,7 @@ angular
         //españoles de cada lado (izquierda psoe y podemos) y derecha (pp y C's). Una vez hecho esto, representarlo y COMPARAR los tamaños de cada movimiento
         //entre los 2 paises.
         //HAY 50 ESTADOS EN USA     
-        $scope.rpValue = 0
+        $scope.rpValue = 0;
         $scope.dpValue = 0;
         $scope.dataUs = {};
         var dataUs = {};
@@ -37,10 +37,10 @@ angular
                 //data.sort(sort_by('province', true, parseInt));
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.ppValue = $scope.ppValue + $scope.data[i].pp;
-                    $scope.psoeValue = $scope.psoeValue + $scope.data[i].psoe;
-                    $scope.podemosValue = $scope.podemosValue + $scope.data[i].podemos;
-                    $scope.csValue = $scope.csValue + $scope.data[i].cs;
+                    $scope.ppValue = $scope.ppValue + Number($scope.data[i].pp);
+                    $scope.psoeValue = $scope.psoeValue + Number($scope.data[i].psoe);
+                    $scope.podemosValue = $scope.podemosValue + Number($scope.data[i].podemos);
+                    $scope.csValue = $scope.csValue + Number($scope.data[i].cs);
                 }
 
                 $http
@@ -51,6 +51,7 @@ angular
                         $scope.dataUs = dataUs;
 
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
+                            console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i].party);
                             if ($scope.dataUs[i].party == "DEM") {
                                 $scope.dpValue = $scope.dpValue + 1;
                             }
