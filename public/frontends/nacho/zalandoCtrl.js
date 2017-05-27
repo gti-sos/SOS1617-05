@@ -61,6 +61,8 @@ angular
 
                             console.log($scope.data[i].province);
                         }
+                        
+                        //BUSCAR OTRO QUE SEA DE MAPA!!!! https://github.com/zingchart/awesome-charting
 
                         console.log("Controller intialized");
 

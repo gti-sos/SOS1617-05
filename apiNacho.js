@@ -50,8 +50,8 @@ exports.register = function(app, port, BASE_API_PATH, checkKey) {
         var options = {
             //Endpoint:        
             //https://zlzlap7j50.execute-api.us-east-1.amazonaws.com/prod
-            host: 'zlzlap7j50.execute-api.us-east-1.amazonaws.com/',
-            path: '/prod'
+            host: 'zlzlap7j50.execute-api.us-east-1.amazonaws.com',
+            path: '/'
             //host: parser.host,
             //path: parser.pathname
 
