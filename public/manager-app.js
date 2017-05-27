@@ -61,10 +61,10 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/economic-situation/widgetsCors", {
             templateUrl: "frontends/alberto/cors-widgets.html",
             controller: "CorsEconomicWidgetsCtrl"
-        })/*.when("/economic-situation/widgetsCors2", {
+        }).when("/economic-situation/widgetsCors2", {
             templateUrl: "frontends/alberto/cors2-widgets.html",
             controller: "Cors2EconomicWidgetsCtrl"
-        }).when("/economic-situation/widgetsExternalProxy"),{
+        })/*.when("/economic-situation/widgetsExternalProxy"),{
             templateUrl: "frontends/alberto/external-widgets.html",
             controller: "ExternalEconomicWidgetsCtrl"
         }*/;
