@@ -64,6 +64,7 @@ angular
 
                         console.log("Controller intialized");
 
+                        var myChart = echarts.init(document.getElementById('containerZalando'));
 
                         myChart.showLoading();
                         myChart.hideLoading();
