@@ -1,6 +1,5 @@
  
 /*global angular*/
-/*global Highcharts*/
 angular
     .module("ManagerApp")
     .controller("ExternalEconomicWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
