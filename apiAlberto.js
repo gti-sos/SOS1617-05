@@ -45,11 +45,10 @@ response.on('end',function (chunk){
 });
 
  //EXTERNALPROXY--->
-     app.get("/economic-situation-stats/Externalproxy", (req, res) => { 
+     app.get("/economic-situation-stats/externalProxy", (req, res) => { 
     var http = require('http'); 
     var options = {
-    host: "https://montanaflynn-fifa-world-cup.p.mashape.com", 
-    path: '/teams?mashape-key=Gjf4mjXNprmshpt41by5bXJqFof6p1N2vZmjsn44jCokfQrF74' 
+    host: "https://montanaflynn-fifa-world-cup.p.mashape.com/teams?mashape-key=Gjf4mjXNprmshpt41by5bXJqFof6p1N2vZmjsn44jCokfQrF74"
         
     };
      callback = function(response){

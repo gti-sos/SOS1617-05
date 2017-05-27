@@ -20,7 +20,7 @@ angular
 
 
    $http
-            .get("/economic-situation-stats/Externalproxy")
+            .get("/economic-situation-stats/externalProxy")
             .then(function(res) {
                 console.log(res.data);
                 data = res.data;
