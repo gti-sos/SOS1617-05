@@ -69,7 +69,7 @@ angular
                         myChart.showLoading();
                         myChart.hideLoading();
 
-                        echarts.registerMap('USA', usaJson, {
+                        echarts.registerMap('USA', {
                             Alaska: { // 把阿拉斯加移到美国主大陆左下方
                                 left: -131,
                                 top: 25,
@@ -86,7 +86,7 @@ angular
                                 width: 2
                             }
                         });
-                        option = {
+                        var option = {
                             title: {
                                 text: 'USA Population Estimates (2012)',
                                 subtext: 'Data from www.census.gov',
@@ -303,11 +303,6 @@ angular
                         };
 
                         myChart.setOption(option);
-
-
-
-
-
                     });
             });
     }]);
