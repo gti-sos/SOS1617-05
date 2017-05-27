@@ -20,7 +20,7 @@ angular
         
 
    $http
-            .get("sos1617-07-herokuapp.com/api/v1/salaries/?apikey=sos07")
+            .get("https://sos1617-07-herokuapp.com/api/v1/salaries/?apikey=sos07")
             .then(function(res) {
                 console.log(res.data);
                 data = res.data;
