@@ -1,7 +1,7 @@
 
 angular
     .module("ManagerApp")
-    .controller("Proxy2EconomicWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
+    .controller("Cors2EconomicWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
         $scope.apikey = "cinco";
         $scope.data = {};
         var data = {};
@@ -11,7 +11,7 @@ angular
         $scope.year = [];
 
         
-        //API Grupo 07 con proxy
+        //API Grupo 07 con cors
        
         $scope.averageSalary = [];
         $scope.minimumSalary = [];
@@ -20,7 +20,7 @@ angular
         
 
    $http
-            .get("/economic-situation-stats/proxy2")
+            .get("sos1617-07-herokuapp.com/api/v1/salaries/?apikey=sos07")
             .then(function(res) {
                 console.log(res.data);
                 data = res.data;

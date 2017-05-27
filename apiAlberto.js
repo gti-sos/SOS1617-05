@@ -26,8 +26,15 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
     path: '/api/v2/youthunemploymentstats?apikey=sos161701' 
         
     }; 
-    
-    
+
+    //EXTERNALPROXY--->
+     app.get("/economic-situation-stats/proxyExternal", (req, res) => { 
+    var http = require('http'); 
+    var options = {
+    host: "https://montanaflynn-fifa-world-cup.p.mashape.com", 
+    path: '/teams?mashape-key=Gjf4mjXNprmshpt41by5bXJqFof6p1N2vZmjsn44jCokfQrF74' 
+        
+    };
   callback = function(response){
      var str = ''; 
   
