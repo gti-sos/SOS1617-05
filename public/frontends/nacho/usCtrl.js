@@ -117,7 +117,7 @@ angular
                                     parent: 'B',
                                     value: $scope.podemosValue
                                 }, {
-                                    name: 'C',
+                                    name: "C's",
                                     parent: 'A',
                                     value: $scope.csValue
                                 }, {
