@@ -1,5 +1,6 @@
 /*global angular*/
 /*global myChart*/
+/*global echarts*/
 
 angular
     .module("ManagerApp")

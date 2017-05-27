@@ -13,7 +13,7 @@
     "body-parser": "^1.17.1",
     "cors": "^2.8.3",
     "dygraphs": "^2.0.0",
-    "echarts": "^3.5.4",
+    "echarts": "^3.6.0",
     "express": "^4.15.2",
     "helmet": "^3.5.0",
     "mongodb": "^2.2.25",
