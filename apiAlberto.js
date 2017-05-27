@@ -26,15 +26,8 @@ exports.register = function(app, port, BASE_API_PATH,checkKey) {
     path: '/api/v2/youthunemploymentstats?apikey=sos161701' 
         
     }; 
-
-    //EXTERNALPROXY--->
-     app.get("/economic-situation-stats/proxyExternal", (req, res) => { 
-    var http = require('http'); 
-    var options = {
-    host: "https://montanaflynn-fifa-world-cup.p.mashape.com", 
-    path: '/teams?mashape-key=Gjf4mjXNprmshpt41by5bXJqFof6p1N2vZmjsn44jCokfQrF74' 
-        
-    };
+    
+    
   callback = function(response){
      var str = ''; 
   
@@ -62,6 +55,29 @@ response.on('end',function (chunk){
     
     
   callback = function(response){
+     var str = ''; 
+  
+//another chunk of data has been recieved, so append it to "str"-->guarda lo que va recibiendo
+ response.on('data', function (chunk){
+   str += chunk; 
+ });   
+ 
+//the whole response has been recieved, so we just print it out here response.oncend', -->cuando termina de recibir datos, enviamos lo del str.
+response.on('end',function (chunk){
+    res.send(str);
+    });
+} ;
+   http.request(options, callback).end(); 
+});
+ //EXTERNALPROXY--->
+     app.get("/economic-situation-stats/Externalproxy", (req, res) => { 
+    var http = require('http'); 
+    var options = {
+    host: "https://montanaflynn-fifa-world-cup.p.mashape.com", 
+    path: '/teams?mashape-key=Gjf4mjXNprmshpt41by5bXJqFof6p1N2vZmjsn44jCokfQrF74' 
+        
+    };
+     callback = function(response){
      var str = ''; 
   
 //another chunk of data has been recieved, so append it to "str"-->guarda lo que va recibiendo
