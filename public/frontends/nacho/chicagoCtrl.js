@@ -99,7 +99,7 @@ angular
                         
                         //Posibles librerías: morris.js , chartist.js , 
                         
-                        Morris.Bar({
+                        new Morris.Bar({
                             element: 'containerChicago',
                             data: [{
                                 y: '2006',
