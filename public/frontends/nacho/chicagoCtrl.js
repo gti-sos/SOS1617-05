@@ -5,7 +5,7 @@ angular
     .controller("ChicagoCtrl", ["$http", "$scope", function($http, $scope) {
 
         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
-        
+
         //LA CUARTA (LA DE ZALANDO ES LA TERCERA) PUEDE SER LA DE CHICAGO (https://data.cityofchicago.org/resource/ydr8-5enu.json?) EN UN GRÁFICO DE BARRAS. Una barra para cada partido y despues una barra 
         //para cada "algo" (por ejemplo: AVE, ST, BVD, RD, etc...) de los datos del json que muestre el gasto (por ejemplo) en ese algo.
         //O también, dado que los recursos tienen fecha, mostrar los gastos en cada año.
@@ -19,10 +19,13 @@ angular
         $scope.data = {};
         var data = {};
 
-        $scope.rpValue = 0;
-        $scope.dpValue = 0;
-        $scope.dataUs = {};
-        var dataUs = {};
+        $scope.value
+        $scope.value
+        $scope.value
+        $scope.value
+        $scope.value
+        $scope.dataChicago = {};
+        var dataChicago = {};
 
 
         $http
@@ -44,19 +47,28 @@ angular
                     .get("https://data.cityofchicago.org/resource/ydr8-5enu.json?") //AL ACCEDER A EST URL ME DICE: 301 Moved Permanently !!!!!!
                     .then(function(res) {
 
-                        dataUs = res.data;
-                        $scope.dataUs = dataUs;
-
+                        dataChicago = res.data;
+                        $scope.dataChicago = dataChicago;
+                        var sufijos=[];
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
-                            //console.log("Entra al bucle usData...PARTY: ",$scope.dataUs[i][7]);
-                            console.log("HAY DATO EN BUCLE usData?: ",$scope.dataUs[i]); //DEVUELVE HTML!!!!! COMPROBAR PROXY????
-                            if ($scope.dataUs[i]["party"] == "DEM") {
-                                $scope.dpValue = $scope.dpValue + 1;
+                            sufijos.push($scope.dataChicago[i]._suffix);
+                            /*if ($scope.dataChicago[i]._suffix == ) {
+
                             }
-                            else if ($scope.dataUs[i]['party'] == "REP") {
-                                $scope.rpValue = $scope.rpValue + 1;
+                            else if ($scope.dataChicago[i]._suffix == ) {
+
                             }
+                            else if ($scope.dataChicago[i]._suffix == ) {
+
+                            }
+                            else if ($scope.dataChicago[i]._suffix == ) {
+
+                            }
+                            else if ($scope.dataChicago[i]._suffix == ) {
+
+                            }*/
                         }
+                        console.log("sufijos: ",sufijos);
 
                         //Quizas no los representa porque son número muy grandes...PROBAR CON PORCENTAJES!!!
                         console.log("Controller intialized. Values... ");
@@ -69,6 +81,43 @@ angular
 
                         //Posibles librerías: morris.js , chartist.js , 
                         //También se podría usar una cosa como: http://plottablejs.org/examples/mondrian/ así viendo la diferencia entre las areas se apreciaría de anera muy gráfica la diferencia en volumen que hay entre unas elecciones aquí y unas alli.
+
+                        Morris.Bar({
+                            element: 'containerChicago',
+                            data: [{
+                                y: '2006',
+                                a: 100,
+                                b: 90
+                            }, {
+                                y: '2007',
+                                a: 75,
+                                b: 65
+                            }, {
+                                y: '2008',
+                                a: 50,
+                                b: 40
+                            }, {
+                                y: '2009',
+                                a: 75,
+                                b: 65
+                            }, {
+                                y: '2010',
+                                a: 50,
+                                b: 40
+                            }, {
+                                y: '2011',
+                                a: 75,
+                                b: 65
+                            }, {
+                                y: '2012',
+                                a: 100,
+                                b: 90
+                            }],
+                            xkey: 'y',
+                            ykeys: ['a', 'b'],
+                            labels: ['Series A', 'Series B']
+                        });
+
 
                     });
             });
