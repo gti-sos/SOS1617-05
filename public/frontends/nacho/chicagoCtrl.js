@@ -124,13 +124,13 @@ angular
                                 y: 'PSOE',
                                 a: $scope.psoeValue
                             }, {
-                                y: 'Podemos',
-                                a: $scope.podemosValue
-                            }, {
                                 y: "C's",
                                 a: $scope.csValue
                             }, {
-                                y: 'ST',  //SE PODRÍA PONER OTRA SERÍA PARA LOS 9 suffix CON OTRO DE LOS VALORES NUMÉRICOS QUE HAY EN EL JSON!
+                                y: 'Podemos',
+                                a: $scope.podemosValue
+                            }, {
+                                y: 'ST', //SE PODRÍA PONER OTRA SERÍA PARA LOS 9 suffix CON OTRO DE LOS VALORES NUMÉRICOS QUE HAY EN EL JSON!
                                 a: $scope.st
                             }, {
                                 y: 'PL',
