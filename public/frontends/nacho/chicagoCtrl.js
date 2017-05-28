@@ -1,4 +1,5 @@
 /*global angular*/
+/*global Morris*/
 
 angular
     .module("ManagerApp")
@@ -19,11 +20,15 @@ angular
         $scope.data = {};
         var data = {};
 
-        $scope.value
-        $scope.value
-        $scope.value
-        $scope.value
-        $scope.value
+        $scope.st = 0;
+        $scope.ave = 0;
+        $scope.pl = 0;
+        $scope.blvd = 0;
+        $scope.ct = 0;
+        $scope.pkwy = 0;
+        $scope.rd = 0;
+        $scope.ter = 0;
+        $scope.dr = 0;
         $scope.dataChicago = {};
         var dataChicago = {};
 
@@ -49,26 +54,37 @@ angular
 
                         dataChicago = res.data;
                         $scope.dataChicago = dataChicago;
-                        var sufijos=[];
+                        var sufijos = [];
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
-                            sufijos.push($scope.dataChicago[i]._suffix);
-                            /*if ($scope.dataChicago[i]._suffix == ) {
-
+                            if ($scope.dataChicago[i]._suffix == 'ST') {
+                                $scope.st = $scope.st + $scope.dataChicago[i]._amount_paid;
                             }
-                            else if ($scope.dataChicago[i]._suffix == ) {
-
+                            else if ($scope.dataChicago[i]._suffix == 'AVE') {
+                                $scope.ave = $scope.ave + $scope.dataChicago[i]._amount_paid;
                             }
-                            else if ($scope.dataChicago[i]._suffix == ) {
-
+                            else if ($scope.dataChicago[i]._suffix == 'PL') {
+                                $scope.pl = $scope.pl + $scope.dataChicago[i]._amount_paid;
                             }
-                            else if ($scope.dataChicago[i]._suffix == ) {
-
+                            else if ($scope.dataChicago[i]._suffix == 'BLVD') {
+                                $scope.blvd = $scope.blvd + $scope.dataChicago[i]._amount_paid;
                             }
-                            else if ($scope.dataChicago[i]._suffix == ) {
-
-                            }*/
+                            else if ($scope.dataChicago[i]._suffix == 'CT') {
+                                $scope.ct = $scope.ct + $scope.dataChicago[i]._amount_paid;
+                            }
+                            else if ($scope.dataChicago[i]._suffix == 'PKWY') {
+                                $scope.pkwy = $scope.pkwy + $scope.dataChicago[i]._amount_paid;
+                            }
+                            else if ($scope.dataChicago[i]._suffix == 'RD') {
+                                $scope.rd = $scope.rd + $scope.dataChicago[i]._amount_paid;
+                            }
+                            else if ($scope.dataChicago[i]._suffix == 'TER') {
+                                $scope.ter = $scope.ter + $scope.dataChicago[i]._amount_paid;
+                            }
+                            else if ($scope.dataChicago[i]._suffix == 'DR') {
+                                $scope.dr = $scope.dr + $scope.dataChicago[i]._amount_paid;
+                            }
                         }
-                        console.log("sufijos: ",sufijos);
+                        console.log("sufijos: ", sufijos);
 
                         //Quizas no los representa porque son número muy grandes...PROBAR CON PORCENTAJES!!!
                         console.log("Controller intialized. Values... ");
@@ -76,12 +92,13 @@ angular
                         console.log("PSOE: ", $scope.psoeValue);
                         console.log("C's: ", $scope.csValue);
                         console.log("PODEMOS: ", $scope.podemosValue);
-                        console.log("DEM: ", $scope.dpValue);
-                        console.log("REP: ", $scope.rpValue);
-
+                        console.log("ST: ", $scope.dpValue);
+                        console.log("PL: ", $scope.rpValue);
+                        console.log("PKWY: ", $scope.dpValue);
+                        console.log("TER: ", $scope.rpValue);
+                        
                         //Posibles librerías: morris.js , chartist.js , 
-                        //También se podría usar una cosa como: http://plottablejs.org/examples/mondrian/ así viendo la diferencia entre las areas se apreciaría de anera muy gráfica la diferencia en volumen que hay entre unas elecciones aquí y unas alli.
-
+                        
                         Morris.Bar({
                             element: 'containerChicago',
                             data: [{
