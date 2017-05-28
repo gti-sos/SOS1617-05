@@ -118,37 +118,51 @@ angular
                         new Morris.Bar({
                             element: 'containerChicago',
                             data: [{
-                                y: '2006',
-                                a: 100,
-                                b: 90
+                                y: 'PP',
+                                a: $scope.ppValue
                             }, {
-                                y: '2007',
-                                a: 75,
-                                b: 65
+                                y: 'PSOE',
+                                a: $scope.psoeValue
                             }, {
-                                y: '2008',
-                                a: 50,
-                                b: 40
+                                y: 'Podemos',
+                                a: $scope.podemosValue
                             }, {
-                                y: '2009',
-                                a: 75,
-                                b: 65
+                                y: "C's",
+                                a: $scope.csValue
                             }, {
-                                y: '2010',
-                                a: 50,
-                                b: 40
+                                y: 'ST',  //SE PODRÍA PONER OTRA SERÍA PARA LOS 9 suffix CON OTRO DE LOS VALORES NUMÉRICOS QUE HAY EN EL JSON!
+                                a: $scope.st
                             }, {
-                                y: '2011',
-                                a: 75,
-                                b: 65
+                                y: 'PL',
+                                a: $scope.pl
                             }, {
-                                y: '2012',
-                                a: 100,
-                                b: 90
+                                y: 'AVE',
+                                a: $scope.ave
+                            }, {
+                                y: 'RD',
+                                a: $scope.rd
+                            }, {
+                                y: 'CT',
+                                a: $scope.ct
+                            }, {
+                                y: 'PKWY',
+                                a: $scope.pkwy
+                            }, {
+                                y: 'BLVD',
+                                a: $scope.blvd
+                            }, {
+                                y: 'TER',
+                                a: $scope.ter
+                            }, {
+                                y: 'DR',
+                                a: $scope.dr
                             }],
-                            xkey: 'y',
+                            /*xkey: 'y',
                             ykeys: ['a', 'b'],
-                            labels: ['Series A', 'Series B']
+                            labels: ['Series A', 'Series B']*/
+                            xkey: 'y',
+                            ykeys: ['a'],
+                            labels: ['Seats/$']
                         });
 
 
