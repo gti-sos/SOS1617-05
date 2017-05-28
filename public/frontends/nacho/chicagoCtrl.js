@@ -56,6 +56,7 @@ angular
                         $scope.dataChicago = dataChicago;
                         var sufijos = [];
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
+                            console.log("dato: ",$scope.dataChicago[i]);
                             if ($scope.dataChicago[i]._suffix == 'ST') {
                                 $scope.st = $scope.st + $scope.dataChicago[i]._amount_paid;
                             }
