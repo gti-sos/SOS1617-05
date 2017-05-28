@@ -152,7 +152,7 @@ angular
                                 y: "C's",
                                 a: $scope.csValue
                             }, {
-                                y: 'Podemos',
+                                y: 'POD',
                                 a: $scope.podemosValue
                             }, {
                                 y: 'ST', //SE PODRÍA PONER OTRA SERÍA PARA LOS 9 suffix CON OTRO DE LOS VALORES NUMÉRICOS QUE HAY EN EL JSON!
