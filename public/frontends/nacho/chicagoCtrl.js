@@ -108,10 +108,10 @@ angular
                         console.log("PSOE: ", $scope.psoeValue);
                         console.log("C's: ", $scope.csValue);
                         console.log("PODEMOS: ", $scope.podemosValue);
-                        console.log("ST: ", $scope.dpValue);
-                        console.log("PL: ", $scope.rpValue);
-                        console.log("PKWY: ", $scope.dpValue);
-                        console.log("TER: ", $scope.rpValue);
+                        console.log("ST: ", $scope.st);
+                        console.log("PL: ", $scope.pl);
+                        console.log("PKWY: ", $scope.pkwy);
+                        console.log("TER: ", $scope.ter);
 
                         //Posibles librerías: morris.js , chartist.js , 
 
