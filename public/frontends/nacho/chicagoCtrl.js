@@ -180,7 +180,7 @@ angular
                                 b: $scope.ter/100
                             }, {
                                 y: 'DR',
-                                b: $scope.dr/100
+                                b: ($scope.dr/100).toString() + " $"
                             }],
                             /*xkey: 'y',
                             ykeys: ['a', 'b'],
