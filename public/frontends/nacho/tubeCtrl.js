@@ -6,7 +6,7 @@ angular
     .controller("TubeCtrl", ["$http", "$scope", function($http, $scope) {
 
         // ep: http://marquisdegeek.com/api/tube/
-        //Se puede hacer función auxiliar que devuelva longitud/latitud de determinado punto en un mapa.
+        //STORE ALSO THE "zone" VALUE FOR LONDON'S TUBE DATA RESOURCES SO THAT IT'S NOT SHOWED ONLY LAT AND LON!
 
         //Elections data: 
         $scope.apikey = "cinco";
