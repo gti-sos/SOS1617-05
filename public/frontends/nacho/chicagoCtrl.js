@@ -159,7 +159,7 @@ angular
                                 a: $scope.st/100
                             }, {
                                 y: 'PL',
-                                b: $scope.pl/100
+                                a: $scope.pl/100
                             }, {
                                 y: 'AVE',
                                 a: $scope.ave/100
