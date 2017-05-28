@@ -54,38 +54,36 @@ angular
 
                         dataChicago = res.data;
                         $scope.dataChicago = dataChicago;
-                        var sufijos = [];
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
                             console.log("dato: ",$scope.dataChicago[i]);
                             if ($scope.dataChicago[i]._suffix == 'ST') {
-                                $scope.st = $scope.st + $scope.dataChicago[i]._amount_paid;
+                                $scope.st = $scope.st + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'AVE') {
-                                $scope.ave = $scope.ave + $scope.dataChicago[i]._amount_paid;
+                                $scope.ave = $scope.ave + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'PL') {
-                                $scope.pl = $scope.pl + $scope.dataChicago[i]._amount_paid;
+                                $scope.pl = $scope.pl + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'BLVD') {
-                                $scope.blvd = $scope.blvd + $scope.dataChicago[i]._amount_paid;
+                                $scope.blvd = $scope.blvd + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'CT') {
-                                $scope.ct = $scope.ct + $scope.dataChicago[i]._amount_paid;
+                                $scope.ct = $scope.ct + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'PKWY') {
-                                $scope.pkwy = $scope.pkwy + $scope.dataChicago[i]._amount_paid;
+                                $scope.pkwy = $scope.pkwy + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'RD') {
-                                $scope.rd = $scope.rd + $scope.dataChicago[i]._amount_paid;
+                                $scope.rd = $scope.rd + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'TER') {
-                                $scope.ter = $scope.ter + $scope.dataChicago[i]._amount_paid;
+                                $scope.ter = $scope.ter + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'DR') {
-                                $scope.dr = $scope.dr + $scope.dataChicago[i]._amount_paid;
+                                $scope.dr = $scope.dr + Number($scope.dataChicago[i]._amount_paid);
                             }
                         }
-                        console.log("sufijos: ", sufijos);
 
                         //Quizas no los representa porque son número muy grandes...PROBAR CON PORCENTAJES!!!
                         console.log("Controller intialized. Values... ");
