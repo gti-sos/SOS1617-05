@@ -55,22 +55,22 @@ angular
                         dataChicago = res.data;
                         $scope.dataChicago = dataChicago;
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
-                            if ($scope.dataChicago[i]._suffix == 'ST') {
+                            if ($scope.dataChicago[i]._suffix == "ST") {
                                 console.log("dato: ", $scope.dataChicago[i]._suffix);
 
                                 $scope.st = $scope.st + Number($scope.dataChicago[i]._amount_paid);
                             }
-                            else if ($scope.dataChicago[i]._suffix == 'AVE') {
+                            else if ($scope.dataChicago[i]._suffix == "AVE") {
                                 console.log("dato: ", $scope.dataChicago[i]._suffix);
 
                                 $scope.ave = $scope.ave + Number($scope.dataChicago[i]._amount_paid);
                             }
-                            else if ($scope.dataChicago[i]._suffix == 'PL') {
+                            else if ($scope.dataChicago[i]._suffix == "PL") {
                                 console.log("dato: ", $scope.dataChicago[i]._suffix);
 
                                 $scope.pl = $scope.pl + Number($scope.dataChicago[i]._amount_paid);
                             }
-                            else if ($scope.dataChicago[i]._suffix == 'BLVD') {
+                            else if ($scope.dataChicago[i]._suffix == "BLVD") {
                                 console.log("dato: ", $scope.dataChicago[i]._suffix);
 
                                 $scope.blvd = $scope.blvd + Number($scope.dataChicago[i]._amount_paid);
