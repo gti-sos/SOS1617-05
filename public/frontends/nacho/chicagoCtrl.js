@@ -185,9 +185,9 @@ angular
                             /*xkey: 'y',
                             ykeys: ['a', 'b'],
                             labels: ['Series A', 'Series B']*/
-                            xkey: 'y'+" Seats",
+                            xkey: 'y',
                             ykeys: ['a'],
-                            labels: []
+                            labels: ['Seats or $']
                         });
                     });
             });
