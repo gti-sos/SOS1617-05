@@ -156,31 +156,31 @@ angular
                                 a: $scope.podemosValue
                             }, {
                                 y: 'ST', //SE PODRÍA PONER OTRA SERÍA PARA LOS 9 suffix CON OTRO DE LOS VALORES NUMÉRICOS QUE HAY EN EL JSON!
-                                a: $scope.st
+                                b: $scope.st/100
                             }, {
                                 y: 'PL',
-                                a: $scope.pl
+                                b: $scope.pl/100
                             }, {
                                 y: 'AVE',
-                                a: $scope.ave
+                                b: $scope.ave/100
                             }, {
                                 y: 'RD',
-                                a: $scope.rd
+                                b: $scope.rd/100
                             }, {
                                 y: 'CT',
-                                a: $scope.ct
+                                b: $scope.ct/100
                             }, {
                                 y: 'PK', /*'PKWY',*/
-                                a: $scope.pkwy
+                                b: $scope.pkwy/100
                             }, {
                                 y: "BLVD",
-                                a: $scope.blvd
+                                b: $scope.blvd/100
                             }, {
                                 y: 'TER',
-                                a: $scope.ter
+                                b: $scope.ter/100
                             }, {
                                 y: 'DR',
-                                a: $scope.dr
+                                b: $scope.dr/100
                             }],
                             /*xkey: 'y',
                             ykeys: ['a', 'b'],
