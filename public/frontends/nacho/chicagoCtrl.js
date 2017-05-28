@@ -6,24 +6,26 @@ angular
     .module("ManagerApp")
     .controller("ChicagoCtrl", ["$http", "$scope", function($http, $scope) {
 
-        function label(a){
+        function label(a) {
             var res = "";
-            if(Number(a)>300){
+            if (Number(a) > 300) {
+                console.log("label...over 300");
                 res = "$ divided by 100";
             }
-            else{
+            else {
                 res = "Seats";
             }
             return res;
         }
-        
-        function amount(a){
+
+        function amount(a) {
             var res;
-            if(Number(a)>300){
-                res = a/100;
+            if (Number(a) > 300) {
+                console.log("amount...over 300");
+                res = (a / 100).toString();
             }
-            else{
-                res = a;
+            else {
+                res = a.toString();
             }
             return res;
         }
@@ -187,8 +189,6 @@ angular
                             ykeys: amount('a'),
                             labels: label('a')
                         });
-
-
                     });
             });
     }]);
