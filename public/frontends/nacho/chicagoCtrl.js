@@ -173,7 +173,7 @@ angular
                                 y: 'PKWY',
                                 a: $scope.pkwy
                             }, {
-                                y: 'BLVD',
+                                y: "BLVD",
                                 a: $scope.blvd
                             }, {
                                 y: 'TER',
