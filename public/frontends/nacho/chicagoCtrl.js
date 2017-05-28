@@ -55,48 +55,48 @@ angular
                         dataChicago = res.data;
                         $scope.dataChicago = dataChicago;
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
-                            if ($scope.dataChicago[i]._suffix == "ST") {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                            if ($scope.dataChicago[i]._suffix == 'ST') {
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.st = $scope.st + Number($scope.dataChicago[i]._amount_paid);
                             }
-                            else if ($scope.dataChicago[i]._suffix == "AVE") {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                            else if ($scope.dataChicago[i]._suffix == 'AVE') {
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.ave = $scope.ave + Number($scope.dataChicago[i]._amount_paid);
                             }
-                            else if ($scope.dataChicago[i]._suffix == "PL") {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                            else if ($scope.dataChicago[i]._suffix == 'PL') {
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.pl = $scope.pl + Number($scope.dataChicago[i]._amount_paid);
                             }
-                            else if ($scope.dataChicago[i]._suffix == "BLVD") {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                            else if ($scope.dataChicago[i]._suffix == 'BLVD') {
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.blvd = $scope.blvd + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'CT') {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.ct = $scope.ct + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'PKWY') {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.pkwy = $scope.pkwy + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'RD') {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.rd = $scope.rd + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'TER') {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.ter = $scope.ter + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'DR') {
-                                console.log("dato: ", $scope.dataChicago[i]._suffix);
+                                console.log("dato: ", $scope.dataChicago[i]._amount_paid);
 
                                 $scope.dr = $scope.dr + Number($scope.dataChicago[i]._amount_paid);
                             }
