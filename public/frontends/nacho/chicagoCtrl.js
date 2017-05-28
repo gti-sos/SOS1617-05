@@ -56,47 +56,47 @@ angular
                         $scope.dataChicago = dataChicago;
                         for (var i = 0; i < res.data.length; i++) { //HAY ALGÚN PARTIDO QUE NO SEA ALGUNO DE ESTOS 2 EN EL JSON QUE SE DEVUELVE???
                             if ($scope.dataChicago[i]._suffix == 'ST') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.st = $scope.st + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'AVE') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.ave = $scope.ave + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'PL') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.pl = $scope.pl + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'BLVD') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.blvd = $scope.blvd + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'CT') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.ct = $scope.ct + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'PKWY') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.pkwy = $scope.pkwy + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'RD') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.rd = $scope.rd + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'TER') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.ter = $scope.ter + Number($scope.dataChicago[i]._amount_paid);
                             }
                             else if ($scope.dataChicago[i]._suffix == 'DR') {
-                                                            console.log("dato: ",$scope.dataChicago[i]);
+                                console.log("dato: ", $scope.dataChicago[i]);
 
                                 $scope.dr = $scope.dr + Number($scope.dataChicago[i]._amount_paid);
                             }
@@ -112,9 +112,9 @@ angular
                         console.log("PL: ", $scope.rpValue);
                         console.log("PKWY: ", $scope.dpValue);
                         console.log("TER: ", $scope.rpValue);
-                        
+
                         //Posibles librerías: morris.js , chartist.js , 
-                        
+
                         new Morris.Bar({
                             element: 'containerChicago',
                             data: [{
