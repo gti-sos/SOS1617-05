@@ -1,9 +1,32 @@
 /*global angular*/
 /*global Morris*/
 
+
 angular
     .module("ManagerApp")
     .controller("ChicagoCtrl", ["$http", "$scope", function($http, $scope) {
+
+        function label(a){
+            var res = "";
+            if(Number(a)>300){
+                res = "$ divided by 100";
+            }
+            else{
+                res = "Seats";
+            }
+            return res;
+        }
+        
+        function amount(a){
+            var res;
+            if(Number(a)>300){
+                res = a/100;
+            }
+            else{
+                res = a;
+            }
+            return res;
+        }
 
         // http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/column-stacked-percent/
 
@@ -161,8 +184,8 @@ angular
                             ykeys: ['a', 'b'],
                             labels: ['Series A', 'Series B']*/
                             xkey: 'y',
-                            ykeys: ['a'],
-                            labels: ['Seats/$']
+                            ykeys: amount('a'),
+                            labels: label('a')
                         });
 
 
