@@ -141,6 +141,7 @@ angular
                         //Posibles librerías: morris.js , chartist.js , 
 
                         new Morris.Bar({
+                            title: '',
                             element: 'containerChicago',
                             data: [{
                                 y: 'PP',
