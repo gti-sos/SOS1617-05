@@ -170,7 +170,7 @@ angular
                                 y: 'CT',
                                 a: $scope.ct
                             }, {
-                                y: 'PKWY',
+                                y: 'PK', /*'PKWY',*/
                                 a: $scope.pkwy
                             }, {
                                 y: "BLVD",
