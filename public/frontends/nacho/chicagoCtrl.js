@@ -141,7 +141,7 @@ angular
                         //Posibles librerías: morris.js , chartist.js , 
 
                         new Morris.Bar({
-                            title: '',
+                            title: '(Expenses are divided by 100 so that parties seats can be seen on the chart)',
                             element: 'containerChicago',
                             data: [{
                                 y: 'PP',
