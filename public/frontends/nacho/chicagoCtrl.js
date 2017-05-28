@@ -186,8 +186,8 @@ angular
                             ykeys: ['a', 'b'],
                             labels: ['Series A', 'Series B']*/
                             xkey: 'y',
-                            ykeys: amount('a'),
-                            labels: label('a')
+                            ykeys: ['a', 'b'],
+                            labels: []
                         });
                     });
             });
