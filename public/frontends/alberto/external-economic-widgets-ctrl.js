@@ -1,6 +1,5 @@
  
 /*global angular*/
-/*global Highcharts*/
 angular
     .module("ManagerApp")
     .controller("ExternalEconomicWidgetsCtrl", ["$http", "$scope", function($http, $scope) {
@@ -20,7 +19,7 @@ angular
 
 
    $http
-            .get("/economic-situation-stats/Externalproxy")
+            .get("/economic-situation-stats/externalProxy")
             .then(function(res) {
                 console.log(res.data);
                 data = res.data;
