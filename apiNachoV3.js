@@ -20,7 +20,7 @@ exports.register = function(app, port, BASE_API_PATHv3) {
         });
     });
 
-    
+
     //This one is for checking the number of resources on the server:
     app.get(BASE_API_PATHv3 + "/elections-voting-stats-length", function(request, response) {
         db.find({}).toArray(function(err, results) {
@@ -574,83 +574,83 @@ exports.register = function(app, port, BASE_API_PATHv3) {
         }
     });
 
-    //GET a collection: contains code for searches V3
-    app.get(BASE_API_PATHv3 + "/elections-voting-stats", function(request, response) {
-        var consulta = request.query;
-        if (consulta.province == undefined && consulta.year == undefined && consulta.pp == undefined && consulta.podemos == undefined && consulta.psoe == undefined && consulta.cs == undefined) { //Sólo tiene apikey   JSON.stringify(consulta) == "{}"
-            console.log("NO HAY PARÁMETROS");
-            db.find({}).toArray(function(err, results) {
-                if (err) {
-                    console.error('WARNING: Error getting data from DB');
-                    response.sendStatus(500);
-                }
-                else {
-                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
-                    var res = results;
-                    //AQUÍ PAGINACIÓN
-                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
-                        res = [];
-                        var i;
-                        for (i = 0; i < results.length; i++) {
-                            if (results[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
-                                res.push(results[i]);
+    /*    //GET a collection: contains code for searches V3: With this versión I tried to aply PAGINATION to searches
+        app.get(BASE_API_PATHv3 + "/elections-voting-stats", function(request, response) {
+            var consulta = request.query;
+            if (consulta.province == undefined && consulta.year == undefined && consulta.pp == undefined && consulta.podemos == undefined && consulta.psoe == undefined && consulta.cs == undefined) { //Sólo tiene apikey   JSON.stringify(consulta) == "{}"
+                console.log("NO HAY PARÁMETROS");
+                db.find({}).toArray(function(err, results) {
+                    if (err) {
+                        console.error('WARNING: Error getting data from DB');
+                        response.sendStatus(500);
+                    }
+                    else {
+                        console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                        var res = results;
+                        //AQUÍ PAGINACIÓN
+                        if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                            res = [];
+                            var i;
+                            for (i = 0; i < results.length; i++) {
+                                if (results[i].year >= Number(consulta.from) && results[i].year <= Number(consulta.to)) {
+                                    res.push(results[i]);
+                                }
                             }
                         }
+                        if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                            res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        }
+                        response.send(res);
                     }
-                    if (consulta.offset != undefined && consulta.limit != undefined) { //Si se han especificado en la URL se usan...
-                        res = res.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
-                    }
-                    response.send(res);
-                }
-            });
-        }
-        else {
-            console.log("SÍ HAY PARÁMETROS");
+                });
+            }
+            else {
+                console.log("SÍ HAY PARÁMETROS");
 
-            db.find({}).toArray(function(err, results) {
-                var res = [];
-                var i;
-                for (i = 0; i < results.length; i++) {
-                    if ((consulta.province == undefined || results[i].province == consulta.province) &&
-                        (consulta.pp == undefined || results[i].pp == consulta.pp) &&
-                        (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
-                        (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
-                        (consulta.cs == undefined || results[i].cs == consulta.cs)) {
-                        res.push(results[i]);
+                db.find({}).toArray(function(err, results) {
+                    var res = [];
+                    var i;
+                    for (i = 0; i < results.length; i++) {
+                        if ((consulta.province == undefined || results[i].province == consulta.province) &&
+                            (consulta.pp == undefined || results[i].pp == consulta.pp) &&
+                            (consulta.podemos == undefined || results[i].podemos == consulta.podemos) &&
+                            (consulta.psoe == undefined || results[i].psoe == consulta.psoe) &&
+                            (consulta.cs == undefined || results[i].cs == consulta.cs)) {
+                            res.push(results[i]);
+                        }
                     }
-                }
-                if (err) {
-                    console.error('WARNING: Error getting data from DB');
-                    response.sendStatus(500);
-                }
-                else {
-                    console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
-                    var res2 = res;
-                    //AQUÍ PAGINACIÓN
-                    if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
-                        res2 = [];
-                        var j;
-                        for (j = 0; i < res.length; i++) {
-                            if (res[j].year >= Number(consulta.from) && results[j].year <= Number(consulta.to)) {
-                                res2.push(res[j]);
+                    if (err) {
+                        console.error('WARNING: Error getting data from DB');
+                        response.sendStatus(500);
+                    }
+                    else {
+                        console.log("INFO: Sending voting results: " + JSON.stringify(results, 2, null));
+                        var res2 = res;
+                        //AQUÍ PAGINACIÓN
+                        if (consulta.from != undefined || consulta.to != undefined) { //Si se han especificado en la URL se usan...
+                            res2 = [];
+                            var j;
+                            for (j = 0; i < res.length; i++) {
+                                if (res[j].year >= Number(consulta.from) && results[j].year <= Number(consulta.to)) {
+                                    res2.push(res[j]);
+                                }
                             }
                         }
-                    }
-                    if (consulta.offset != undefined || consulta.limit != undefined) { //Si se han especificado en la URL se usan...
-                        if (consulta.offset != undefined || consulta.offset == "") {
-                            consulta.offset = 0;
+                        if (consulta.offset != undefined || consulta.limit != undefined) { //Si se han especificado en la URL se usan...
+                            if (consulta.offset != undefined || consulta.offset == "") {
+                                consulta.offset = 0;
+                            }
+                            //res2 = res2.slice(0, Number(consulta.limit));
+                            res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
                         }
-                        //res2 = res2.slice(0, Number(consulta.limit));
-                        res2 = res2.slice(Number(consulta.offset), Number(consulta.offset) + Number(consulta.limit));
+                        response.send(res2);
                     }
-                    response.send(res2);
-                }
-            });
-        }
-    });
-
+                });
+            }
+        });
+    */
     /* //GET a collection: contains code for searches. This version allows to specify a range of seats (from-to) for a certain party.
-    app.get(BASE_API_PATHv3 + "/elections-voting-stats/", function(request, response) {
+        app.get(BASE_API_PATHv3 + "/elections-voting-stats/", function(request, response) {
         var consulta = request.query;
         if (consulta.province == undefined && consulta.year == undefined && consulta.pp == undefined && consulta.podemos == undefined && consulta.psoe == undefined && consulta.cs == undefined) { //Sólo tiene apikey   JSON.stringify(consulta) == "{}"
             console.log("NO HAY PARÁMETROS");
@@ -724,6 +724,7 @@ exports.register = function(app, port, BASE_API_PATHv3) {
         }
     });
     */
+    
     //GET a single resource
     app.get(BASE_API_PATHv3 + "/elections-voting-stats/:province", function(request, response) {
         console.log("INFO : new GET request to /elections-voting-stats/:province");
