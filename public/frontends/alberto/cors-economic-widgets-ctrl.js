@@ -56,10 +56,11 @@ angular
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
                   
-                                        console.log($scope.data[i]);
+                    console.log($scope.data[i]);
 
                 }
-            
+                   console.log($scope.data[i]);
+
                 //HighCharts
                 Highcharts.chart('container', {
                     chart: {

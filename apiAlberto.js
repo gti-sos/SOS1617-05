@@ -46,10 +46,11 @@ response.on('end',function (chunk){
 
  //EXTERNALPROXY--->
      app.get("/economic-situation-stats/externalProxy", (req, res) => { 
-    var http = require('http'); 
+    var https = require('https'); 
     var options = {
     host: "montanaflynn-fifa-world-cup.p.mashape.com",
     path:'/teams?mashape-key=Gjf4mjXNprmshpt41by5bXJqFof6p1N2vZmjsn44jCokfQrF74'
+
         
     };
      callback = function(response){
@@ -65,7 +66,7 @@ response.on('end',function (chunk){
     res.send(str);
     });
 } ;
-   http.request(options, callback).end(); 
+   https.request(options, callback).end(); 
 });
     /*
     // Base GET

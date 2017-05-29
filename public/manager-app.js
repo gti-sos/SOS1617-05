@@ -64,10 +64,11 @@ angular.module("ManagerApp", ["ngRoute"]).config(function($routeProvider) {
         }).when("/economic-situation/widgetsCors2", {
             templateUrl: "frontends/alberto/cors2-widgets.html",
             controller: "Cors2EconomicWidgetsCtrl"
-        })/*.when("/economic-situation/widgetsExternalProxy"),{
+        }).when("/economic-situation/widgetsExternalProxy",{
             templateUrl: "frontends/alberto/external-widgets.html",
             controller: "ExternalEconomicWidgetsCtrl"
-        }*/;
+        });
+        
     //Para crear el modulo.Lista de dependencias que quieres cargar,nombre de ng-app 
     console.log("App initialized and configured");
 });

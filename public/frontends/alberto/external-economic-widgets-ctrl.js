@@ -25,10 +25,10 @@ angular
                 data = res.data;
                 $scope.data = data;
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.title.push(Number($scope.data[i]["title"]));
+                    $scope.title.push($scope.data[i]["title"]);
                     $scope.country_id.push(Number($scope.data[i]["country_id"]));
                   //  $scope.year.push(2014);
-                    $scope.provinces.push($scope.data[i].$scope.country_id);
+                    $scope.provinces.push($scope.data[i].country_id);
 
                               console.log($scope.data[i]);
 
@@ -48,8 +48,8 @@ angular
                 $scope.data = data;
 
                 for (var i = 0; i < res.data.length; i++) {
-                    $scope.province.push(Number($scope.province[i]["province"]))
-                    $scope.provinces.push($scope.data[i].$scope.province);
+                    $scope.province.push($scope.province[i]["province"]);
+                    $scope.provinces.push($scope.data[i].province);
                     $scope.year.push(Number($scope.data[i]["year"]));
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));

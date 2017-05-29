@@ -5,7 +5,6 @@ angular
         $scope.apikey = "cinco";
         $scope.data = {};
         var data = {};
-        $scope.categories = [];
         $scope.gdp = [];
         $scope.debt = [];
         $scope.year = [];
@@ -51,11 +50,10 @@ angular
                     $scope.year.push(Number($scope.data[i]["year"]));
                     $scope.gdp.push(Number($scope.data[i]["gdp"]));
                     $scope.debt.push(Number($scope.data[i]["debt"]));
-                                        console.log($scope.data[i]);
+              console.log($scope.data[i]);
 
                 }
-                    console.log($scope.data[i]);
-            
+
             //Dygraphs
                  $(document).ready(function() {
                     
@@ -70,7 +68,7 @@ angular
 
                     var g = new Dygraph(document.getElementById("graph"), myData2, {
 
-                        labels: ["year", "gdp", "dbt","averageSalary","minimumSalary","riskOfPoverty"],
+                        labels: ["categories", "gdp", "dbt","averageSalary","minimumSalary","riskOfPoverty"],
                         legend: 'always',
                         title: "Comparative chart of gdp, debt, averageSalary, minimumSalary and riskOfPoverty in Spain\n",
                         showRoller: true,
